@@ -399,14 +399,11 @@ A signature line for your advisor will be included at the end of the abstract. N
 	\input{basics}
 	\cleardoublepage
 	
-	\input{slln}
-	\cleardoublepage
-	
 	\input{identify_limit}
 	\cleardoublepage
 	
-	% \input{distinction_proposal}
-	% \cleardoublepage
+	\input{simulation}
+	\cleardoublepage
 	
 	\input{conclusion}
 	\cleardoublepage
@@ -447,8 +444,8 @@ A signature line for your advisor will be included at the end of the abstract. N
 	\ThesisAppendix
 	
 	% Resetting the equation and table counters to zero.  DO NOT DELETE!
-	\setcounter{equation}{0}
-	\setcounter{table}{0}
+	%\setcounter{equation}{0}
+	%\setcounter{table}{0}
 	
 	% Adding an A in front of any equation numbers or table numbers in the appendix.  DO NOT DELETE!
 	\renewcommand{\theequation}{A\arabic{equation}}
@@ -456,7 +453,7 @@ A signature line for your advisor will be included at the end of the abstract. N
 	\renewcommand{\thethm}{A.\arabic{thm}}
 	
 	% Creating a new chapter (the asterisk tells LaTeX not to number the chapter)
-	\chapter*{Appendix: Supplementary Results}
+\chapter{Appendix: Supplementary Results}
 	\begin{lemma} \label{lem:bounds}
 		For $n\geq 2$ the following statements hold true
 		\begin{enumerate}[(i)]
@@ -512,6 +509,266 @@ A signature line for your advisor will be included at the end of the abstract. N
 			for all $n\geq 2$. Now the result in (ii) follows directly from \eqref{eq:ln_root} and \eqref{eq:derivs} .
 		\end{proof}
 	\end{lemma}
+%
+\chapter{Appendix: On finding weaker assumptions}
+During this section we will generalize Doob's Upcrossing Theorem to our framework. To get closer to the situation of Doob's Upcrossing Theorem, we define the following quantities. Let $N<\infty$ and define for $1\leq n\leq N$ 
+\begin{equation*}
+\StN{n} := \sn{N-n+1} \textrm{, } \FtN{n} := \F_{N-n+1} \textrm{ \ and \ } \xitN{n} := \xi_{N-n+1}\mdot
+\end{equation*}
+Note that $\{\FtN{n}\}_{1\leq n\leq N}$ is now an increasing $\sigma$-field in $n$.
+%
+Below we will define everything needed, in order to generalize Doob's Upcrossing Theorem.
+\begin{defn}
+	Let $N\geq 2$. For $1\leq n\leq N$ and $a, b \in \mathbb{R}$ with $a < b$, let 
+	\begin{align*}
+	T_0 &:= 0\\
+	T_1 &:= \begin{cases} 
+	\min\{1\leq n\leq N | \StN{n}\leq a\} & \textrm{ if } \{1\leq n\leq N | \StN{n}\leq a\}\neq \emptyset\\
+	N & \textrm{ if } \{1\leq n\leq N | \StN{n}\leq a\}= \emptyset
+	\end{cases}\\	
+	T_2 &:= \begin{cases} 
+	\min\{T_1\leq n\leq N | \StN{n}\geq b\} & \textrm{ if } \{T_1\leq n\leq N | \StN{n}\leq a\}\neq \emptyset\\
+	N & \textrm{ if } \{T_1\leq n\leq N | \StN{n}\geq b\} = \emptyset
+	\end{cases}\\	
+	\vdots &\quad \vdots \quad \vdots	\\
+	T_{2m-1} &:= \begin{cases} 
+	\min\{T_{2m-2}\leq n\leq N | \StN{n}\leq a\} & \textrm{ if } \{T_{2m-2}\leq n\leq N | \StN{n}\leq a\}\neq \emptyset\\
+	N & \textrm{ if } \{T_{2m-2}\leq n\leq N | \StN{n}\leq a\}= \emptyset
+	\end{cases}\\	
+	T_{2m} &:= \begin{cases} 
+	\min\{T_{2m-1}\leq n\leq N | \StN{n}\geq b\} & \textrm{ if } \{T_{2m-1}\leq n\leq N | \StN{n}\leq a\}\neq \emptyset\\
+	N & \textrm{ if } \{T_{2m-1}\leq n\leq N | \StN{n}\geq b\} = \emptyset
+	\end{cases}\mdot
+	\end{align*}
+	%
+	Now we can define the number of upcrossings of $[a, b]$ by $\StN{1}, ..., \StN{n}$ as follows:
+	\[
+	\UNab{n} :=\begin{cases}  
+	\max\{1\leq m \leq N | T_{2m} < N\} & \textrm{ if } \{1\leq m \leq N | T_{2m} < N\}\neq \emptyset\\
+	0 &  \textrm{ if } \{1\leq m \leq N | T_{2m} < N\} = \emptyset
+	\end{cases}
+	\]
+	%
+	Furthermore let for $1\leq k\leq n-1$
+	\[ \epsilon_k := \begin{cases} 
+	0 & \textrm{ if } k < T_1 \\
+	1 & \textrm{ if } T_1 \leq k < T_2\\
+	0 & \textrm{ if } T_2 \leq k < T_3\\
+	1 & \textrm{ if } T_3 \leq k < T_4\\
+	\dots & \textrm{ if } \dots
+	\end{cases}
+	\]
+	and define
+	$$\YN{n} := \StN{1} + \sum\limits_{k=1}^{n-1} \epsilon_k (\StN{k+1}-\StN{k})$$
+	for $1\leq n\leq N$. 	
+\end{defn}
+%
+The following lemma shows that the expected number of upcrossings of $[a,b]$ is bounded above by the expected value of $Y_n^N$. Thus afterwards it will remain to show that the limit $\E[Y_N^N]$ has a finite limit, which will be done in Section \ref{sec:dn}.
+
+Let's first define the set of all $\omega$ for which $S_n$ does not converge as
+$$\Lambda := \{\omega | S_n(\omega) \textrm{ does not converge}\}\mdot$$
+%
+Consider that can write
+\begin{align*}
+\Lambda &= \{\omega | \liminf_{n}S_n(\omega) < \limsup_{n} S_n(\omega)\}\\
+&= \bigcup_{a,b\in\mathbb{Q}}\{\omega | \liminf_{n}S_n(\omega) < a < b < \limsup_{n} S_n(\omega)\}\mdot
+\end{align*}
+%  
+Recall that we have $\UNab{N}$, the number of upcrossings of $[a,b]$ by $\StN{1}, \dots, \StN{N}$. But this is equal to the number of upcrossings of $[a,b]$ by $S_N, \dots, S_1$. Furthermore recall that 
+$$U_\infty[a,b] = \lim\limits_{N\to\infty} \UNab{N}\mdot$$
+%
+Consider that for each $\omega \in \{\omega | \liminf_{n}S_n(\omega) < a < b < \limsup_{n} S_n(\omega)\}$ we must have $U_{\infty}[a,b](\omega) = \infty$. This follows directly from the definitions of $\liminf$ and $\limsup$. Thus we can write
+\begin{equation*}
+\Lambda = \bigcup_{a,b\in\mathbb{Q}}\{ \omega | U_\infty[a,b](\omega) = \infty\} = \bigcup_{a,b\in\mathbb{Q}} \Lambda_{a,b}
+\end{equation*}
+where $\Lambda_{a,b} := \{ \omega | U_\infty[a,b](\omega) = \infty\}$.
+%
+Consequently we get that
+\begin{equation}
+\E[\I{\Lambda_{a,b}} U_\infty[a,b]] = \begin{cases}
+\infty &\textrm{ if } \P(\Lambda_{a,b})>0\\
+0 &\textrm{ if } \P(\Lambda_{a,b})=0\\
+\end{cases}\mdot
+\label{eq:lambda_u}
+\end{equation}
+%
+But, according to Theorem \ref{thm:upcrossing}, we have
+$$\lim\limits_{N\to\infty}\E[\UNab{N}]<\infty\mdot$$
+%
+Clearly $\UNab{N}$ is non-decreasing in $N$. Hence we get by virtue of the Monotone Convergence Theorem 
+$$\lim\limits_{N\to\infty}\E[\UNab{N}] = \E[U_\infty[a,b]] <\infty$$	
+%	
+and hence that
+$$\E[\I{\Lambda_{a,b}} U_\infty[a,b]] \leq \E[U_\infty[a,b]] < \infty\mdot$$
+%
+Now the latter together with \eqref{eq:lambda_u} implies that $\P(\Lambda_{a,b}) = 0$. Therefore we have
+\begin{equation*}
+\P(\Lambda) = \P\left(\bigcup_{a,b\in\mathbb{Q}}\Lambda_{a,b}\right) = \sum_{a,b \in \mathbb{Q}} \P(\Lambda_{a,b}) = 0 \mdot
+\end{equation*}
+%
+%
+%
+\begin{lemma}
+	For $1\leq n\leq N$ we have
+	$$\E[\UNab{n}]\leq \frac{\E[\YN{n}]}{b-a}\mdot$$
+	\label{lem:upcrossings_yn}
+\end{lemma}
+%
+\begin{proof}
+	Consider for $1\leq n\leq N$ and $N\geq 2$
+	\begin{align*}
+	Y_n^N &= \StN{1} + \sum_{k=1}^{n-1}\epsilon_k(\StN{k+1}-\StN{k})\\
+	&= \StN{1} + \sum_{k=1}^{n}(\StN{T_{2k}}-\StN{T_{2k-1}})\\
+	&\geq \sum_{k=1}^{n}(\StN{T_{2k}}-\StN{T_{2k-1}})
+	\end{align*}
+	by definition of $\epsilon_k$. The latter inequality above holds, since $\StN{1}\geq 0$. Note that by definition of $T_1, T_2, \dots$ we have
+	$$\sum_{k=1}^{n}(\StN{T_{2k}}-\StN{T_{2k-1}}) \geq (b-a)\UNab{n}\mdot$$
+	From here the assertion follows directly.
+\end{proof}
+%
+The following lemma provides a representation for the expectation of the process $Y_N^N$.
+\begin{lemma}
+	\label{lem:optional_skipping}
+	For $1\leq n\leq N$ let
+	$$\YN{n} := \StN{1} + \sum_{k=1}^{n-1} \epsilon_k (\StN{k+1} - \StN{k}) $$
+	with
+	\[ \epsilon_k := \begin{cases} 
+	1 & (\StN{1},\dots,\StN{k})\in B_k \\
+	0 & otherwise 
+	\end{cases}
+	\]
+	for $k=1,\dots, n-1$. Here $B_k$ is an arbitrary set in $\mathfrak{B}(\mathbb{R}^k)$. Then we have
+	\begin{equation}
+	\E[\YN{n}] = \E[\StN{n}] - \sum_{k=1}^{n-1}\E\left[(1-\epsilon_k)\left(\E[\StN{k+1}|\FtN{k}]  - \StN{k} \right)\right]\mdot
+	\label{eq:ineq_yk}
+	\end{equation}
+\end{lemma}
+%
+\begin{proof}
+	Consider for $1\leq n\leq N$ and $N\geq 2$
+	\begin{align*}
+	&  \StN{n+1} - \YN{n+1} \\ 
+	&= (1-\epsilon_1)(\StN{2} - \StN{1}) + (1-\epsilon_2)(\StN{3} - \StN{2}) + ... + (1-\epsilon_k)(\StN{n+1} - \StN{n})\\ 
+	&= (\StN{n} - \YN{n}) + (1-\epsilon_n)(\StN{n+1} - \StN{n}) \mdot
+	\end{align*}
+	%
+	Conditioning on $\FtN{n}$ on both sides yields
+	\begin{align*}
+	\E[\StN{n+1} - \YN{n+1}|\FtN{n}] &= \StN{n} - \YN{n} + (1-\epsilon_n)\left(\E[(\StN{n+1})|\FtN{n}]  - \StN{n} \right)\mdot
+	\end{align*}
+	\\
+	Now taking expectations on both sides yields
+	$$\E[\StN{n+1} - \YN{n+1}] \geq \E[\StN{n} - \YN{n}] + \E\left[(1-\epsilon_n)\left(\E[\StN{n+1}|\FtN{n}]  - \StN{n} \right)\right]\mdot$$
+	Note that 
+	\begin{align*}
+	\E[\StN{2} - \YN{2}] &= \E[\StN{1} - \YN{1}] + \E\left[(1-\epsilon_1)\left(\E[\StN{2}|\FtN{1}]  - \StN{1} \right)\right]\\ 
+	&= \E\left[(1-\epsilon_1)\left(\E[\StN{2}|\FtN{1}]  - \StN{1} \right)\right]\\ 
+	\end{align*}
+	since $\YN{1} = \StN{1}$. Moreover we have
+	\begin{align*}
+	\E[\StN{3} - \YN{3}] &= \E[\StN{2} - \YN{2}] + \E\left[(1-\epsilon_2)\left(\E[\StN{3}|\FtN{2}]  - \StN{2} \right)\right]\\  
+	&= \E\left[(1-\epsilon_1)\left(\E[\StN{2}|\FtN{1}]  - \StN{1} \right)\right]\\
+	&\qquad + \E\left[(1-\epsilon_2)\left(\E[\StN{3}|\FtN{2}]  - \StN{2} \right)\right]\\  
+	&\cdots& \\ 
+	\E[\StN{n} - \YN{n}] &= \sum_{k=1}^{n-1}\E\left[(1-\epsilon_k)\left(\E[\StN{k+1}|\FtN{k}]  - \StN{k} \right)\right]\mdot
+	\end{align*}
+	%
+	Hence we get
+	\begin{equation*}
+	\E[\YN{n}] = \E[\StN{n}] - \sum_{k=1}^{n-1}\E\left[(1-\epsilon_k)\left(\E[\StN{k+1}|\FtN{k}]  - \StN{k} \right)\right]\mdot
+	\end{equation*}	
+\end{proof}
+%
+\begin{remark}
+	Note that we have $\YN{1}=\StN{1}$, as the sum in the definition above is in this case empty and hence treated as zero. Moreover note that we have $\YN{n+1} = \StN{n+1}$ if $\epsilon_k=1$ for all $1\leq k \leq n$. 
+\end{remark}
+%
+The Lemma below establishes an upper bound for $\E[Y_N^N]$. 
+\begin{lemma} \label{lem:cs}
+	We have for $N\geq 2$
+	\begin{align*}
+	\E[Y_N^N] &\leq \E[\StN{N}] + \sum_{k=1}^{N-1} \alpha_{N-k+1} \numberthis\label{eq:yn}
+	\end{align*}
+	where
+	\begin{align*}
+	\alpha_{N-k+1} &:= \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi^2(Z_{i:N-k+1}, Z_{j:N-k+1}) W^2_{i:N-k+1} W^2_{j:N-k+1}\right]^{\frac{1}{2}}\\
+	&\qquad\qquad\qquad\qquad \times \E\left[(Q_{i,j}^{N-k+1} - 1)^2\right]^{\frac{1}{2}}\mdot
+	\end{align*}
+	%
+	\begin{proof}
+		Combining Lemmas \ref{lem:optional_skipping} and \ref{lem:upcrossings_yn} yields the following for $n\leq N$
+		$$(b-a) \E[U_n[a,b]] \leq \E[Y_n^N] \leq \E[\StN{n}] - \sum_{k=1}^{n-1} \E[(1-\epsilon_k) \left(\E[\StN{k+1} | \F_k^N] - \StN{k}\right)]\mdot$$
+		%
+		Moreover we get from Lemma \ref{lem:qi}
+		\begin{align*}
+		\E[\StN{k+1}|\FtN{k}] &= \E[\sn{N-k} | \F_{N-k+1}]\\
+		&= \doublesum\limits_{1\leq i<j\leq N-k+1} \phi(Z_{i:N-k+1}, Z_{j:N-k+1}) W_{i:N-k+1} W_{j:N-k+1} Q_{i,j}^{N-k+1}\mdot
+		\end{align*}
+		%
+		Therefore we obtain
+		\begin{align*}
+		\E[Y_N^N] &\leq \E[\StN{N}] - \sum_{k=1}^{N-1} \E[(1-\epsilon_k) \E[\StN{k+1} | \F_k^N] - \StN{k} ]\\
+		&=  \E[\StN{N}] - \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1} \E\left[(1-\epsilon_k)\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right. \\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left. W_{i:N-k+1} W_{j:N-k+1}(Q_{i,j}^{N-k+1} - 1) \right]\\
+		&\leq  \E[\StN{N}] + \left|\sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1} \E\left[(1-\epsilon_k)\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right.\right. \\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left.\left. W_{i:N-k+1} W_{j:N-k+1}(Q_{i,j}^{N-k+1} - 1) \right]\vphantom{\doublesum\limits_{1\leq i<j\leq N-k+1}}\right|\\
+		&\leq  \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1} \left|\E\left[(1-\epsilon_k)\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right.\right. \\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left.\left. W_{i:N-k+1} W_{j:N-k+1}(Q_{i,j}^{N-k+1} - 1) \right]\right|\mdot
+		\end{align*}
+		%
+		Now using Jensen's inequality yields
+		\begin{align*}
+		\E[Y_N^N] &\leq \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[(1-\epsilon_k) \phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right.\\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left. W_{i:N-k+1} W_{j:N-k+1} \cdot \abs{(Q_{i,j}^{N-k+1} - 1)}\right]\\
+		&\leq \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right. \\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left. W_{i:N-k+1} W_{j:N-k+1} \cdot \abs{(Q_{i,j}^{N-k+1} - 1)}\right]\mdot
+		\end{align*}
+		The latter inequality above holds, because $1-\epsilon_k \leq 1$ for all $k\leq N-1$. 
+		%
+	\end{proof}
+\end{lemma}
+%
+The following lemma is similar to \cite{neveu1975discrete}, Proposition 5-3-11, and it will be essential to identify the limit of $S_n$.
+\begin{lemma}
+	The following statement holds true:
+	$$S_\infty = \lim\limits_{n\to\infty} \E[S_n| \F_\infty] = \lim\limits_{n\to\infty}\E[S_n]$$
+	almost surely, if the limits above exist.
+	\label{lem:connector}
+	
+	\begin{proof}
+		Let $a>0$ and note that, since $S_n\to S$ almost surely as $n\to\infty$, we have
+		$$\lim\limits_{n\to\infty}\min(S_n, a) = \min(S,a)$$ 
+		almost surely, since $\min(\cdot, a)$ is continuous (see \cite{van2000asymptotic}, Theorem 2.3). Now $\min(S_n,a)$ is bounded by $a$. Hence applying the Dominated Convergence Theorem yields
+		\begin{align*}
+		\lim\limits_{n\to\infty} \E[\min(S_n,a)|\F_\infty] &= \E[\lim\limits_{n\to\infty} \min(S_n,a)|\F_\infty] \nonumber\\
+		&= \E[\min(S_\infty,a)|\F_\infty]\mdot
+		%&= \min(S_\infty,a) \numberthis	\label{eq:dom_conv_1}\\
+		\end{align*}
+		%
+		Note that $S_k$ is measurable with respect to $\F_n$  whenever $k\geq n$, therefore $S_\infty$ must be $\F_n$-measurable for all $n\in\mathbb{N}$. Consequently $S_\infty$ must be $F_\infty$-measurable. Moreover, for $a\in\R$, $\min(\cdot,a)$ is a continuous function. Thus $\min(S_\infty,a)$ is $\F_\infty$-measurable as well. Hence
+		$$\lim\limits_{n\to\infty}\E[min(S_n,a)|\F_\infty] = \min(S_\infty,a) $$
+		almost surely. Thus we have
+		\begin{align*}
+		\lim\limits_{n\to\infty} \E[S_n|\F_\infty] &=  \lim\limits_{n\to\infty}\lim\limits_{a\to\infty}\E[\min(S_n,a)|\F_\infty]\\
+		&= \lim\limits_{a\to\infty}\lim\limits_{n\to\infty}\E[\min(S_n,a)|\F_\infty]\\
+		&= \lim\limits_{a\to\infty}\min(S_\infty,a)\\
+		&= S_\infty\mdot \numberthis \label{eq:neveu}
+		\end{align*}
+		almost surely. Moreover we obtain
+		$$\E[S_n| \F_\infty] = \E[S_n] $$
+		for all $n$, by applying Lemma \ref{lem:hewitt_savage}. Now the latter together with \eqref{eq:neveu} implies the statement of the lemma.
+	\end{proof}
+\end{lemma}
+%
+%
+%
+%
+%
+	%Now we will apply theorem \ref{thm:upcrossing} in order to prove the existence of the limit
+	%$$S_\infty = \lim\limits_{N\to\infty} S_N\.$$
+	
+	
+	
 	%
 	%%%%%%% TODO %%%%%%%%%%%%%
 	%\todo{Redefine $Y_n$ to start at $S_2$}

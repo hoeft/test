@@ -692,60 +692,6 @@ $$D(s,t) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \
 	\end{proof}
 \end{lemma}
 %
-\begin{lemma} \label{lem:hewitt_savage}
-	Let $\F_\infty = \bigcap_{n\geq 2} \F_n$. Then we have for each $A\in \F_\infty$ that $\P(A)\in \{0,1\}$.
-	%
-	\begin{proof}
-		 Denote $\tilde{Z}:=(Z_1, Z_2,\dots)\in\R^\infty$ and let $1\leq n<\infty$ fixed but arbitrary. Moreover define \todo{phrasing}
-		\begin{equation*}
-			\Pi_n := \{\pi | \pi \textrm{ is permutation of } 1,\dots, n\} \mcomma
-		\end{equation*}	
-		\ie\ for each $\pi\in \Pi_n$ we have
-		\begin{align*}
-			\pi: (\R^\infty, \mathcal{B}(\R^\infty)) &\longrightarrow (\R^\infty, \mathcal{B}(\R^\infty))\\
-			(Z_1, Z_2,\dots,Z_n, Z_{n+1}, \dots) &\longmapsto (Z_{\pi(1)}, Z_{\pi(2)},\dots,Z_{\pi(n)}, Z_{n+1}, \dots)\mdot
-		\end{align*}
-		%
-%		\begin{equation*}
-%			\Pi := \bigcup\limits_{n\in\mathbb{N}} \Pi_n \nonumber\mdot 
-%		\end{equation*}
-		We will now use the Hewitt-Savage zero-one law to prove the statement of this lemma. We need to show that for all $A\in\F_\infty$ and for all $\pi_0\in\Pi$ there exists $B\in\mathcal{B}(\R^\infty)$ \st\ 
-		\begin{equation}
-			A = \{\omega| \tilde{Z}(\omega) \in B\} = \{\omega| \pi_0(\tilde{Z}(\omega)) \in B\} \mdot
-			\label{eq:hewitt_savage}
-		\end{equation} 	
-		%
-		Let $A\in\F_\infty$, then $A\in\F_n$ for all $n\in\mathbb{N}$. Since the map $(Z_{1:n}, \dots, Z_{n:n}, Z_{n+1}, Z_{n+2}, \dots)$ is measurable, there must exist $\tilde{B}\in\mathcal{B}(\R^\infty)$ such that
-		\begin{equation*}
-			A = \{\omega | (Z_{1:n}(\omega), \dots, Z_{n:n}(\omega), Z_{n+1}(\omega), Z_{n+2}(\omega), \dots) \in \tilde{B}\}\mdot 
-			\label{eq:A_Z_inv}
-		\end{equation*}
-		%
-		Note that each of the maps $\pi\in\Pi_n$ is measurable. Hence we can write $A$ as
-		\begin{align*}
-			A &= \bigcup\limits_{\pi\in\Pi_n}\left \{\omega | \pi(\tilde{Z}) \in \tilde{B}\right\}\\
-			&=  \bigcup\limits_{\pi\in\Pi_n} \left\{\omega | \tilde{Z} \in \pi^{-1}(\tilde{B})\right\}\\
-			&=  \left\{\omega | \tilde{Z} \in \bigcup\limits_{\pi\in\Pi_n}\pi^{-1}(\tilde{B})\right\}\\
-			&= \left\{\omega | \tilde{Z} \in B\right\}\mcomma
-		\end{align*}		
-		with 
-		$$B:=\bigcup\limits_{\pi\in\Pi_n}\pi^{-1}(\tilde{B})\mdot$$
-		%
-		Clearly $B\in\mathcal{B}(\R^\infty)$, since it is constructed as countable union of sets in $\mathcal{B}(\R^\infty)$.
-		%
-		Moreover note that 
-		$$\bigcup\limits_{\pi\in\Pi_n}\pi^{-1}(\tilde{B}) = \bigcup\limits_{\pi\in\Pi_n}(\pi_0\circ\pi)^{-1}(\tilde{B})\mcomma$$
-		since the union is iterating over all $\pi\in\Pi_n$. Thus we can write
-		\begin{align*}
-			A &= \left\{\omega | \tilde{Z} \in \bigcup\limits_{\pi\in\Pi_n}(\pi_0\circ\pi)^{-1}(\tilde{B})\right\}\\
-			&= \bigcup\limits_{\pi\in\Pi_n}\left\{\omega | \tilde{Z} \in (\pi_0\circ\pi)^{-1}(\tilde{B})\right\}\\
-			&= \bigcup\limits_{\pi\in\Pi_n}\left\{\omega | \pi_0(\tilde{Z}) \in \pi^{-1}(\tilde{B})\right\}\\
-			&= \left\{\omega | \pi_0(\tilde{Z}) \in B\right\}\mdot
-		\end{align*}		
-	 	Whence establishing \eqref{eq:hewitt_savage}.
-	\end{proof}
-\end{lemma}
-%
 \begin{lemma}For any $s<t$ \st\ $H(t)<1$ the following statement holds true
 	$$\Delta_{n}(s,t) = \E[D_n(s,t)] = \E[D_n(s,t)|\F_\infty] \nearrow D(s,t)\mdot$$
 	\label{lem:neveu}
