@@ -33,12 +33,13 @@ for $1\leq i\leq n$.\\
 The following assumptions will be needed throughout this work, in order to prove the SLLN for $\sn{n}$.
 \begin{enumerate}[({A}1)]
 	\item \label{ass:kernel_gen} The kernel $\phi: \R^2 \longrightarrow \R$ is measurable, non-negative and symmetric in its arguments. In effect $\phi(s,t) = \phi(t,s)$ for all $s,t \in \R_+$. 
-	\item \label{ass:H_nonneg} The \df\ $H$ is continuous and concentrated on the non-negative real line.
+	\item \label{ass:H_nonneg} $H$ is continuous and concentrated on the non-negative real line.
 	\item \label{ass:intgral_phi_q} For $s,t\in \R_+$ the following statement holds true
 	$$\int_{0}^{s} \int_{0}^{t} \frac{\phi(s,t)}{m(s, \theta_0)m(t,\theta_0)(1-H(s))^\epsilon(1-H(t))^{\epsilon}} F(dt)F(ds) < \infty$$
 	for some $0<\epsilon\leq 1$.
-	\item \label{ass:sup_mprime} There exists $c_1 < \infty$ \st\ $\sup_{x} (m\circ H^{-1})'(x) \leq c_1$. 
-	\item \label{ass:m_H_one} We have $m\circ H^{-1}(1) = 1$.
+	\item \label{ass:m_increas} $m(z,\theta_0)$ is increasing in $z$.
+	%\item \label{ass:sup_mprime} There exists $c_1 < \infty$ \st\ $\sup_{x} (m\circ H^{-1})'(x) \leq c_1$. 
+	%\item \label{ass:m_H_one} We have $m\circ H^{-1}(1) = 1$.
 \end{enumerate}
 %
 \vspace{1cm}
