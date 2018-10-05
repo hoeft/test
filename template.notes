@@ -1,0 +1,5 @@
+\contentsline {NOTES@note}{\numberline {1}{{TODO}: {The above assumption originates from the original Upcrossing Theorem. I have to refine the statement for our situation. I need to find conditions on $\phi $ and $q$ (or $m$) s.\tmspace +\thinmuskip {.1667em}t.\ the above is satisfied. This is pretty much the same problem as for (A\ref {as:phi_sq}), which I am still investigating.}}}{4}{section*.3}
+\contentsline {NOTES@note}{\numberline {2}{{TODO}: {This assumption is not final yet. I need to complete the proof of Lemma \ref {lem:expectation_sq} (last section of this document) in order to formulate the assumption properly.}}}{5}{section*.4}
+\contentsline {NOTES@note}{\numberline {3}{{TODO}: {Should I prove $\mathbb {E}[1 - U_{n:n}]= \frac {1}{n+1}$?}}}{9}{section*.7}
+\contentsline {NOTES@note}{\numberline {4}{{TODO}: {Split up and fill in more details. Below will be the part where I need conditional expectation.}}}{23}{section*.29}
+\contentsline {NOTES@note}{\numberline {5}{{TODO}: {Construction work ahead..}}}{25}{section*.32}

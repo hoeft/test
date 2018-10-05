@@ -1,0 +1,63 @@
+\section{Definitions and Assumptions}
+%
+We're considering the estimator
+$$\sn{n} = \doublesum\limits_{1\leq i<j\leq n} \phi(Z_{i:n}, Z_{j:n}) W_{i:n} W_{j:n}$$
+where 
+$$W_{i:n} = \frac{q(Z_{i:n})}{n-i+1}\prod_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n})}{n-k+1}\right]$$
+Define $\F_n := \sigma\{Z_{1:n}, \dots, Z_{n:n}, Z_{n+1}, Z_{n+2}, \dots\}$. Furthermore we will need the following definitions in order to get into a framework that is more similar to that of (forward) sub-martingales. Define
+$$\tilde{S}^N_n := S_{N-n+1} \textrm{, } \F_n^N := \F_{N-n+1}$$
+%
+Let $U_n[a,b]$ denote the number of upcrossings of $\tilde{S}_1^N, \dots, \tilde{S}_n^N$ and define 
+$$Y_n^N := \StN{1} + \sum_{i=1}^{n-1} \epsilon_i (\StN{i+1} - \StN{i}) $$
+with 
+\[ \epsilon_i := \begin{cases} 
+1 & (\StN{1},\dots, \StN{i}) \in B\\
+0 & \textrm{o.w.}
+\end{cases}
+\]
+for some Borel set $B \in  \mathcal{B}(\mathbb{R}^i)$.
+%
+We can show that 
+$$(b-a) \E[U_n[a,b]] \leq \E[Y_n^N] \leq \E[\StN{n}] - \sum_{k=1}^{n-1} \E[(1-\epsilon_k) \E[\StN{k+1} - \StN{k} | \F_k^N]]$$
+%
+We need to show 
+\begin{align}
+&\lim\limits_{N\to\infty}(b-a) \E[U_N[a,b]]\nonumber\\
+&\leq \lim\limits_{N\to\infty}\E[Y_N^N]\nonumber\\
+&\leq \lim\limits_{N\to\infty}\E[\StN{N}] - \sum_{k=1}^{N-1} \E[(1-\epsilon_k) \E[\StN{k+1} - \StN{k} | \F_k^N]]\nonumber\\
+&\leq \lim\limits_{N\to\infty}\E[\StN{N}] - \sum_{k=1}^{N-1} \E[(1-\epsilon_k) \E[\StN{k+1} | \F_k^N]  - \StN{k}]\nonumber\\
+&<\infty\nonumber
+\end{align}
+%
+So the main concern is to show that the sum of increases of $\StN{k}$ on the right hand side converges. We will need the following assumptions in order to prove the above:
+\begin{enumerate}[({A}1)]
+	\item The following holds
+	$$\int_{0}^{\infty}\int_{0}^{\infty} \phi^2(s,t) H(ds)H(dt) < \infty$$ \label{as:sup_sn}\\
+	\item There exists $c_1 \in \R^+$ \st\ $\sup_{x} (q\circ H^{-1})'(x) \leq c_1$. \label{as:sup_qprime}
+	\item We have $q\circ H^{-1}(1) = 1$. \label{as:q_H_one}
+%	\item There exists $c_3 \in \R^+$ \st\ \label{as:phi_sq}
+%	$$\doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi^2(Z_{i:N-k+1}, Z_{j:N-k+1}) W^2_{i:N-k+1} W^2_{j:N-k+1}\right]^{\frac{1}{2}} \leq c_3$$ 
+%	\todo{This assumption is not final yet. I need to complete the proof of Lemma \ref{lem:expectation_sq} (last section of this document) in order to formulate the assumption properly.}
+\end{enumerate}
+%
+%Note that (A\ref{as:sup_sn}) implies that 
+%$$\int_{0}^{\infty}\int_{0}^{\infty} \phi^2(s,t) H(ds)H(dt) < \infty$$
+
+%\todo{Show the following:}
+%\begin{itemize}
+%	\item For all $t\in \R^+$ we have $H(t) \leq F(t)$.
+%	\item Then
+%	$$\int_{0}^{\infty} \phi^2(s,t) H(ds)H(dt) \leq \int_{0}^{\infty} \phi^2(s,t) F(ds)F(dt) < \infty$$
+%	and assume 
+%	$$\int_{0}^{\infty} \phi^2(s,t) F(ds)F(dt) < \infty$$
+%	\item Thus by  Jensen's inequality
+%	\begin{align*}
+%		\left(\int_{0}^{\infty} \phi(s,t) H(ds)H(dt)\right)^2 &\leq \int_{0}^{\infty} \phi^2(s,t) H(ds)H(dt)\\
+%		&\leq \int_{0}^{\infty} \phi^2(s,t) F(ds)F(dt)\\
+%		&< \infty
+%	\end{align*}
+%	\item .. which implies
+%	$$\int_{0}^{\infty} \phi(s,t) H(ds)H(dt) < \infty$$
+%	and 
+%	$$\int_{0}^{\infty} \phi(s,t) F(ds)F(dt) < \infty$$
+%\end{itemize}

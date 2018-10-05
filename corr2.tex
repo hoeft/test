@@ -1,0 +1,500 @@
+\section{The missing bound}
+	It remains to show that 
+	$$\doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi^2(Z_{i:N-k+1}, Z_{j:N-k+1}) W^2_{i:N-k+1} W^2_{j:N-k+1}\right]^{\frac{1}{2}}$$
+	is bounded above.	
+	%
+	For the sake of simplicity we will set $n=N-k+1$ again. The following lemma contains the result needed to prove Theorem \ref{thm:upcrossing}.
+\begin{lemma}
+	Suppose (A\ref{as:sup_sn}) holds. Then there exists $c_3 < \infty$ \st\ 
+	$$\doublesum\limits_{1\leq i<j\leq n+1}\E\left[\phi^2(Z_{i:n}, Z_{j:n}) W^2_{i:n} W^2_{j:n}\right]^{\frac{1}{2}} \leq c_3 $$	
+	\label{lem:expectation_sq}
+\end{lemma}	
+\noindent The prove of the lemma above will be given at the end of this section. In the following I will establish a few lemmas, that will be needed to prove lemma \ref{lem:expectation_sq} above. Define the following quantities for $n\geq 1$ and $s < t$:
+\begin{align*}
+	B_n(s) &:= \prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_{k} < s}}\\
+	C_n(s) &:= \sum_{i=1}^{n+1}\left[\frac{1-q(s)}{n-i+2}\right]\I{Z_{i-1:n} < s \leq Z_{i:n}}\\
+	D_n(s,t) &:= \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I{Z_k<s}} \prod_{k=1}^{n}\left[1+\frac{1-q(Z_k)}{n-R_ {k,n}+1}\right]^{\I{s < Z_k < t}}\\
+	\Delta_n(s,t) &:= \E\left[D_n(s,t) \right]\\
+	\bar{\Delta}_n(s,t) &:= \E\left[C_n(s)D_n(s,t) \right]
+\end{align*}
+Here $Z_{0:n} := -\infty$ and $Z_{n+1:n} := \infty$.
+%
+\begin{lemma}
+	Let $\tilde{\phi}: \R^2_+ \longrightarrow \R_+$ be a Borel-measurable function. Then we have for any $s<t$ and $n\geq 1$ 
+	\begin{align*}
+		&\E[\tilde{\phi}(Z_1,Z_2) B_n(Z_1) B_n(Z_2)]\\
+		& = \E[2\tilde{\phi}(Z_1,Z_2) \{\Delta_{n-2}(Z_1,Z_2) + \bar{\Delta}_{n-2}(Z_1,Z_2)\}\I{Z_1<Z_2}]
+	\end{align*}
+	\label{lem:representation_bn}
+	%
+	\begin{proof}
+		Consider the following
+		\begin{align*}
+			B_n(Z_1)B_n(Z_2) &= \prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_{k} < Z_1}+\I{Z_{k} < Z_2}}\\
+			&= \left[1+\frac{1-q(Z_{1})}{n-R_{1,n}}\right]^{\I{Z_{1} < Z_2}} \left[1+\frac{1-q(Z_{2})}{n-R_{2,n}}\right]^{\I{Z_{2} < Z_1}}\\
+			&\qquad \times \prod_{k=3}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_{k} < Z_1}+\I{Z_{k} < Z_2}}\\
+			&= \I{Z_1<Z_2}\left[1+\frac{1-q(Z_{1})}{n-R_{1,n}}\right] \\
+			&\qquad\qquad \times \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k+2})}{n-R_{k+2,n}}\right]^{\I{Z_{k+2} < Z_1}+\I{Z_{k+2} < Z_2}}\\
+			&\quad + \I{Z_1>Z_2}\left[1+\frac{1-q(Z_{2})}{n-R_{2,n}}\right] \\
+			&\qquad\qquad \times \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k+2})}{n-R_{k+2,n}}\right]^{\I{Z_{k+2} < Z_1}+\I{Z_{k+2} < Z_2}}\\
+			&\quad + \I{Z_1=Z_2}\prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k+2})}{n-R_{k+2,n}}\right]^{2\I{Z_{k+2} < Z_1}} \numberthis\label{eq:bnbn1}
+		\end{align*}
+		%
+		On $\{Z_1<Z_2\}$ we have 
+		\begin{align*}
+			\prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k+2})}{n-R_{k+2,n}}\right]^{\I{Z_{k+2} < Z_2}} &= \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k+2})}{n-\tilde{R}_{k,n-2}}\right]^{\I{Z_{k+2} < Z_1}}\\
+			&\quad \times  \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k+2})}{n-\tilde{R}_{k,n-2}-1}\right]^{\I{Z_1 < Z_{k+2} < Z_2}}
+		\end{align*}
+		where $\tilde{R}_{k,n-2}$ denotes the rank of the $Z_k$, $k=3,\dots, n$ among themselves. The above holds since 
+		\[ R_{k+2,n} = \begin{cases} 
+			\tilde{R}_{k,n-2} & \textrm{ if } Z_{k+2} < Z_1 \\
+			\tilde{R}_{k, n-2} + 1 & \textrm{ if } Z_1 < Z_{k+2} < Z_2 
+		\end{cases}
+		\]
+		for $k=1,\dots,n-2$. 
+		% 
+		Therefore \eqref{eq:bnbn1} yields
+		\begin{align*}
+			B_n(Z_1)B_n(Z_2) &= \I{Z_1<Z_2}\left[1+\frac{1-q(Z_{1})}{n-R_{1,n}}\right] \\
+			&\qquad\qquad \times \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k+2})}{n-\tilde{R}_{k,n-2}}\right]^{2\I{Z_{k+2} < Z_1}}\\
+			&\qquad\qquad \times \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k+2})}{n-\tilde{R}_{k,n-2}-1}\right]^{\I{Z_1 < Z_{k+2} < Z_2}}\\
+			&\quad + \I{Z_2<Z_1}\left[1+\frac{1-q(Z_{2})}{n-R_{2,n}}\right] \\
+			&\qquad\qquad \times \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k+2})}{n-\tilde{R}_{k,n-2}}\right]^{2\I{Z_{k+2} < Z_2}}\\
+			&\qquad\qquad \times \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k+2})}{n-\tilde{R}_{k,n-2}-1}\right]^{\I{Z_2 < Z_{k+2} < Z_1}}\\
+			&\quad + \I{Z_1=Z_2}\prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k+2})}{n-\tilde{R}_{k,n-2}}\right]^{2\I{Z_{k+2} < Z_1}} \numberthis\label{eq:bnbn_rank}
+		\end{align*}
+		%
+		Now let's denote for $k=1,\dots,n-2$, $Z_{k:n-2}$ the ordered $Z$-values among $Z_3,\dots, Z_n$. Consider that we can write 
+		\begin{align*}
+			\left[1+\frac{1-q(Z_{1})}{n-R_{1,n}}\right] = \sum_{i=1}^{n-1}\left[1+\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < Z_1 \leq Z_{i:n-2}}
+		\end{align*}
+		%
+		Therefore we obtain the following, by conditioning \eqref{eq:bnbn_rank} on $Z_1,Z_2$:
+		\begin{align*}
+			&\E[B_n(Z_1)B_n(Z_2)|Z_1 = s, Z_2 = t]\\
+			&= \I{s<t}\E\left[\left(\sum_{i=1}^{n-1}\left[1+\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}}\right)\right.\\
+			&\qquad\qquad\qquad \times \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k:n-2})}{n-k}\right]^{2\I{Z_{k:n-2} < s}}\\
+			&\qquad\qquad\qquad \times \left. \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k:n-2})}{n-k-1}\right]^{\I{s < Z_{k:n-2} < t}} \right]\\
+			&\quad + \I{t<s}\E\left[\left(\sum_{i=1}^{n-1}\left[1+\frac{1-q(t)}{n-i}\right]\I{Z_{i-1:n-2} < t \leq Z_{i:n-2}}\right)\right. \\
+			&\qquad\qquad\qquad \times \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k:n-2})}{n-k}\right]^{2\I{Z_{k:n-2} < t}}\\
+			&\qquad\qquad\qquad \times \left. \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k:n-2})}{n-k-1}\right]^{\I{t < Z_{k:n-2} < s}}\right]\\
+			&\quad + \I{s=t}\E\left[\prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k:n-2})}{n-k}\right]^{2\I{Z_{k:n-2} < s}} \right]\\
+			&= \alpha(s,t) + \alpha(t,s) + \beta(s,t)
+		\end{align*}
+		where 
+		\begin{align*}
+			\alpha(s,t) &:=\I{s<t}\E\left[\left(\sum_{i=1}^{n-1}\left[1+\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}}\right)\right.\\
+			&\qquad\qquad\qquad \times \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k:n-2})}{n-k}\right]^{2\I{Z_{k:n-2} < s}}\\
+			&\qquad\qquad\qquad \times \left. \prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k:n-2})}{n-k-1}\right]^{\I{s < Z_{k:n-2} < t}} \right]
+		\end{align*}
+		and 
+		\begin{align*}
+			\beta(s,t) &:=\I{s=t}\E\left[\prod_{k=1}^{n-2}\left[1+\frac{1-q(Z_{k:n-2})}{n-k}\right]^{2\I{Z_{k:n-2} < s}} \right]
+		\end{align*}		
+		%
+		Consider that we have
+		$$\E[\alpha(Z_1,Z_2)] = \E[\alpha(Z_2,Z_1)]$$
+		because $Z_1$ and $Z_2$ are \iid, and 
+		$$\E[\beta(Z_1,Z_2)] = 0$$
+		since $H$ is continuous. Therefore we get 
+		\begin{align*}
+			&\E[\tilde{\phi}(Z_1,Z_2)B_n(Z_1)B_n(Z_2)]\\
+			&= \E[\tilde{\phi}(Z_1,Z_2)(\alpha(Z_1,Z_2) + \alpha(Z_2,Z_1) + \beta(Z_1,Z_2))]\\
+			&= \E[2\tilde{\phi}(Z_1,Z_2)\alpha(Z_1,Z_2)] \numberthis\label{eq:expectationalpha}
+		\end{align*}
+		%
+		Next consider that 
+		\begin{align*}
+			\alpha(s,t) &=\I{s<t}\E\left[(1+C_n(s)) D_{n-2}(s,t) \right]\\
+						&= \I{s<t}(\Delta_{n-2}(s,t) + \bar{\Delta}_{n-2}(s,t))
+		\end{align*}
+		The latter equality holds, since
+		\begin{align*}
+			&\sum_{i=1}^{n-1}\left[1+\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}}\\
+			&=\sum_{i=1}^{n-1}\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}} + \sum_{i=1}^{n-1}\left[\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}}\\
+			&= 1 + C_n(s)
+		\end{align*}
+		Now the statement of the lemma follows directly from \eqref{eq:expectationalpha}.
+	\end{proof}
+\end{lemma}
+%
+\noindent The next lemma identifies the $\P$-almost sure limit of $D_n$ for $n\to\infty$. Define for $s<t$
+$$D(s,t) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right)$$
+\begin{lemma}
+	For any $s < t$ \st\ $H(t)<1$, we have
+	$$\lim\limits_{n\to\infty}D_n(s,t) = D(s,t)$$
+	\label{lem:dn_limit}
+	
+	\begin{proof}
+		First let for $s<t$ and $k=1,\dots,n$
+		\begin{align*}
+			x_k &:= \frac{1-q(Z_k)}{n(1- H_n(Z_k) + 2/n)}\\
+			y_k &:= \frac{1-q(Z_k)}{n(1- H_n(Z_k) + 1/n)}\\
+			s_k &:= \I{Z_k < s} \\
+			t_k &:= \I{s < Z_k < t}
+		\end{align*}
+		%
+		Next consider 
+		\begin{align*}
+			D_n(s,t) &= \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n(1- H_n(Z_k) + 2/n)}\I{Z_k<s}\right]^{2}\\ 
+			&\qquad \times \prod_{k=1}^{n}\left[1+\frac{1-q(Z_k)}{n(1-H_n(Z_k)+1/n)}\I{s < Z_k < t}\right]\\
+			&= \prod_{k=1}^{n} \left[1+x_k s_k\right]^{2} \prod_{k=1}^{n}\left[1+y_k t_k\right]\\
+			&= \exp\left(2\sum_{k=1}^{n}\ln\left[1+x_k s_k\right] + \sum_{k=1}^{n}\ln\left[1+y_k t_k\right]\right)\\
+		\end{align*}
+		Note that $0 \leq x_k s_k \leq 1$ and $0 \leq y_k t_k \leq 1$. Consider that the following inequality holds  
+		$$-\frac{x^2}{2} \leq \ln(1+x) - x \leq 0$$ 
+		for any $x \geq 0$ (cf.  \cite{stute1993strong}, p. 1603). This implies 
+		$$-\frac{1}{2}\sum_{k=1}^{n}x_k^2 s_k \leq \sum_{k=1}^{n}\ln(1+x_k s_k) - \sum_{k=1}^{n}x_k s_k \leq 0$$ 
+		But now 
+		\begin{align*}
+			\sum_{k=1}^{n} x_k^2 s_k &= \frac{1}{n^2} \sum_{k=1}^{n} \left(\frac{1-q(Z_k)}{1-H_n(Z_k)+\frac{2}{n}}\right)^2\I{Z_k<s}\\
+			&\leq \frac{1}{n^2} \sum_{k=1}^{n} \left(\frac{1}{1-H_n(s)+\frac{1}{n}}\right)^2\\
+			&= \frac{1}{n(1-H_n(s)+n^{-1})^2} \longrightarrow 0
+		\end{align*}
+		$\P$-almost surely as $n\to\infty$, since $H(s)<H(t)<1$. Therefore we have
+		$$\abs{\sum_{k=1}^{n}\ln(1+x_k s_k) - \sum_{k=1}^{n}x_k s_k} \longrightarrow 0$$
+		with probability 1 as $n\to\infty$. 
+		%
+		Similarly we obtain
+		$$\abs{\sum_{k=1}^{n}\ln(1+y_k t_k) - \sum_{k=1}^{n}y_k t_k} \longrightarrow 0$$
+		with probability 1 as $n\to\infty$. Hence 
+		$$\lim\limits_{n\to\infty} D_n(s) = \lim\limits_{n\to\infty} \exp\left(2\sum_{k=1}^{n} x_k s_k + \sum_{k=1}^{n}y_k t_k\right)$$
+		%
+		Now consider 
+		\begin{align*}
+			\sum_{i=1}^{n} x_k s_k &= \frac{1}{n}\sum_{k=1}^{n} \frac{1-q(Z_k)}{1-H_n(Z_k)+\frac{2}{n}}\I{Z_k<s}\\
+			&= \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)+\frac{2}{n}} H_n(dz)\\
+			&\leq \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)} H_n(dz)\\
+			&= \int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) + \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)} - \frac{1-q(z)}{1-H(z)} H_n(dz)\\
+			&= \int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) + \int_{0}^{s-} \frac{(1-q(z))(H(z)-H_n(z))}{(1-H_n(z))(1-H(z))} H_n(dz) \numberthis \label{eq:xksk_int}
+		\end{align*}
+		%
+		Note that the second term on the right hand side of the latter equation above tends to zero for  $n\to\infty$, because
+		\begin{align*}
+			& \int_{0}^{s-} \frac{(1-q(z))(H(z)-H_n(z)}{(1-H_n(z))(1-H(z))} H_n(dz)\\
+			&\leq \frac{\sup_{z}|H(z)- H_n(z)|}{1-H(s)} \int_{0}^{s-}\frac{1}{1-H_n(z)} H_n(dz) \longrightarrow 0
+		\end{align*}
+		%
+		$\P$-almost surely as $n\to\infty$, by the Glivenko-Cantelli Theorem and since $H(s)<1$. Now consider the first term in \eqref{eq:xksk_int}. We have
+		\begin{align*}
+			\int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) \longrightarrow \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz)
+		\end{align*}		
+		by the SLLN. Therefore we obtain 
+		$$\lim\limits_{n\to\infty} \sum_{i=1}^{n} x_k s_k = \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz)$$
+		By the same arguments, we can show that 
+		$$\lim\limits_{n\to\infty} \sum_{i=1}^{n} y_k t_k = \int_{s}^{t} \frac{1-q(z)}{1-H(z)} H(dz)$$
+		Thus we finally conclude
+		$$\lim\limits_{n\to\infty} D_n(s,t) = \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right)$$
+		$\P$-almost surely.
+	\end{proof}
+\end{lemma}
+
+\begin{lemma}
+	$\{D_n, \F_n\}_{n\geq 1}$ is a non-negative reverse supermartingale.
+	\label{lem:dn_supermart}
+	\begin{proof}
+		Consider that for $s<t$ and $n\geq 1$
+		\begin{align*}
+			\E[D_n(s,t)| \F_{n+1}] &= \E\left[\prod_{k=1}^{n}\left(1+\frac{1-q(Z_{k:n})}{n-k+2}\right)^{2\I{Z_{k:n} <s}}\right.\\
+			&\qquad \left. \times \prod_{k=1}^{n}\left(1+\frac{1-q(Z_{k:n})}{n-k+1}\right)^\I{s < Z_{k:n} < t} | \F_{n+1}\right]\\
+			&= \sum_{i=1}^{n+1}\E\left[\I{Z_{n+1} = Z_{i:n+1}} \dots | \F_{n+1}\right]\\
+			&= \sum_{i=1}^{n+1}\E\left[\I{Z_{n+1} = Z_{i:n+1}} \prod_{k=1}^{i-1}\left(1+\frac{1-q(Z_{k:n+1})}{n-k+2}\right)^{2\I{Z_{k:n+1} <s}} \right.\\
+			&\qquad\qquad \times \prod_{k=i}^{n}\left(1+\frac{1-q(Z_{k+1:n+1})}{n-k+2}\right)^{2\I{Z_{k+1:n+1} <s}}\\
+			&\qquad\qquad \times \prod_{k=1}^{i-1}\left(1+\frac{1-q(Z_{k:n+1})}{n-k+1}\right)^\I{s < Z_{k:n+1} < t}\\
+			&\qquad\qquad \left. \times \prod_{k=i}^{n}\left(1+\frac{1-q(Z_{k+1:n+1})}{n-k+1}\right)^\I{s < Z_{k+1:n+1} < t}| \F_{n+1}\right]\\
+			&= \sum_{i=1}^{n+1}\E\left[\I{Z_{n+1} = Z_{i:n+1}} \prod_{k=1}^{i-1}\left(1+\frac{1-q(Z_{k:n+1})}{n-k+2}\right)^{2\I{Z_{k:n+1} <s}} \right.\\
+			&\qquad\qquad \times \prod_{k=i+1}^{n+1}\left(1+\frac{1-q(Z_{k:n+1})}{n-k+3}\right)^{2\I{Z_{k:n+1} <s}}\\
+			&\qquad\qquad \times \prod_{k=1}^{i-1}\left(1+\frac{1-q(Z_{k:n+1})}{n-k+1}\right)^\I{s < Z_{k:n+1} < t}\\
+			&\qquad\qquad \left. \times \prod_{k=i+1}^{n+1}\left(1+\frac{1-q(Z_{k:n+1})}{n-k+2}\right)^\I{s < Z_{k:n+1} < t}| \F_{n+1}\right]
+	\end{align*}
+	Now each product within the conditional expectation is measurable \wrt\ $\F_{n+1}$. Moreover we have for $i=1,\dots,n$ 
+	\begin{align*}
+		\E[\I{Z_{n+1}=Z_{i:n+1}}|\F_n+1] &= \P(Z_{n+1}=Z_{i:n+1}|\F_{n+1})\\
+		&= \P(R_{n+1,n+1} = i)\\
+		&= \frac{1}{n+1}
+	\end{align*}
+	%
+	Thus we obtain
+	\begin{align*}
+			\E[D_n(s,t)| \F_{n+1}] &= \frac{1}{n+1} \sum_{i=1}^{n+1} \prod_{k=1}^{i-1}\left(1+\frac{1-q(Z_{k:n+1})}{n-k+2}\right)^{2\I{Z_{k:n+1} <s}}\\
+			&\qquad\qquad\qquad \times \left(1+\frac{1-q(Z_{k:n+1})}{n-k+1}\right)^\I{s < Z_{k:n+1} < t}\\
+			&\qquad\qquad \times \prod_{k=i+1}^{n+1}\left(1+\frac{1-q(Z_{k:n+1})}{n-k+3}\right)^{2\I{Z_{k:n+1} <s}}\\ &\qquad\qquad\qquad \times \left(1+\frac{1-q(Z_{k:n+1})}{n-k+2}\right)^\I{s < Z_{k:n+1} < t} \numberthis \label{eq:cond_exp_dnp1}
+		\end{align*}
+		%
+		We will now proceed by induction on $n$. First let 
+		$$x_k := 1-q(Z_{k:2}) \textrm{, } s_k := \I{Z_{k:2} < s} \textrm{ and } t_k := \I{s < Z_{k:2} < t}$$
+		for $k=1,2$. Next consider
+		\begin{align*}
+			\E[D_1(s,t) | \F_2] &= \frac{1}{2}\left[\left(1+\frac{1-q(Z_{2:2})}{2}\right)^{2\I{Z_{2:2}<s}} \times \left(1+(1-q(Z_{2:2}))\right)^{\I{s < Z_{2:2} < t}} \right.\\
+			&\qquad \left. + \left(1+\frac{1-q(Z_{1:2})}{2}\right)^{2\I{Z_{1:2}<s}} \times \left(1+(1-q(Z_{1:2}))\right)^{\I{s < Z_{1:2} < t}}\right]\\
+			&= \frac{1}{2}\left[\left(1+\frac{x_2}{2}s_2\right)^{2} \times \left(1+x_2t_2\right) + \left(1+\frac{x_1}{2}s_1\right)^{2} \times \left(1+x_1t_1\right)\right]\\
+		\end{align*}
+		%
+		Moreover we have
+		\begin{align*}
+			D_2(s,t) &= \left[1 + \frac{x_1}{3}s_1\right]^2 \times \left[1+\frac{x_1}{2}t_1\right] \times \left[1+\frac{x_2}{2}s_2\right]^2 \times \left[1+x_2t_2\right]\\
+			&= \left[1 + \frac{x_1}{2}t_1 + \left(\frac{x_1^2}{9} + \frac{2}{3}x_1\right)s_1\right] \times \left[1 + x_2t_2 + \left(\frac{x_2^2}{4} + x_2\right)s_2\right]\\
+		\end{align*}		
+		%
+		Therefore we obtain 
+		\begin{align*}
+			\E[D_1(s,t) | \F_2] - D_2(s,t) \leq \frac{x_1^2}{72} - \frac{x_1}{6} \leq 0
+		\end{align*}
+		since $0 \leq x_1 \leq 1$. Thus $\E[D_1(s,t) | \F_2] \leq D_2(s,t)$ for any $s<t$, as needed. Now assume that 
+		$$\E[D_n(s,t) | \F_{n+1}] \leq D_{n+1}(s,t)$$
+		holds for any $n\geq 1$. Note that the latter is equivalent to assuming
+		\begin{align*}
+			& \frac{1}{n+1} \sum_{i=1}^{n+1} \prod_{k=1}^{i-1}\left(1+\frac{1-q(y_k)}{n-k+2}\right)^{2\I{y_k <s}}  \left(1+\frac{1-q(y_k)}{n-k+1}\right)^\I{s < y_k < t}\\
+			&\qquad\qquad \times \prod_{k=i+1}^{n+1}\left(1+\frac{1-q(y_k)}{n-k+3}\right)^{2\I{y_k <s}} \left(1+\frac{1-q(y_k)}{n-k+2}\right)^\I{s < y_k < t}\\
+			&\leq \prod_{k=1}^{n+1}\left(1+\frac{1-q(y_k)}{n-k+3}\right)^{2\I{y_k <s}} \prod_{k=1}^{n+1}\left(1+\frac{1-q(y_k)}{n-k+2}\right)^\I{s < y_k < t} \numberthis \label{eq:supermart_yk}
+		\end{align*}
+		holds for arbitrary $y_k \geq 0$. Next define for $s<t$ and $n\geq 1$
+		$$A_{n+2}(s,t) := \prod_{k=2}^{n+2} \left[1+\frac{1-q(Z_{k:n+2})}{n-k+4}\right]^{2\I{Z_{k:n+2} < s}} \times \left[1+\frac{1-q(Z_{k:n+2})}{n-k+3}\right]^\I{s < Z_{k:n+2} < t}$$
+		Now consider that we get from \eqref{eq:cond_exp_dnp1}
+		\begin{align*}
+			&\E[D_{n+1}(s,t)| \F_{n+2}]	\\
+			&= \frac{1}{n+2} \sum_{i=1}^{n+2} \prod_{k=1}^{i-1}\left(1+\frac{1-q(Z_{k:n+2})}{n-k+3}\right)^{2\I{Z_{k:n+2} <s}}  \left(1+\frac{1-q(Z_{k:n+2})}{n-k+2}\right)^\I{s < Z_{k:n+2} < t}\\
+			&\qquad\qquad\quad \times \prod_{k=i+1}^{n+2}\left(1+\frac{1-q(Z_{k:n+2})}{n-k+4}\right)^{2\I{Z_{k:n+2} <s}} \left(1+\frac{1-q(Z_{k:n+2})}{n-k+3}\right)^\I{s < Z_{k:n+2} < t}\\
+			&= \frac{A_{n+2}}{n+2} + \frac{1}{n+2}\sum_{i=2}^{n+2} \prod_{k=1}^{i-1} \dots \times \prod_{k=i+1}^{n+2}\dots \\
+			&= \frac{A_{n+2}}{n+2} + \frac{1}{n+2}\sum_{i=1}^{n+1} \prod_{k=1}^{i} \dots \times \prod_{k=i+2}^{n+2}\dots\\
+			&= \frac{A_{n+2}}{n+2} + \frac{1}{n+2}\left(1+\frac{1-q(Z_{1:n+2})}{n+2}\right)^{2\I{Z_{1:n+2} < s}} \left(1+\frac{1-q(Z_{1:n+2})}{n+1}\right)^\I{s < Z_{1:n+2} < t}\\
+			&\qquad\qquad\qquad\times \sum_{i=1}^{n+1} \prod_{k=1}^{i-1} \left(1+\frac{1-q(Z_{k+1:n+2})}{n-k+2}\right)^{2\I{Z_{k+1:n+2} <s}}\\
+			&\qquad\qquad\qquad\qquad\qquad \times \left(1+\frac{1-q(Z_{k+1:n+2})}{n-k+1}\right)^\I{s < Z_{k+1:n+2} < t}\\
+			&\qquad\qquad\qquad\qquad \times \prod_{k=i+1}^{n+1}\left(1+\frac{1-q(Z_{k+1:n+2})}{n-k+3}\right)^{2\I{Z_{k+1:n+2} <s}}\\
+			&\qquad\qquad\qquad\qquad\qquad \times \left(1+\frac{1-q(Z_{k+1:n+2})}{n-k+2}\right)^\I{s < Z_{k+1:n+2} < t}
+		\end{align*}
+		%
+		Using \eqref{eq:supermart_yk} on the right hand side of the equation above yields
+		\begin{align*}
+			&\E[D_{n+1}(s,t)| \F_{n+2}]	\\
+			&\leq \frac{A_{n+2}}{n+2} + \frac{n+1}{n+2}\left(1+\frac{1-q(Z_{1:n+2})}{n+2}\right)^{2\I{Z_{1:n+2} < s}} \left(1+\frac{1-q(Z_{1:n+2})}{n+1}\right)^\I{s < Z_{1:n+2} < t}\\
+			&\qquad\qquad\qquad\times \prod_{k=1}^{n+1} \left(1+\frac{1-q(Z_{k+1:n+2})}{n-k+3}\right)^{2\I{Z_{k+1:n+2} <s}}\\
+			&\qquad\qquad\qquad\qquad\qquad \times \left(1+\frac{1-q(Z_{k+1:n+2})}{n-k+2}\right)^\I{s < Z_{k+1:n+2} < t}\\
+			&= A_{n+2} \left[\frac{1}{n+2} + \frac{n+1}{n+2}\left(1+\frac{1-q(Z_{1:n+2})}{n+2}\right)^{2\I{Z_{1:n+2} < s}} \right. \\
+			&\qquad\qquad\qquad\qquad\qquad \left. \times \left(1+\frac{1-q(Z_{1:n+2})}{n+1}\right)^\I{s < Z_{1:n+2} < t}\right] \\
+		\end{align*}
+		%
+		For the moment, let
+		$$x_1 := 1-q(Z_{1:n+2}) \textrm{, } s_1 := \I{Z_{1:n+2} < s} \textrm{ and } t_1 := \I{s < Z_{1:n+2} < t} $$
+		%
+		Now we can rewrite the above as
+		\begin{align*}
+			\E[D_{n+1}(s,t)| \F_{n+2}]	&\leq A_{n+2} \left[\frac{1}{n+2} + \frac{n+1}{n+2}\left(1+\frac{x_1s_1}{n+2}\right)^{2} \left(1+\frac{x_1t_1}{n+1}\right)\right] \numberthis\label{eq:dn_supermart_an}
+		\end{align*}
+		Next consider 
+		\begin{align*}
+			\left(1+\frac{x_1t_1}{n+1}\right) &= \left(1+\frac{x_1t_1}{n+2}-\frac{1}{n+2}\right) \left(1+\frac{1}{n+1}\right)\\
+			&=  \left(1+\frac{x_1t_1}{n+2}\right)+\frac{1}{n+1}\left(1+\frac{x_1t_1}{(n+2)}\right) - \frac{1}{n+1}\\
+			&= \left(1+\frac{x_1t_1}{n+2}\right)+\frac{x_1t_1}{(n+1)(n+2)}
+		\end{align*}
+		%
+		Thus we get
+		\begin{align*}
+			&\frac{n+1}{n+2}\left(1+\frac{x_1s_1}{n+2}\right)^{2} \left(1+\frac{x_1t_1}{n+1}\right) \\
+			&= \frac{n+1}{n+2}\left(1+\frac{x_1s_1}{n+2}\right)^{2}\left(1+\frac{x_1t_1}{n+2}\right) + \left(1+\frac{x_1s_1}{n+2}\right)^{2}\frac{x_1t_1}{(n+2)^2}
+		\end{align*}
+		%
+		But now 
+		\begin{align*}
+			\left(1+\frac{x_1s_1}{n+2}\right)^{2}\frac{x_1t_1}{(n+2)^2} &= \left(1+2\frac{x_1s_1}{n+2}+\frac{x^2_1s_1}{(n+2)^2}\right)\frac{x_1t_1}{(n+2)^2}\\
+			&= \frac{x_1t_1}{(n+2)^2}
+		\end{align*}
+		since $s_1\cdot t_1=0$ for all $s<t$. Hence we can rewrite the term in brackets in \eqref{eq:dn_supermart_an} as 
+		\begin{align*}
+			&\frac{1}{n+2} + \frac{n+1}{n+2}\left(1+\frac{x_1s_1}{n+2}\right)^{2} \left(1+\frac{x_1t_1}{n+1}\right) \\
+			&=\frac{1}{n+2} + \frac{x_1t_1}{(n+2)^2} + \frac{n+1}{n+2}\left(1+\frac{x_1s_1}{n+2}\right)^{2}\left(1+\frac{x_1t_1}{n+2}\right)\\
+			&=\frac{1}{n+2}\left(1+\frac{x_1t_1}{n+2}\right) + \frac{n+1}{n+2}\left(1+\frac{x_1s_1}{n+2}\right)^{2}\left(1+\frac{x_1t_1}{n+2}\right)\\
+			&=\left[\frac{1}{n+2} + \frac{n+1}{n+2}\left(1+\frac{x_1}{n+2}\right)^{2s_1}\right]\left(1+\frac{x_1}{n+2}\right)^{t_1}\\
+			&\leq \left(1+\frac{x_1}{n+3}\right)^{2s_1}\left(1+\frac{x_1}{n+2}\right)^{t_1}
+		\end{align*}
+		The latter inequality above holds, since 
+		$$\left[\frac{1}{n+2} + \frac{n+1}{n+2}\left(1+\frac{x}{n+2}\right)^{2}\right] \leq \left(1+\frac{x}{n+3}\right)^{2}$$
+		for any $0\leq x\leq 1$. (\todo{prove?})
+		Therefore we can rewrite \eqref{eq:dn_supermart_an} as
+		\begin{align*}
+			\E[D_{n+1}(s,t)| \F_{n+2}]	&\leq A_{n+2} \left(1+\frac{1-q(Z_{1:n+2})}{n+3}\right)^{2\I{Z_{1:n+2}<s}} \\
+			&\qquad\quad \times \left(1+\frac{1-q(Z_{1:n+2})}{n+2}\right)^{\I{s<Z_{1:n+2} <t}}\\
+			&= D_{n+2}(s,t)
+		\end{align*}		
+		This concludes the proof.
+	\end{proof}
+\end{lemma}
+%
+\begin{lemma}
+	Let $\F_\infty = \bigcap_{n\geq 2} \F_n$. Then we have each $A\in \F_\infty$ that $\P(A)\in \{0,1\}$.
+	\label{lem:hewitt_savage}
+	\begin{proof}
+		Define 
+		\begin{equation*}
+		\Pi_n := \{\pi | \pi \textrm{ is permutation of } 1,\dots, n\} \nonumber
+		\end{equation*}	
+		and
+		\begin{equation*}
+		\Pi := \bigcup\limits_{n\in\mathbb{N}} \Pi_n \nonumber\\	
+		\end{equation*}
+		We will use the Hewitt-Savage zero-one law xin order to show the statement of the lemma. Thus we need to show that for all $A\in\F_\infty$ and all $\pi\in\Pi$ there exists $B\in\mathcal{B}_\mathbb{N}^*$ \st\ 
+		\begin{equation}
+		A = \{\omega| (Z_i(\omega))_{i\in\mathbb{N}} \in B\} = \{\omega| (Z_{\pi(i)}(\omega))_{i\in\mathbb{N}} \in B\}
+		\label{eq:hewitt_savage}
+		\end{equation} 
+		Let $A\in\F_\infty$, then $A\in\F_n$ for all $n\in\mathbb{N}$. Let $n\in\mathbb{N}$ fixed but arbitrary and $A\in\F_n$. Then, because of measurability \todo{wording}, there must exist $\tilde{B}\in\mathcal{B}_\mathbb{N}^*$ such that
+		\begin{equation}
+		A = (Z_{1:n}, \dots, Z_{n:n}, Z_{n+1}, Z_{n+2}, \dots)^{-1}(\tilde{B})
+		\label{eq:A_Z_inv}
+		\end{equation}
+		For fixed $\omega\in\Omega$ define the map 
+		$$T: (\R^\mathbb{N}, \mathcal{B}_\mathbb{N}^*)\ni(Z_i(\omega))_{i\in\mathbb{N}} \longrightarrow T((Z_i(\omega))_{i\in\mathbb{N}})\in (\R^\mathbb{N}, \mathcal{B}_\mathbb{N}^*)$$
+		with
+		$$T((Z_i(\omega))_{i\in\mathbb{N}}):=(Z_{1:n}, \dots, Z_{n:n}, Z_{n+1}, Z_{n+2}, \dots)(\omega)$$
+		Note that for any $\pi\in\Pi_n$ we have 
+		\begin{align}
+		T((Z_i(\omega))_{i\in\mathbb{N}}) &= T((Z_{\pi(i)}(\omega))_{i\in\mathbb{N}}) \label{eq:T_permutable}\\
+		&= (Z_{1:n}, \dots, Z_{n:n}, Z_{n+1}, Z_{n+2}, \dots)(\omega) \nonumber
+		\end{align}
+		Hence on the one hand, we get from \eqref{eq:A_Z_inv}
+		\begin{align*}
+		A &= (T((Z_i)_{i\in\mathbb{N}}))^{-1}(\tilde{B}) \\
+		&= ((Z_i)_{i\in\mathbb{N}})^{-1}(T^{-1}(\tilde{B}))\\
+		&= \{\omega | (Z_i(\omega))_{i\in\mathbb{N}} \in B\}
+		\end{align*}
+		where $B = T^{-1}(\tilde{B})$. On the other hand we get from \eqref{eq:T_permutable} and again by \eqref{eq:A_Z_inv} that 
+		\begin{align*}
+		A &= (T((Z_{\pi(i)})_{i\in\mathbb{N}}))^{-1}(\tilde{B}) \\
+		&= ((Z_{\pi(i)})_{i\in\mathbb{N}})^{-1}(T^{-1}(\tilde{B}))\\
+		&= \{\omega | (Z_{\pi(i)}(\omega))_{i\in\mathbb{N}} \in B\}
+		\end{align*}
+		Now since $n\in\mathbb{N}$ was chosen arbitrarily, the above statement holds for all $n\in\mathbb{N}$ and hence for all $\pi\in\Pi$. Whence establishing \eqref{eq:hewitt_savage}.
+	\end{proof}
+\end{lemma}
+\begin{proof}[\textbf{Proof of lemma \ref{lem:expectation_sq}}]
+	Suppose (A\ref{as:sup_sn}) is satisfied. Consider the following
+	\begin{align*}
+		& \doublesum\limits_{1\leq i<j\leq n}\E\left[\phi^2(Z_{i:n}, Z_{j:n}) W^2_{i:n} W^2_{j:n}\right]^{\frac{1}{2}}\\
+		&= \doublesum\limits_{1\leq i<j\leq n}\E\left[\phi^2(Z_{i:n}, Z_{j:n}) \frac{q^2(Z_{i:n})}{(n-i+1)^2}\prod_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n})}{n-k+1}\right]^2\right.\\
+		&\qquad\qquad\qquad \times \left. \frac{q^2(Z_{j:n})}{(n-j+1)^2}\prod_{l=1}^{j-1}\left[1-\frac{q(Z_{l:n})}{n-l+1}\right]^2\right]^\frac{1}{2}\\
+		&\leq \doublesum\limits_{1\leq i<j\leq n}\E\left[\phi^2(Z_{i:n}, Z_{j:n}) \frac{q^2(Z_{i:n})}{(n-i+1)^2}\prod_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n})}{n-k+1}\right]\right.\\
+		&\qquad\qquad\qquad \times \left. \frac{q^2(Z_{j:n})}{(n-j+1)^2}\prod_{l=1}^{j-1}\left[1-\frac{q(Z_{l:n})}{n-l+1}\right]\right]^\frac{1}{2}\numberthis\label{eq:E_n}
+	\end{align*}
+	%
+	Next we will modify the products above. Recall the following definition 
+	$$B_n(s) := \prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_{k} < s}}$$
+	and note that for $i=1,\dots,n$
+	\begin{align*}
+		B_n(Z_{i:n}) &= \prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_{k} < Z_{i:n}}}\\
+		&= \prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k:n})}{n-k}\right]^{\I{Z_{k:n} < Z_{i:n}}}\\
+		&=  \prod_{k=1}^{i-1}\left[1+\frac{1-q(Z_{k:n})}{n-k}\right]
+	\end{align*}
+	%
+	Moreover consider that for $i=1,\dots,n$
+	\begin{align*}
+		\frac{1}{n-i+1}\prod_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n})}{n-k+1}\right]
+		&=  \frac{1}{n-i+1}\prod_{k=1}^{i-1}\left[\frac{n-k+1-q(Z_{k:n})}{n-k+1}\right] \\
+		&=  \frac{1}{n-i+1}\prod_{k=1}^{i-1}\left[\frac{n-k+1-q(Z_{k:n})}{n-k} \cdot \frac{n-k}{n-k+1}\right]\\
+		&=  \frac{1}{n}\prod_{k=1}^{i-1}\left[1+\frac{1-q(Z_{k:n})}{n-k}\right]\\
+		&=  \frac{B_n(Z_{i:n})}{n}\\
+	\end{align*}
+	%
+	Thus we get, according to \eqref{eq:E_n}
+	\begin{align*}
+		&\doublesum\limits_{1\leq i<j\leq n}\E\left[\phi^2(Z_{i:n}, Z_{j:n}) W^2_{i:n} W^2_{j:n}\right]^{\frac{1}{2}}\\
+		&\leq \doublesum\limits_{1\leq i<j\leq n}\E\left[\phi^2(Z_{i:n}, Z_{j:n}) \frac{q^2(Z_{i:n})}{n(n-i+1)}\frac{q^2(Z_{j:n})}{n(n-j+1)} B_n(Z_{i:n})B_n(Z_{j:n})\right]^\frac{1}{2}\\
+		&\leq \frac{1}{n}\sum_{i=1}^{n}\sum_{j=1}^{n}\frac{1}{(n-i+1)^\frac{1}{2}(n-j+1)^\frac{1}{2}}\\
+		&\qquad\qquad\times \E\left[\phi^2(Z_{i:n}, Z_{j:n}) q^2(Z_{i:n})q^2(Z_{j:n}) B_n(Z_{i:n})B_n(Z_{j:n})\right]^\frac{1}{2}\\
+		&= \frac{1}{n}\sum_{i=1}^{n}\sum_{j=1}^{n} \frac{1}{(n-R_{i,n}+1)^{\frac{1}{2}} (n-R_{j,n}+1)^{\frac{1}{2}}}\\
+		&\qquad\qquad \times \E\left[\phi^2(Z_{i}, Z_{j}) q^2(Z_{i})q^2(Z_{j})B_n(Z_{i})B_n(Z_{j})\right]^{\frac{1}{2}}
+	\end{align*}
+	%
+	Note that for $1\leq i,j \leq n$
+	\begin{align*}
+		&\E\left[\phi^2(Z_{i}, Z_{j}) q^2(Z_{i})q^2(Z_{j})B_n(Z_{i})B_n(Z_{j})\right]\\
+		&= \int_{0}^{\infty} \int_{0}^{\infty} \phi^2(s,t) q^2(s) q^2(t) B_n(s)B_n(t) H(ds)H(dt)\\
+		&= \E\left[\phi^2(Z_{1}, Z_{2}) q^2(Z_{1})q^2(Z_{2})B_n(Z_{1})B_n(Z_{2})\right]
+	\end{align*}
+	since $Z_i \sim H$ for $i=1,\dots,n$.
+	%
+%	\begin{align*}
+%		&\E\left[\phi^2(Z_{i}, Z_{j}) q^2(Z_{i})q^2(Z_{j})B_n(Z_{i})B_n(Z_{j})\right]\\ 
+%		&= \E\left[\phi^2(Z_{1}, Z_{2}) q^2(Z_{1})q^2(Z_{2})B_n(Z_{1})B_n(Z_{2})\right]
+%	\end{align*}
+%	%
+%	This is true, because we have
+%	\begin{align*}
+%	&\E\left[\phi^2(Z_{i}, Z_{j}) q^2(Z_{i})q^2(Z_{j})B_n(Z_{i})B_n(Z_{j})\right]\\
+%	&= \E\left[\phi^2(Z_{i}, Z_{j}) q^2(Z_{i})\prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_k < Z_{i}}}\right.\\
+%	&\qquad\qquad \times \left. q^2(Z_{j}) \prod_{l=1}^{n}\left[1+\frac{1-q(Z_{l})}{n-R_{l,n}}\right]^{\I{Z_l < Z_{j}}} \right]\\
+%	&= \E\left[\phi^2(Z_{i}, Z_{j}) q^2(Z_{i})\prod_{k=1}^{n}\left[\frac{n-R_{k,n}+1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_k < Z_{i}}}\right.\\
+%	&\qquad\qquad \times \left. q^2(Z_{j}) \prod_{l=1}^{n}\left[\frac{n-R_{l,n}+1-q(Z_{l})}{n-R_{l,n}}\right]^{\I{Z_l < Z_{j}}} \right]\\
+%	&= \E\left[\phi^2(Z_i,Z_j) q^2(Z_i) \exp\left(\sum_{k=1}^{n}\I{Z_k < Z_i}  \ln\left\{\frac{n(1-H_n(Z_k))+1-q(Z_k)}{n(1-H_n(Z_k))}\right\} \right)\right.\\
+%	&\qquad\qquad\qquad \left. \times q^2(Z_j) \exp\left(\sum_{l=1}^{n} \ln\left\{\frac{n(1-H_n(Z_l))+1-q(Z_l)}{n(1-H_n(Z_l))}\right\} \right)\right]\\
+%	&= \E\left[\phi^2(Z_i,Z_j) q^2(Z_i) \exp\left(\int_{0}^{Z_i-} \ln\left\{1+\frac{n(1-H_n(z))+1-q(z)}{1-H_n(z)}\right\}H_n(dz) \right)\right.\\
+%	&\qquad\qquad\qquad \left. \times q^2(Z_j) \exp\left(\int_{0}^{Z_j-} \ln\left\{1+\frac{n(1-H_n(z))+1-q(z)}{1-H_n(z)}\right\}H_n(dz) \right)\right]\\
+%	&= \int_{0}^{\infty} \int_{0}^{\infty} \phi^2(s,t) q^2(s) \exp\left(\int_{0}^{s-} \ln\left\{\frac{n(1-H_n(z))+1-q(z)}{1-H_n(z)}\right\}H_n(dz) \right)\\
+%	&\qquad\qquad\qquad \times q^2(t) \exp\left(\int_{0}^{t-} \ln\left\{\frac{n(1-H_n(z))+1-q(z)}{1-H_n(z)}\right\}H_n(dz) \right)\\
+%	&\qquad\qquad\qquad \times H(ds)H(dt)\\
+%	&= \E\left[\phi^2(Z_{1}, Z_{2}) q^2(Z_{1})\prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_k < Z_{1}}}\right.\\
+%	&\qquad\qquad \times \left. q^2(Z_{2}) \prod_{l=1}^{n}\left[1+\frac{1-q(Z_{l})}{n-R_{l,n}}\right]^{\I{Z_l < Z_{2}}} \right]\\
+%	\end{align*}
+	%
+	Hence we get 
+	\begin{align*}
+		&\doublesum\limits_{1\leq i<j\leq n}\E\left[\phi^2(Z_{i:n}, Z_{j:n}) W^2_{i:n} W^2_{j:n}\right]^{\frac{1}{2}}\\
+		&\leq \frac{1}{n}\sum_{i=1}^{n}\sum_{j=1}^{n} \frac{1}{(n-R_{i,n}+1)^{\frac{1}{2}} (n-R_{j,n}+1)^{\frac{1}{2}}}\\
+		&\qquad\qquad \times \E\left[\phi^2(Z_{1}, Z_{2}) q^2(Z_{1})q^2(Z_{2})B_n(Z_{1})B_n(Z_{2})\right]^{\frac{1}{2}}
+	\end{align*}
+	%
+	Next consider that we have
+	\begin{align*}
+		\sum_{j=1}^{n} \frac{1}{(n-R_{j,n}+1)^{\frac{1}{2}}} &= \sum_{j=1}^{n} \frac{1}{j^{\frac{1}{2}}}\\
+		&= 1 + \sum_{j=2}^{n} \int_{j-1}^{j} \frac{1}{\sqrt{j}} dx\\
+		&\leq 1 + \sum_{j=2}^{n} \int_{j-1}^{j} \frac{1}{\sqrt{x}} dx\\
+		&= 1 + 2\sum_{j=2}^{n} (\sqrt{j} - \sqrt{j-1})\\
+		&= 2\sqrt{n} - 1\\
+		&\leq 2\sqrt{n}
+	\end{align*}
+	for all $n\geq 1$.
+	%
+	We therefore obtain
+	\begin{align*}
+		&\doublesum\limits_{1\leq i<j\leq n}\E\left[\phi^2(Z_{i:n}, Z_{j:n}) W^2_{i:n} W^2_{j:n}\right]^{\frac{1}{2}}\\
+		&\leq 4\cdot\E\left[\phi^2(Z_{1}, Z_{2}) q^2(Z_{1})q^2(Z_{2})B_n(Z_{1})B_n(Z_{2})\right]^{\frac{1}{2}} \numberthis \label{eq:expectation_phi_sq}
+	\end{align*}
+	%
+	Since $q$ and $\phi$ are Borel-measurable, we can apply Lemma \ref{lem:representation_bn} to obtain
+	\begin{align*}
+		&\doublesum\limits_{1\leq i<j\leq n}\E\left[\phi^2(Z_{i:n}, Z_{j:n}) W^2_{i:n} W^2_{j:n}\right]^{\frac{1}{2}}\\
+		&\leq 8\cdot\E\left[\phi^2(Z_{1}, Z_{2}) q^2(Z_{1})q^2(Z_{2})(\Delta_{n-2}(Z_1,Z_2) + \bar{\Delta}_{n-2}(Z_1,Z_2))\right]^{\frac{1}{2}}
+	\end{align*}
+	%
+	Note that $0\leq C_n(s)\leq 1$ for all $n\geq 1$ and $s\in \R_+$. Thus 
+	$$\bar\Delta_n(s,t) = \E[C_n(s)D_n(s,t)] \leq \Delta_{n}(s,t)$$ 
+	for all $n\geq 1$ and $s<t$.
+	%
+	Therefore we get 
+	\begin{align*}
+		&\doublesum\limits_{1\leq i<j\leq n}\E\left[\phi^2(Z_{i:n}, Z_{j:n}) W^2_{i:n} W^2_{j:n}\right]^{\frac{1}{2}}\\
+		&\leq 16\cdot\E\left[\phi^2(Z_{1}, Z_{2}) q^2(Z_{1})q^2(Z_{2})\Delta_{n-2}(Z_1,Z_2)\right]^{\frac{1}{2}}
+	\end{align*}	
+	%
+	According to Lemma \ref{lem:dn_limit}, $D_n(s,t) \to D(s,t)$ $\P$-almost surely. Moreover we get from Lemma \ref{lem:dn_supermart}, that $\{D_n,\F_n\}_{n\geq 1}$ is a reverse supermartingale. Now this together with Proposition 5-3-11 of \cite{neveu1975discrete} and Lemma \ref{lem:hewitt_savage} yields
+	$$\Delta_{n}(s,t) = \E[D_n(s,t)] = \E[D_n(s,t)|\F_\infty] \nearrow D(s,t)$$
+	But this implies in particular that $\E[D_n(s,t)] \leq D(s,t)$ for all $n\geq 1$. Hence 
+	\begin{align*}
+		&\doublesum\limits_{1\leq i<j\leq n}\E\left[\phi^2(Z_{i:n}, Z_{j:n}) W^2_{i:n} W^2_{j:n}\right]^{\frac{1}{2}}\\
+		&\leq 16\cdot\E\left[\phi^2(Z_{1}, Z_{2}) q^2(Z_{1})q^2(Z_{2})D(Z_1,Z_2)\right]^{\frac{1}{2}}
+	\end{align*}		
+	%
+	Next consider that for $s<t$ \st\ $H(t)<1$
+	\begin{align*}
+		D(s,t) &= \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right)\\
+		&\leq \exp\left(2\int_{0}^{s} \frac{1}{1-H(z)} H(dz) + \int_{s}^{t} \frac{1}{1-H(z)} H(dz)\right)\\
+		&= \exp\left(\int_{0}^{s} \frac{1}{1-H(z)} H(dz) + \int_{0}^{t} \frac{1}{1-H(z)} H(dz)\right)\\
+		&= \exp\left(-\ln(1-H(s)) -\ln(1-H(t))\right)\\
+		&= \frac{1}{(1-H(s))(1-H(t))} < \infty
+	\end{align*}
+	since $H(s)<H(t)<1$. Thus there must exist $c<\infty$ \st\ $D(s,t)\leq c$ for all $s<t$ and therefore
+	\begin{align*}
+		&\doublesum\limits_{1\leq i<j\leq n}\E\left[\phi^2(Z_{i:n}, Z_{j:n}) W^2_{i:n} W^2_{j:n}\right]^{\frac{1}{2}}\\
+		&\leq 16c\cdot\E\left[\phi^2(Z_{1}, Z_{2}) \right]^{\frac{1}{2}}
+	\end{align*}	
+	since $0\leq q(s)\leq 1$ for all $s\in\R_+$. But now, under assumption (A\ref{as:sup_sn}), the expectation above is finite.
+\end{proof}

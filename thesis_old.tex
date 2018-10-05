@@ -1,0 +1,187 @@
+\documentclass[12pt,letterpaper,oneside,openany]{book}
+%\usepackage{graphicx}
+\usepackage{fancyhdr}
+%\usepackage{ngerman}
+\usepackage[ngerman, english]{babel} 
+%\usepackage{courier}
+\usepackage{color}
+%\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{amssymb}
+\usepackage{enumerate}
+%\usepackage{fullpage}
+%\usepackage{enumitem}
+\usepackage{kantlipsum}
+\usepackage{todonotes}
+%\usepackage{soul}
+%\usetikzlibrary{calc}
+%\usetikzlibrary{decorations.pathmorphing}
+%\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue]{hyperref}
+
+% make todo note lines fancy af and display at left margin
+\let\tmptodo\todo
+\renewcommand{\todo}[1]{\tmptodo[fancyline]{#1}}
+\reversemarginpar
+
+% Why not..
+\allowdisplaybreaks 
+
+%%%%%%% Customization %%%%%%%
+
+% ----- my commands -----
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newcommand{\intrange}[3]{$#1 = #2, \dots, #3$}
+
+\newenvironment{myarray}{\begin{center}$\begin{array}{ll} }{\end{array}$ \end{center}}
+
+\newcommand{\fnkm}{F_n^{km}}
+\newcommand{\fnse}{F_n^{se}}
+\newcommand{\wnkm}[2]{W_{#1:#2}^{km}}
+\newcommand{\wnse}[2]{W_{#1:#2}}
+\newcommand{\wnseb}[2]{\bar{W}_{#1:#2}^{se}}
+\newcommand{\snkm}[2]{S_{#1,#2}^{km}}
+\newcommand{\snse}[2]{S_{#2}}
+\newcommand{\stnse}[1]{S_{2,#1}^{se}}
+\newcommand{\snseb}[2]{\bar{S}_{#1,#2}^{se}}
+\newcommand{\unkm}[2]{U_{#1,#2}^{km}}
+\newcommand{\unse}[2]{U_{#1,#2}^{se}}
+
+\newcommand{\I}[1]{\mathbbm{1}_{\{#1\}}}
+
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\N}{\mathcal{N}}
+
+\newcommand{\df}{d.\,f.}
+\newcommand{\ie}{i.\,e.}
+\newcommand{\iid}{i.\,i.\,d.}
+\newcommand{\rv}{r.\,v.}
+%\newcommand{\st}{s.\,t.}
+\newcommand{\wpo}{w.\,p.\,1}
+\newcommand{\as}{a.\,s.}
+\newcommand{\st}{s.\,t.}
+\newcommand{\wrt}{w.\,r.\,t.}
+
+\newcommand{\cfbox}[2]{%
+	\colorlet{currentcolor}{.}%
+	{\color{#1}%
+		\fbox{\color{currentcolor}#2}}%
+}
+
+
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{theorem}{Theorem}
+
+% ----- my mathoperators -----
+\newcommand{\doublesum}{\mathop{\sum\sum}}
+\newcommand{\qeq}{\mathop{\stackrel{?}{=}}}
+\newcommand{\qleq}{\mathop{\stackrel{?}{\leq}}}
+\newcommand{\qgeq}{\mathop{\stackrel{?}{\geq}}}
+
+
+% ----- UWM stylings -----
+\renewcommand{\evensidemargin}{.875in}  
+\renewcommand{\oddsidemargin}{.875in}   
+\renewcommand{\topmargin}{-.3in}
+\renewcommand{\headheight}{0.2in}
+\renewcommand{\marginparwidth}{1.4in}
+\renewcommand{\marginparsep}{1.4pt}
+\renewcommand{\headsep}{.65in}
+\renewcommand{\footskip}{0.3in}
+\renewcommand{\textheight}{8in}
+%\renewcommand{\textwidth}{5.9in} % crashes todonotes
+
+\newcommand{\ls}{\vspace{.1in}}
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{example}[thm]{Example}
+\newtheorem{remark}[thm]{Remark}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{ques}[thm]{Question}
+\newtheorem{exer}[thm]{Exercise}
+\numberwithin{thm}{chapter}
+
+% \renewcommand{\cleardoublepage}{\clearpage a \clearpage a \clearpage}
+
+%%%%%%%%%%%%%%%%%%%%%%%% TITLE PAGE DEFINITION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\mytitle}{
+	\Large \textsc{\mbox{Large sample properties of U-Statistics }}\\
+	\textsc{\mbox{under Semiparametric Random Censoring}}\\[20pt] \normalsize
+	by\\[20pt]
+	Jan H\"oft  \\[\pts] \vs }
+
+\newcommand{\Par}{ \par \vspace{0.2cm} }
+\newcommand{\pglen}{390}
+\newcommand{\pts}{12pt}
+\newcommand{\vs}{\vspace{0.7cm}}
+\newcommand{\hs}{\hspace{5mm}}
+
+\renewcommand{\contentsname}{\begin{center}{\bf \sc  \Large Table of Contents}\end{center}}
+\renewcommand{\listfigurename}{\begin{center}{\bf \sc  \Large List of Figures}\end{center}}
+\renewcommand{\bibname}{\begin{center}{\bf \sc \Large Bibliography}\end{center}}
+
+
+% ----- my document -----
+\begin{document}
+	
+
+% -- setup --
+\setlength{\baselineskip}{19pt}
+\pagenumbering{roman}
+\pagestyle{plain}
+
+% -- title page --
+\input{title_summary}
+	
+\selectlanguage{english}
+	
+% -- tables --
+\tableofcontents
+\listoftodos
+
+\cleardoublepage
+
+% -- content --
+\pagenumbering{arabic}
+	
+\input{introduction}
+
+\cleardoublepage
+
+\input{basics}
+
+\cleardoublepage
+
+\input{slln}
+
+\cleardoublepage
+
+\input{identify_limit}
+
+\cleardoublepage
+
+\input{distinction_proposal}
+
+\cleardoublepage
+
+\input{conclusion}
+
+\cleardoublepage
+
+% -- bibliography --
+\bibliography{thesis}{}
+\bibliographystyle{alpha}
+\nocite{*}
+
+\end{document}\grid

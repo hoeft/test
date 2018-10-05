@@ -1,0 +1,446 @@
+\section{Generalized Upcrossing Theorem}
+\begin{thm}
+	Assume that (A\ref{as:sup_sn}) through (A\ref{as:q_H_one}) hold. Then we have
+	\begin{align}
+		&\lim\limits_{N\to\infty}(b-a) \E[U_N[a,b]]\nonumber\\
+		&\leq \lim\limits_{N\to\infty}\E[Y_N^N]\nonumber\\
+		&\leq \lim\limits_{N\to\infty}\E[\StN{N}] - \sum_{k=1}^{N-1} \E[(1-\epsilon_k) \E[\StN{k+1} | \F_k^N]  - \StN{k}]\nonumber\\
+		&<\infty\nonumber
+	\end{align}
+	\label{thm:upcrossing}
+\end{thm}
+%
+\noindent We will first establish all necessary lemmas and then continue with the proof of Theorem \ref{thm:upcrossing} at the end of this section. The following lemma establishes a representation for the conditional expectation under the sum above, that is similar to \cite{dikta2000strong}.
+\begin{lemma}
+	Define
+	\[ Q_{ij}^{n+1} := \begin{cases} 
+	Q_i^{n+1} & j\leq n\\
+	Q_i^{n+1} - \frac{(n+1)\pi_i \pi_n (1-q(Z_{n:n+1}))}{(n-i+1)(2-q(Z_{n:n+1}))} & j=n+1
+	\end{cases}
+	\]
+	with 
+	$$Q_i^{n+1} := (n+1)\left\{\sum_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right]^2 + \frac{\pi_i \pi_{i+1}}{n-i+1} \right\}$$
+	and 
+	$$\pi_i := \prod_{k=1}^{i-1} \left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]$$
+	Then 
+	$$\E[\sn{n}|\F_{n+1}] = \doublesum\limits_{1\leq i<j\leq n+1} \phi(Z_{i:n+1}, Z_{j:n+1}) W_{i:n+1} W_{j:n+1} Q_{i,j}^{n+1}$$
+	\label{lem:qi}
+	
+	\begin{proof}
+		This lemma has been proven in my thesis. We already checked the calculations.
+	\end{proof}
+\end{lemma}
+%
+\noindent We will need the following result on the increases of the $Q_i^{n+1}$'s later in the proof of Theorem \ref{thm:upcrossing}. 
+\begin{lemma}
+	Let $Q_i^{n+1}$ be defined as above. Then
+	$$Q_{i+1}^{n+1} - Q_i^{n+1} = \frac{\tilde{\pi}_i^2(n-i+2)^2}{n+1} \left\{\frac{(q_i-q_{i+1})(n-i)(n-i+1) - q_{i+1}(1-q_i)(n-i+1-q_{i})}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right\}$$
+	where $q_i := q(Z_{i:n+1})$ and 
+	$$\tilde{\pi}_i := \pi_i\frac{n+1}{n-i+2}$$
+	\label{lem:qi_diff}
+	%
+	Note that $\tilde{\pi}_i \leq 1$ for all $i\leq n+1$. 
+	\begin{proof}
+		I proved this lemma in my thesis. 
+	\end{proof}
+\end{lemma}
+%
+\begin{lemma}
+	Let (A\ref{as:sup_qprime}) be satisfied. Then the following statements hold true for $k\leq n-1$
+	\begin{enumerate}[(i)]
+		\item We have
+		\begin{equation}
+			\E[|q(Z_{k:n})-q(Z_{k+1:n})|] \leq \frac{c_1}{n+1}
+			\label{eq:q_spacings_a}
+		\end{equation}
+		\item Furthermore assume that (A\ref{as:q_H_one}) holds. Then
+		\begin{equation}
+			\E[1-q(Z_{k:n})] \leq \frac{c_1(n-k+1)}{n+1}
+			\label{eq:q_spacings_lastk}
+		\end{equation}
+	\end{enumerate}
+	\label{lem:q_spacings}
+	
+	\begin{proof}
+		Let $q_H := q\circ H^{-1}$ and consider that we can write
+		\begin{equation}
+			q(H^{-1}(x)) = q(H^{-1}(x_0)) + q_H'(\hat{x})(x-x_0)
+			\label{eq:taylor_q}
+		\end{equation}
+		using Taylor expansion for some $\hat{x}$ in between $x$ and $x_0$. Therefore we have 
+		$$q(H^{-1}(x)) - q(H^{-1}(x_0)) = q_H'(\hat{x})(x-x_0)$$
+		and hence
+		\begin{equation}
+			|q(H^{-1}(x)) - q(H^{-1}(x_0))| = |q_H'(\hat{x})|\cdot |x-x_0|
+			\label{eq:q_taylor}
+		\end{equation}
+		%
+		Now let $U_1, \dots,U_n$ be \iid\ $Uni[0,1]$ and set $x=U_{k:n}$ and $x_0=U_{k+1:n}$ to get
+		\begin{equation*}
+			\E[|q(H^{-1}(U_{k:n})) - q(H^{-1}(U_{k+1:n}))|] = \E[|q(Z_{k:n}) - q(Z_{k+1:n})|]
+		\end{equation*}
+		%
+		Thus we get from \eqref{eq:q_taylor}
+		\begin{equation*}
+			\E[|q(Z_{k:n}) - q(Z_{k+1:n})|] = E[|q_H'(\hat{x})|\cdot (U_{k+1:n} - U_{k:n})]
+		\end{equation*}
+		where $\hat{x} \in [U_{k:n}, U_{k+1:n}]$.
+		%
+		From assumption (A\ref{as:sup_qprime}) directly follows that $\abs{q_H'(x)}\leq c_1$ for all $x \in [0,1]$. Hence we have
+		$$\E[|q(Z_{k:n}) - q(Z_{k+1:n})|] = c_1 \E[U_{k+1:n} - U_{k:n}]$$
+		%
+		According to \cite{shorack2009empirical} (p. 271), we have
+		\begin{equation}
+			\E[U_{k+1:n} - U_{k:n}] = \frac{1}{n+1}
+			\label{eq:u_spacings}
+		\end{equation}
+		%
+		Therefore we may conclude
+		\begin{align*}
+			\E[|q(Z_{k:n}) - q(Z_{k+1:n})|] &\leq c_1\E[U_{k+1:n} - U_{k:n}]\\
+			&= \frac{c_1}{n+1} \numberthis \label{eq:q_diff_a}
+		\end{align*}
+		This completes the proof part (i). 
+		%
+		We will now continue with the proof of part (ii). Consider 
+		\begin{align*}
+			1-q(Z_{k:n}) &=  1 - q(Z_{n:n}) + \sum_{l=k}^{n-1}(q(Z_{l+1:n}) - q(Z_{l:n}))\\
+			&\leq 1 - q(Z_{n:n}) + \sum_{l=k}^{n-1}\abs{q(Z_{l+1:n}) - q(Z_{l:n})}
+		\end{align*}
+		%
+		Taking expectations on each side yields
+		\begin{equation*}
+			1 - \E[q(Z_{k:n})] \leq 1 - \E[q(Z_{n:n})] + \sum_{l=k}^{n-1}\E[\abs{q(Z_{l+1:n}) - q(Z_{l:n})}]
+		\end{equation*}	
+		%
+		Now we apply inequality \eqref{eq:q_diff_a} to the expectation under the sum to get 
+		\begin{equation}
+			1 - \E[q(Z_{k:n})] \leq 1 - \E[q(Z_{n:n})] + \frac{c_1(n-k)}{n+1}
+			\label{eq:q_k_upperbnd_alt}
+		\end{equation}
+		%
+		Recall the Taylor expansion from above
+		\begin{equation*}
+			q(H^{-1}(x)) = q(H^{-1}(x_0)) + q_H'(\hat{x})(x-x_0)
+		\end{equation*}	
+		%
+		Setting $x = 1$ and $x_0 = U_{n:n}$ and taking expectations on both sides yields
+		\begin{equation*}
+			\E[q(H^{-1}(1))] = \E[q(Z_{n:n})] + \E[q_H'(\hat{x})(1 - U_{n:n})]
+		\end{equation*}
+		where $\hat{x} \in [U_{n:n}, 1]$ 
+		%
+		Now we get from assumption (A\ref{as:sup_qprime}) that
+		\begin{align*}
+			\E[q(Z_{n:n})] &= \E[q(H^{-1}(1))] - \E[q_H'(\hat{x})(1 - U_{n:n})]\\
+			&\geq \E[q(H^{-1}(1))] - c_1\E[1 - U_{n:n}]\\
+		\end{align*}
+		%
+		Using \cite{shorack2009empirical} (p. 271) again, we obtain
+		\begin{align*}
+			\E[q(Z_{n:n})]
+			&= \E[q(H^{-1}(1))] - \frac{c_1}{n+1}\\
+		\end{align*}
+		%
+		Applying (A\ref{as:q_H_one}) yields
+		\begin{equation*}
+			\E[q(Z_{n:n})]  \geq 1 - \frac{c_1}{n+1}
+		\end{equation*}
+		%
+		By combining the above with \eqref{eq:q_k_upperbnd_alt} we get
+		\begin{equation*}
+			1 - \E[q(Z_{k:n})] \leq 1 - 1 + \frac{c_1}{n+1} + \frac{c_1(n-k)}{n+1} = \frac{c_1(n-k+1)}{n+1} 
+		\end{equation*}	
+		%
+		This concludes the proof of part (ii). 
+	\end{proof}
+\end{lemma}
+%
+\noindent The following lemma contains some upper bounds that will be needed later in the proof of Theorem \ref{thm:upcrossing}.
+\begin{lemma}
+	For $n\geq 2$ the following statements hold true
+	\begin{enumerate}[(i)]
+		\item \begin{equation}
+			\sum_{k=1}^{n-1} \frac{1}{k} \leq \ln(n-1) + 1
+			\label{eq:sum_ln}
+		\end{equation}
+		%
+		\item \begin{equation}
+			\frac{\ln(n-1)+1}{(n+1)^{\frac{1}{3}}} \leq 3
+			\label{eq:ln_over_n_upperb}
+		\end{equation}
+	\end{enumerate}
+	\label{lem:bounds}
+	
+	\begin{proof}
+		We will start with the proof of part (i). Consider 
+		\begin{align*}
+			& \quad\sum_{k=1}^{n-1} \frac{1}{k} \quad \leq \quad  \ln(n-1) + 1 \\
+			\Leftrightarrow & \quad \sum_{k=1}^{n-1} \frac{1}{k} - 1 \quad \leq \quad  \ln(n-1)\\
+			\Leftrightarrow & \quad \sum_{k=2}^{n-1} \frac{1}{k} \quad \leq \quad  \ln(n-1)
+			\numberthis\label{eq:prodexp}
+		\end{align*}
+		%
+		Moreover we have
+		\begin{align*}
+			\sum_{k=2}^{n-1} \frac{1}{k} &= \sum_{k=2}^{n-1} \int_{k-1}^{k}\frac{1}{k} dx\\
+			&\leq \sum_{k=2}^{n-1} \int_{k-1}^{k}\frac{1}{x} dx\\
+			&\leq \sum_{k=2}^{n-1} \ln(k) - \ln(k-1)\\
+			&\leq \ln(n-1) - \ln(1)\\
+			&= \ln(n-1)
+		\end{align*}
+		Thus proving part (i). 
+		%
+		We will continue with the proof of part (ii). Note that \eqref{eq:ln_over_n_upperb} is equivalent to showing 
+		\begin{equation*}
+			\ln(n-1)+1 \leq 3(n+1)^{\frac{1}{3}}
+		\end{equation*}
+		%
+		Since $\ln(n-1)\leq \ln(n+1)$, this will be implied by the following
+		\begin{equation}
+			\ln(n+1)+1 \leq 3(n+1)^{\frac{1}{3}}
+			\label{eq:ln_root}
+		\end{equation}
+		It is easy to check that inequality \eqref{eq:ln_root} holds for $n=2$. Now consider that 
+		$$\frac{d}{dn}(\ln(n+1)+1) = \frac{1}{n+1}$$
+		and
+		$$\frac{d}{dn} 3(n+1)^\frac{1}{3} = \frac{1}{(n+1)^\frac{2}{3}}$$
+		to get
+		\begin{equation}
+		\frac{d}{dn}(\ln(n+1)+1) \leq \frac{d}{dn} 3(n+1)^\frac{1}{3}
+		\label{eq:derivs}
+		\end{equation}	
+		for all $n\geq 2$. Now the result in (ii) follows directly from \eqref{eq:ln_root} and \eqref{eq:derivs} .
+	\end{proof}
+\end{lemma}
+%
+\noindent Now we established everything we need in order to proceed with the proof of Theorem \ref{thm:upcrossing}. Recall that we need to show 
+\begin{equation*}
+	\lim\limits_{N\to\infty}(b-a) \E[U_N[a,b]] <\infty\nonumber
+\end{equation*}
+%
+\begin{proof}[\textbf{Proof of Theorem 1}]
+	Let (A\ref{as:sup_sn}) through (A\ref{as:q_H_one}) be satisfied. Recall the following inequality (proven in my thesis). We have for $n\leq N$
+	$$(b-a) \E[U_n[a,b]] \leq \E[Y_n^N] \leq \E[\StN{n}] - \sum_{k=1}^{n-1} \E[(1-\epsilon_k) \E[\StN{k+1} | \F_k^N] - \StN{k}]$$
+	%
+	Moreover we get from Lemma \ref{lem:qi}
+	\begin{align*}
+	\E[\StN{k+1}|\FtN{k}] &= \E[\sn{N-k} | \F_{N-k+1}]\\
+	&= \doublesum\limits_{1\leq i<j\leq N-k+1} \phi(Z_{i:N-k+1}, Z_{j:N-k+1}) W_{i:N-k+1} W_{j:N-k+1} Q_{i,j}^{N-k+1}
+	\end{align*}
+	%
+	Therefore we get
+	\begin{align*}
+		\E[Y_N^N] &\leq \E[\StN{N}] - \sum_{k=1}^{N-1} \E[(1-\epsilon_k) \E[\StN{k+1} | \F_k^N] - \StN{k} ]\\
+		&=  \E[\StN{N}] - \sum_{k=1}^{N-1} \E\left[(1-\epsilon_k) \doublesum\limits_{1\leq i<j\leq N-k+1} \phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right. \\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left. W_{i:N-k+1} W_{j:N-k+1}(Q_{i,j}^{N-k+1} - 1) \vphantom{\doublesum\limits_{1\leq i<j\leq N-k+1}}\right]\\
+		&=  \E[\StN{N}] - \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1} \E\left[(1-\epsilon_k)\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right. \\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left. W_{i:N-k+1} W_{j:N-k+1}(Q_{i,j}^{N-k+1} - 1) \right]\\
+		&\leq  \E[\StN{N}] + \left|\sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1} \E\left[(1-\epsilon_k)\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right.\right. \\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left.\left. W_{i:N-k+1} W_{j:N-k+1}(Q_{i,j}^{N-k+1} - 1) \right]\vphantom{\doublesum\limits_{1\leq i<j\leq N-k+1}}\right|\\
+		&\leq  \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1} \left|\E\left[(1-\epsilon_k)\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right.\right. \\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left.\left. W_{i:N-k+1} W_{j:N-k+1}(Q_{i,j}^{N-k+1} - 1) \right]\right|
+	\end{align*}
+	%
+	Now using Jensen's inequality yields
+	\begin{align*}
+		\E[Y_N^N] &\leq \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[(1-\epsilon_k) \phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right.\\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left. W_{i:N-k+1} W_{j:N-k+1} \abs{(Q_{i,j}^{N-k+1} - 1)}\right]\\
+		&\leq \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right. \\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left. W_{i:N-k+1} W_{j:N-k+1} \abs{(Q_{i,j}^{N-k+1} - 1)}\right]\\
+	\end{align*}
+	The latter inequality above holds, because $1-\epsilon_k \leq 1$ for all $k\leq N-1$. 
+	%
+	By applying the Cauchy-Schwarz inequality on the expectation above, we obtain
+	\begin{align*}
+		\E[Y_N^N] &\leq \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi^2(Z_{i:N-k+1}, Z_{j:N-k+1}) W^2_{i:N-k+1} W^2_{j:N-k+1}\right]^{\frac{1}{2}}\\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \E\left[(Q_{i,j}^{N-k+1} - 1)^2\right]^{\frac{1}{2}}\numberthis\label{eq:yn}
+	\end{align*}
+	%
+	We will now proceed to find an upper bound for $\E\left[(Q_{i,j}^{N-k+1} - 1)^2\right]^{\frac{1}{2}}$. For the purpose of simpler notation we set $n := n(k,N) = N-k$. The inequality above can now be written as 
+	\begin{align*}
+		\E[Y_N^N] &\leq \E[S_{1}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq n+1}\E\left[\phi^2(Z_{i:n+1}, Z_{j:n+1}) W^2_{i:n+1} W^2_{j:n+1}\right]^{\frac{1}{2}}\\
+		&\qquad\qquad\qquad\qquad\qquad \times \E\left[(Q_{i,j}^{n+1} - 1)^2\right]^{\frac{1}{2}}
+	\end{align*}
+	%
+	\textbf{Note} $k_1$ and $k_2$ below do \textbf{not} correspond to $k$ above in any way. Consider 
+	\begin{equation*}
+		Q_i^{n+1} - 1 = Q_1^{n+1} + \sum_{k_1=1}^{i-1} (Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}) - 1 \numberthis \label{eq:qi_sum}
+	\end{equation*}
+	and recall the following definition
+	$$Q_i^{n+1} := (n+1)\left\{\sum_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right]^2 + \frac{\pi_i \pi_{i+1}}{n-i+1} \right\}$$
+	where
+	$$\pi_i := \prod_{k=1}^{i-1} \left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]$$
+	%
+	We have $\pi_1 = 1$, since the product above is empty for $i=1$ and 
+	$$\pi_2 = \frac{n-q(Z_{1:n+1})}{n+1-q(Z_{1:n+1})}$$ 
+	Thus we get
+	\begin{align*}
+		Q_1^{n+1} - 1 &= (n+1)\frac{\pi_1 \pi_2}{n} - 1\\
+		&= \frac{(n+1)(n-q(Z_{1:n+1}))}{n(n+1-q(Z_{1:n+1}))} - 1\\
+		&= \frac{n(n+1-q(Z_{1:n+1}))-q(Z_{1:n+1})}{n(n+1-q(Z_{1:n+1}))} - 1\\
+		&= 1 - \frac{q(Z_{1:n+1})}{n(n+1-q(Z_{1:n+1}))} - 1\\
+		&= -\frac{q(Z_{1:n+1})}{n(n+1-q(Z_{1:n+1}))}\\
+	\end{align*}
+	%
+	Therefore we get from \eqref{eq:qi_sum} 
+	\begin{equation*}
+		Q_i^{n+1} - 1 = \sum_{k_1=1}^{i-1} (Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}) - \frac{q(Z_{1:n+1})}{n(n+1-q(Z_{1:n+1}))}
+	\end{equation*}
+	%
+	Moreover we have 
+	\begin{align*}
+		(Q_i^{n+1} - 1)^2 &= \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}(Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1})(Q_{k_2+1}^{n+1} - Q_{k_2}^{n+1})\\
+		 &\qquad - \frac{2q(Z_{1:n+1})}{n(n+1-q(Z_{1:n+1}))} \sum_{k=1}^{i-1}(Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1})\\
+		 &\qquad + \frac{q^2(Z_{1:n+1})}{n^2(n+1-q(Z_{1:n+1}))^2}\\
+		 &\leq \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}|Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}|\cdot|Q_{k_2+1}^{n+1} - Q_{k_2}^{n+1}|\\
+		 &\qquad + \frac{2q(Z_{1:n+1})}{n(n+1-q(Z_{1:n+1}))} \sum_{k_1=1}^{i-1}|Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}|\\
+		 &\qquad + \frac{q^2(Z_{1:n+1})}{n^2(n+1-q(Z_{1:n+1}))^2}\\
+	 	 &\leq \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}|Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}|\cdot|Q_{k_2+1}^{n+1} - Q_{k_2}^{n+1}|\\
+		 &\qquad + \frac{2}{n^2} \sum_{k_1=1}^{i-1}|Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}| + \frac{1}{n^4} \numberthis\label{eq:qiminusonesq}
+	\end{align*}
+	%
+	Remember that we set $q_i := q(Z_{i:n+1})$. We get from Lemma \ref{lem:qi_diff} that
+	\begin{align*}
+		&|Q_{i+1}^{n+1} - Q_i^{n+1}| \\
+		&= \frac{\tilde{\pi}_i^2(n-i+2)^2}{n+1} \cdot \left|\frac{(q_i-q_{i+1})(n-i)(n-i+1) - q_{i+1}(1-q_i)(n-i+1-q_{i})}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right|\\
+		&\leq \frac{\tilde{\pi}_i^2(n-i+2)^2}{n+1} \cdot \frac{|q_i-q_{i+1}|(n-i)(n-i+1) + q_{i+1}(1-q_i)(n-i+1-q_{i})}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\\
+		&\leq \frac{(n-i+2)^2}{n+1} \left\{\frac{\abs{q_i-q_{i+1}}(n-i)(n-i+1)+ q_{i+1}(1-q_i)(n-i+1)}{(n-i)(n-i+1)(n-i+1)^2(n-i)}\right\}\\
+		&= \frac{(n-i+2)^2}{n+1} \left\{\frac{\abs{q_i-q_{i+1}}(n-i)+ q_{i+1}(1-q_i)}{(n-i)^2(n-i+1)^2}\right\}\\
+		&\leq \frac{4\abs{q_i-q_{i+1}}}{(n+1)(n-i)} + \frac{4(1-q_i)}{(n+1)(n-i)^2}\numberthis\label{eq:qi_diff}
+	\end{align*}
+	The latter inequality above holds since 
+	$$\frac{n-i+2}{n-i+1} = 1 + \frac{1}{n-i+1} \leq 2$$
+	and $q_{i+1} \leq 1$.
+	%
+	Thus we have
+	\begin{align*}
+		&|Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}|\cdot|Q_{k_2+1}^{n+1} - Q_{k_2}^{n+1}|\\ 
+		&\leq \left[\frac{4\abs{q_{k_1}-q_{k_1+1}}}{(n+1)(n-k_1)} + \frac{4(1-q_{k_1})}{(n+1)(n-k_1)^2}\right] \\
+		&\qquad \times \left[\frac{4\abs{q_{k_2}-q_{k_2+1}}}{(n+1)(n-k_2)} + \frac{4(1-q_{k_2})}{(n+1)(n-k_2)^2}\right]\\
+		&= \frac{16\abs{q_{k_1}-q_{k_1+1}}\abs{q_{k_2}-q_{k_2+1}} }{(n+1)^2(n-k_1)(n-k_2)} + \frac{16\abs{q_{k_1}-q_{k_1+1}}(1-q_{k_2})}{(n+1)^2(n-k_1)(n-k_2)^2}\\
+		&\qquad + \frac{16(1-q_{k_1})\abs{q_{k_2}-q_{k_2+1}}}{(n+1)^2(n-k_1)^2(n-k_2)} + \frac{16(1-q_{k_1})(1-q_{k_2})}{(n+1)^2(n-k_1)^2(n-k_2)^2}\\
+		&\leq \frac{16\abs{q_{k_1}-q_{k_1+1}}}{(n+1)^2(n-k_1)(n-k_2)} + \frac{16\abs{q_{k_1}-q_{k_1+1}}}{(n+1)^2(n-k_1)(n-k_2)^2}\\
+		&\qquad + \frac{16\abs{q_{k_2}-q_{k_2+1}}}{(n+1)^2(n-k_1)^2(n-k_2)} + \frac{16(1-q_{k_1})}{(n+1)^2(n-k_1)^2(n-k_2)^2}
+	\end{align*}
+	Here the latter inequality holds, since we have $\abs{q_{k}-q_{k+1}} \leq 1$ and $1-q_{k} \leq 1$ for all $k\leq n-1$. \\
+	\\
+	Recall that 
+	\begin{align*}
+	(Q_i^{n+1} - 1)^2 &\leq \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\abs{Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}}\abs{Q_{k_2+1}^{n+1} - Q_{k_2}^{n+1}}\\
+	&\qquad + \frac{2}{n^2} \sum_{k_1=1}^{i-1}\abs{Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}} + \frac{1}{n^4} 
+	\end{align*}
+	%
+	Taking expectations on each side yields
+	\begin{align*}
+		 \E[(Q_i^{n+1} - 1)^2] &\leq \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\E[\abs{Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}}\abs{Q_{k_2+1}^{n+1} - Q_{k_2}^{n+1}}]\\
+		&\qquad + \frac{2}{n^2} \sum_{k_1=1}^{i-1}\E[|Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}|] + \frac{1}{n^4} \numberthis\label{eq:qiminusonesq_exp}
+	\end{align*}
+	%
+	Consider the expectation under the double sum above. We have 
+	\begin{align*}
+		&\E\left[\abs{Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}}\abs{Q_{k_2+1}^{n+1} - Q_{k_2}^{n+1}}\right]\\ 
+		&\leq \frac{16\E\left[\abs{q_{k_1}-q_{k_1+1}}\right]}{(n+1)^2(n-k_1)(n-k_2)} + \frac{16\E\left[\abs{q_{k_1}-q_{k_1+1}}\right]}{(n+1)^2(n-k_1)(n-k_2)^2}\\
+		&\qquad + \frac{16\E\left[\abs{q_{k_2}-q_{k_2+1}}\right]}{(n+1)^2(n-k_1)^2(n-k_2)} + \frac{16\E\left[(1-q_{k_1})\right]}{(n+1)^2(n-k_1)^2(n-k_2)^2} \numberthis\label{eq:qiminusonesq}
+	\end{align*}
+	%
+	We will now use Lemma \ref{lem:q_spacings} to establish an upper bound for the expectation above. Combining \eqref{eq:q_spacings_a} and \eqref{eq:q_spacings_lastk} above with \eqref{eq:qiminusonesq} yields
+	\begin{align*}
+		&\E[\abs{Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}}\abs{Q_{k_2+1}^{n+1} - Q_{k_2}^{n+1}}] \\
+		&\leq \frac{16c_1}{(n+1)^3(n-k_1)(n-k_2)} + \frac{16c_1}{(n+1)^3(n-k_1)(n-k_2)^2}\\
+		&\qquad + \frac{16c_1}{(n+1)^3(n-k_1)^2(n-k_2)} + \frac{16c_1(n-k_1) + 16c_1}{(n+1)^3(n-k_1)^2(n-k_2)^2}
+	\end{align*}
+	%
+	Therefore we obtain
+	\begin{align*}
+		&\sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\E[\abs{Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}}\abs{Q_{k_2+1}^{n+1} - Q_{k_2}^{n+1}}]\\
+		&\leq \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\frac{16c_1}{(n+1)^3(n-k_1)(n-k_2)} + \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\frac{16c_1}{(n+1)^3(n-k_1)(n-k_2)^2}\\
+		&\qquad + \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\frac{16c_1}{(n+1)^3(n-k_1)^2(n-k_2)} + \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\frac{16c_1(n-k_1) }{(n+1)^3(n-k_1)^2(n-k_2)^2}\\
+		&\qquad + \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\frac{16c_1}{(n+1)^3(n-k_1)^2(n-k_2)^2}\\
+		&= \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\frac{16c_1}{(n+1)^3(n-k_1)(n-k_2)} + \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\frac{32c_1}{(n+1)^3(n-k_1)(n-k_2)^2}\\
+		&\qquad + \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\frac{16c_1}{(n+1)^3(n-k_1)^2(n-k_2)} + \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\frac{16c_1}{(n+1)^3(n-k_1)^2(n-k_2)^2}\\
+		&\leq \frac{16c_1}{(n+1)^3}\sum_{k_1=1}^{i-1}\frac{1}{(n-k_1)}\sum_{k_2=1}^{i-1}\frac{1}{(n-k_2)} + \frac{32c_1}{(n+1)^3}\sum_{k_1=1}^{i-1}\frac{1}{n-k_1}\sum_{k_2=1}^{i-1}\frac{1}{(n-k_2)^2}\\
+		&\qquad + \frac{16c_1}{(n+1)^3}\sum_{k_1=1}^{i-1}\frac{1}{(n-k_1)^2}\sum_{k_2=1}^{i-1}\frac{1}{n-k_2} + \frac{16c_1}{(n+1)^3}\sum_{k_1=1}^{i-1}\frac{1}{(n-k_1)^2}\sum_{k_2=1}^{i-1}\frac{1}{(n-k_2)^2}\\
+		&\leq \frac{16c_1}{(n+1)^3}\sum_{k_1=n-i+1}^{n-1}\frac{1}{k_1}\sum_{k_2=n-i+1}^{n-1}\frac{1}{k_2} + \frac{32c_1}{(n+1)^3}\sum_{k_1=n-i+1}^{n-1}\frac{1}{k_1}\sum_{k_2=n-i+1}^{n-1}\frac{1}{k_2^2}\\
+		&\qquad + \frac{16c_1}{(n+1)^3}\sum_{k_1=n-i+1}^{n-1}\frac{1}{k_1^2}\sum_{k_2=n-i+1}^{n-1}\frac{1}{k_2} + \frac{16c_1}{(n+1)^3}\sum_{k_1=n-i+1}^{n-1}\frac{1}{k_1^2}\sum_{k_2=n-i+1}^{n-1}\frac{1}{k_2^2} \numberthis \label{eq:sumqk}
+	\end{align*}
+	%
+	Now using \eqref{eq:sum_ln} and \eqref{eq:ln_over_n_upperb} from Lemma \ref{lem:bounds} on inequality \eqref{eq:sumqk} yields 
+	\begin{align*}
+		&\sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\E[\abs{Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}}\abs{Q_{k_2+1}^{n+1} - Q_{k_2}^{n+1}}]\\
+		&\leq \frac{16c_1}{(n+1)^3}(\ln(n-1)+1)^2 + \frac{64c_1}{(n+1)^3}(\ln{(n-1)}+1)\\
+		&\qquad + \frac{32c_1}{(n+1)^3}(\ln{(n-1)}+1) + \frac{64c_1}{(n+1)^3}\\
+		&\leq \frac{144c_1}{(n+1)^\frac{7}{3}}+ \frac{288c_1}{(n+1)^\frac{8}{3}} + \frac{64c_1}{(n+1)^3}\\
+		&\leq \frac{496c_1}{(n+1)^\frac{7}{3}} \numberthis \label{eq:first_sum}
+	\end{align*}
+	%
+	We will now proceed with the second sum in \eqref{eq:qiminusonesq_exp}. We get from \eqref{eq:qi_diff}
+	\begin{equation*}
+		\E[\abs{Q_{i+1}^{n+1} - Q_i^{n+1}}] \leq \frac{4\E[\abs{q_i-q_{i+1}}]}{(n+1)(n-i)} + \frac{4\E[1-q_i]}{(n+1)(n-i)^2}
+	\end{equation*}
+	%
+	Therefore we obtain
+	\begin{equation*}
+		\frac{2}{n^2} \sum_{k_1=1}^{i-1}\E[|Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}|] \leq \frac{8}{n^2(n+1)}\sum_{k_1=1}^{i-1}\frac{\E[\abs{q_{k_1}-q_{k_1+1}}]}{n-k_1} + \frac{\E[1-q_{k_1}]}{(n-k_1)^2}
+	\end{equation*}
+	%
+	Again using \eqref{eq:q_spacings_a} and \eqref{eq:q_spacings_lastk} reveals
+	\begin{align*}
+		\frac{2}{n^2} \sum_{k_1=1}^{i-1}\E[|Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}|] &\leq  \frac{8}{n^2(n+1)^2}\left\{\sum_{k_1=1}^{i-1}\frac{c_1}{(n-k_1)} + \sum_{k_1=1}^{i-1}\frac{c_1(n-k_1+1)}{(n-k_1)^2}\right\}\\
+		&=  \frac{8}{n^2(n+1)^2}\left\{2\sum_{k_1=1}^{i-1}\frac{c_1}{(n-k_1)} + \sum_{k_1=1}^{i-1}\frac{c_1}{(n-k_1)^2}\right\}\\
+		&=  \frac{8}{n^2(n+1)^2}\left\{2\cdot\sum_{k_1=n-i+1}^{n-1}\frac{c_1}{k_1} + \sum_{k_1=n-i+1}^{n-1}\frac{c_1}{k_1^2}\right\}
+	\end{align*}
+	%
+	By using \eqref{eq:sum_ln} and \eqref{eq:ln_over_n_upperb} again we obtain
+	\begin{align*}
+		\frac{2}{n^2} \sum_{k_1=1}^{i-1}\E[|Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}|] &\leq  \frac{8\cdot\{2c_1(\ln(n-1)+1)+2c_1\}}{n^2(n+1)^2}\\
+		&=  \frac{16c_1(\ln(n-1)+1)}{n^2(n+1)^2} + \frac{16c_1}{n^2(n+1)^2}\\
+		&\leq  \frac{48c_1}{n^2(n+1)^\frac{5}{3}} + \frac{16c_1}{n^2(n+1)^2}\\
+		&\leq  \frac{64c_1}{n^2(n+1)^\frac{5}{3}} \numberthis\label{eq:second_sum}
+	\end{align*}
+	%
+	Again recall the following fact 
+	\begin{align*}
+		\E[(Q_i^{n+1} - 1)^2] &= \sum_{k_1=1}^{i-1}\sum_{k_2=1}^{i-1}\E[\abs{Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}}\abs{Q_{k_2+1}^{n+1} - Q_{k_2}^{n+1}}]\\
+		&\qquad + \frac{2}{n^2} \sum_{k_1=1}^{i-1}\E[|Q_{k_1+1}^{n+1} - Q_{k_1}^{n+1}|] + \frac{1}{n^4}
+	\end{align*}
+	%
+	Combining the above with \eqref{eq:first_sum} and \eqref{eq:second_sum} yields
+	\begin{align*}
+		\E[(Q_i^{n+1} - 1)^2] &\leq \frac{496c_1}{(n+1)^\frac{7}{3}}+ \frac{64c_1}{n^2(n+1)^\frac{5}{3}} + \frac{1}{n^4}\\
+		&\leq \frac{496c_1}{n^\frac{7}{3}} + \frac{64c_1}{n^\frac{11}{3}} + \frac{1}{n^4}\\
+		&\leq \frac{1}{n^\frac{7}{3}}\left[496c_1 + \frac{64c_1}{n^\frac{4}{3}} + \frac{1}{n^\frac{5}{3}}\right]\\
+		&\leq \frac{560c_1+1}{n^\frac{7}{3}}\\
+		&= \frac{c_2}{n^\frac{7}{3}}
+	\end{align*}
+	with $c_2 := 560c_1+1$. Therefore
+	\begin{equation*}
+		\E[(Q_i^{n+1} - 1)^2]^\frac{1}{2} \leq \frac{\sqrt{c_2}}{n^\frac{7}{6}}
+	\end{equation*}
+	%
+	Recall that we set $n=N-k$. Thus we can write 
+	\begin{equation*}
+		\E[(Q_i^{N-k+1} - 1)^2]^\frac{1}{2} \leq \frac{\sqrt{c_2}}{(N-k)^\frac{7}{6}}
+	\end{equation*}
+	%
+	Now combining the latter with \eqref{eq:yn} yields 
+	\begin{align*}
+		\E[Y_N^N] &\leq  \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi^2(Z_{i:N-k+1}, Z_{j:N-k+1}) W^2_{i:N-k+1} W^2_{j:N-k+1}\right]^{\frac{1}{2}}\\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \E\left[(Q_{i,j}^{N-k+1} - 1)^2\right]^{\frac{1}{2}}\\
+		&\leq \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi^2(Z_{i:N-k+1}, Z_{j:N-k+1}) W^2_{i:N-k+1} W^2_{j:N-k+1}\right]^{\frac{1}{2}}\\
+		&\qquad\qquad\qquad\qquad\qquad\qquad \times \frac{\sqrt{c_2}}{(N-k)^\frac{7}{6}}
+	\end{align*}
+	%
+	Thus it remains to show that 
+	$$\doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi^2(Z_{(i)}, Z_{(j)}) W^2_{(i)} W^2_{(j)}\right]^{\frac{1}{2}} \leq c_3 < \infty$$
+	is bounded above. Then we would have 
+	\begin{align*}
+		\lim\limits_{N\to\infty}\E[U_N[a,b]]
+		&\leq \lim\limits_{N\to\infty}\E[Y_N^N]\\
+		&\leq \lim\limits_{N\to\infty} \left\{\E[\StN{N}] + c_3\sum_{k=1}^{N-1}\frac{\sqrt{c_2}}{(N-k)^\frac{7}{6}}\right\}\\
+		&\leq \sup\limits_{N}\E[\StN{N}] + \sqrt{c_2}c_3 \left\{\lim\limits_{N\to\infty}\sum_{k=1}^{N-1}\frac{1}{(N-k)^\frac{7}{6}}\right\}\\
+		&< \infty
+	\end{align*}
+	%
+	And therefore we may finally conclude that $S = \lim_{n\to\infty} S_n$ exists. Note that there is more argumentation about the relationship between $U_N[a,b]$ and $\lim\limits_{n\to\infty} S_n$ in my thesis.\\
+\end{proof}

@@ -1,0 +1,206 @@
+\chapter{Modifying the Martingale Convergence Theorem}
+We're considering the estimator
+$$\sn{n} = \doublesum\limits_{1\leq i<j\leq n} \phi(Z_{i:n}, Z_{j:n}) W_{i:n} W_{j:n}$$
+where 
+$$W_{i:n} = \frac{q(Z_{i:n})}{n-i+1}\prod_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n})}{n-k+1}\right]$$
+Define $\F_n := \sigma\{Z_{1:n}, \dots, Z_{n:n}, Z_{n+1}, Z_{n+2}, \dots\}$. Furthermore we will need the following definitions in order to get into a (forward) martingale framework. Define
+$$\tilde{S}^N_n := S_{N-n+1} \textrm{, } \F_n^N := \F_{N-n+1}$$
+
+Let $U_n[a,b]$ denote the number of upcrossings of $\tilde{S}_1^N, \dots, \tilde{S}_n^N$ and define 
+$$Y_n^N := \StN{1} + \sum_{i=1}^{n-1} \epsilon_i (\StN{i+1} - \StN{i}) $$
+with 
+\[ \epsilon_i := \begin{cases} 
+1 & (\StN{1},\dots, \StN{i}) \in B\\
+0 & \textrm{o.w.}
+\end{cases}
+\]
+for some Borel set $B \in  \mathcal{B}(\mathbb{R}^i)$.
+
+We can show that 
+$$(b-a) \E[U_n[a,b]] \leq \E[Y_n^N] \leq \E[\StN{n}] - \sum_{k=1}^{n-1} \E[(1-\epsilon_k) \E[\StN{k+1} - \StN{k} | \F_k^N]]$$
+
+Note that we need to show 
+\begin{align}
+	&\lim\limits_{N\to\infty}(b-a) \E[U_N[a,b]]\nonumber\\
+	&\leq \lim\limits_{N\to\infty}\E[Y_N^N]\nonumber\\
+	&\leq \lim\limits_{N\to\infty}\E[\StN{N}] - \sum_{k=1}^{N-1} \E[(1-\epsilon_k) \E[\StN{k+1} - \StN{k} | \F_k^N]]\\
+	&<\infty\nonumber
+\end{align}
+
+So the main concern is to show that the sum of increases of $\StN{k}$ on the right hand side converges. In order to do that, we need the following result.
+
+\begin{lemma}
+	Define
+	\[ Q_{ij}^{n+1} := \begin{cases} 
+	Q_i^{n+1} & j\leq n\\
+	Q_i^{n+1} - \frac{(n+1)\pi_i \pi_n (1-q(Z_{n:n+1}))}{(n-i+1)(2-q(Z_{n:n+1}))} & j=n+1
+	\end{cases}
+	\]
+	with 
+	$$Q_i^{n+1} := (n+1)\left\{\sum_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right]^2 + \frac{\pi_i \pi_{i+1}}{n-i+1} \right\}$$
+	and 
+	$$\pi_i := \prod_{k=1}^{i-1} \left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]$$
+	Then 
+	$$\E[\sn{n}|\F_{n+1}] = \doublesum\limits_{1\leq i<j\leq n} \phi(Z_{i:n+1}, Z_{j:n+1}) W_{i:n+1} W_{j:n+1} Q_{i,j}^{n+1}$$
+	\label{lem:qi}
+\end{lemma}
+
+Note that we directly get the following from the lemma above.
+\begin{align*}
+	\E[\StN{k+1}|\FtN{k}] &= \E[\sn{N-k} | \F_{N-k+1}]\\
+	&= \doublesum\limits_{1\leq i<j\leq N-k+1} \phi(Z_{i:N-k+1}, Z_{j:N-k+1}) W_{i:N-k+1} W_{j:N-k+1} Q_{i,j}^{N-k+1}
+\end{align*}
+
+For the sake of notation let's denote $Z_{(i)} := Z_{i:N-k+1}$ and $Z_{(i)} := Z_{i:N-k+1}$. Now we get 
+\begin{align*}
+	\E[Y_N^N] &\leq \E[\StN{N}] - \sum_{k=1}^{N-1} \E[(1-\epsilon_k) \E[\StN{k+1} - \StN{k} | \F_k^N]]\\
+	&=  \E[\StN{N}] - \sum_{k=1}^{N-1} \E\left[(1-\epsilon_k) \doublesum\limits_{1\leq i<j\leq N-k+1} \phi(Z_{(i)}, Z_{(j)}) W_{(i)} W_{(j)} (Q_{i,j}^{N-k+1} - 1)\right]\\
+	&=  \E[\StN{N}] - \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[(1-\epsilon_k) \phi(Z_{(i)}, Z_{(j)}) W_{(i)} W_{(j)} (Q_{i,j}^{N-k+1} - 1)\right]\\
+	&\leq  \E[\StN{N}] + \abs{\sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[(1-\epsilon_k) \phi(Z_{(i)}, Z_{(j)}) W_{(i)} W_{(j)} (Q_{i,j}^{N-k+1} - 1)\right]}\\
+	&\leq  \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\abs{\E\left[(1-\epsilon_k) \phi(Z_{(i)}, Z_{(j)}) W_{(i)} W_{(j)} (Q_{i,j}^{N-k+1} - 1)\right]}\\
+	&\stackrel{Jensen}{\leq} \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[(1-\epsilon_k) \phi(Z_{(i)}, Z_{(j)}) W_{(i)} W_{(j)} \abs{(Q_{i,j}^{N-k+1} - 1)}\right]\\
+	&\leq \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi(Z_{(i)}, Z_{(j)}) W_{(i)} W_{(j)} \abs{(Q_{i,j}^{N-k+1} - 1)}\right]\\
+	&\stackrel{C.S.}{\leq} \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi^2(Z_{(i)}, Z_{(j)}) W^2_{(i)} W^2_{(j)}\right]^{\frac{1}{2}} \E\left[(Q_{i,j}^{N-k+1} - 1)^2\right]^{\frac{1}{2}}\numberthis\label{eq:yn}
+\end{align*}
+
+Now consider 
+\begin{align}
+	Q_i^{n+1} - 1 &= Q_1^{n+1} + \sum_{k=1}^{i-1} (Q_{k+1}^{n+1} - Q_k^{n+1}) - 1\nonumber\\
+	&= \sum_{k=1}^{i-1} Q_{k+1}^{n+1} - Q_k^{n+1}\nonumber
+\end{align}
+
+Hence 
+\begin{equation}
+(Q_i^{n+1} - 1)^2 = \sum_{k=1}^{i-1}\sum_{l=1}^{i-1}(Q_{k+1}^{n+1} - Q_k^{n+1})(Q_{l+1}^{n+1} - Q_l^{n+1})
+\label{eq:qiminusonesq}
+\end{equation}
+
+\begin{lemma}
+Let $Q_i^{n+1}$ be defined as above. Then
+$$Q_{i+1}^{n+1} - Q_i^{n+1} = \frac{\tilde{\pi}_i^2(n-i+2)^2}{n+1} \left\{\frac{(q_i-q_{i+1})(n-i)(n-i+1) - q_{i+1}(1-q_i)(n-i+1-q_{i})}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right\}$$
+where $q_i := q(Z_{i:n+1})$ and 
+$$\tilde{\pi}_i := \pi_i\frac{n+1}{n-i+2}$$
+
+Note that $\tilde{\pi}_i \leq 1$ for all $i\leq n+1$.
+\label{lem:qi_diff}
+\end{lemma}
+
+Consider the following 
+\begin{align*}
+	&Q_{i+1}^{n+1} - Q_i^{n+1} \\
+	&\leq \abs{\frac{\tilde{\pi}_i^2(n-i+2)^2}{n+1} \left\{\frac{(q_i-q_{i+1})(n-i)(n-i+1) - q_{i+1}(1-q_i)(n-i+1-q_{i})}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right\}}\\
+	&\leq \sum_{k=1}^{i-1} \frac{\tilde{\pi}_i^2(n-i+2)^2}{n+1} \left\{\frac{\abs{q_i-q_{i+1}}(n-i)(n-i+1) + q_{i+1}(1-q_i)(n-i+1-q_{i})}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right\}\\
+	&\leq \sum_{k=1}^{i-1} \frac{(n-i+2)^2}{n+1} \left\{\frac{\abs{q_i-q_{i+1}}(n-i)(n-i+1) + q_{i+1}(1-q_i)(n-i+1)}{(n-i)(n-i+1)(n-i+1)^2(n-i)}\right\}\\
+	&= \sum_{k=1}^{i-1} \frac{(n-i+2)^2}{n+1} \left\{\frac{\abs{q_i-q_{i+1}}(n-i)(n-i+1) + q_{i+1}(1-q_i)(n-i+1)}{(n-i)^2(n-i+1)^3}\right\}\\
+	&\leq \frac{4}{n+1}\sum_{k=1}^{i-1}\frac{\abs{q_i-q_{i+1}}(n-i)(n-i+1) + q_{i+1}(1-q_i)(n-i+1)}{(n-i)^2(n-i+1)}
+\end{align*}
+The latter inequality above holds since 
+$$\frac{n-i+2}{n-i+1} = 1 + \frac{1}{n-i+1} \leq 2$$
+
+Thus we have
+\begin{align*}
+	&(Q_{k+1}^{n+1} - Q_k^{n+1})(Q_{l+1}^{n+1} - Q_l^{n+1})\\ 
+	&\qquad \leq\frac{16}{(n+1)^2}\frac{\abs{q_k-q_{k+1}}(n-k)(n-k+1) + q_{k+1}(1-q_k)(n-k+1)}{(n-k)^2(n-k+1)}\\
+	&\qquad\qquad\qquad \times \frac{\abs{q_l-q_{l+1}}(n-l)(n-l+1) + q_{l+1}(1-q_l)(n-l+1)}{(n-l)^2(n-l+1)}\\
+	&\qquad= \frac{16}{(n+1)^2(n-k)^2(n-k+1)(n-l)^2(n-l+1)}\\
+	&\qquad\qquad\times (\abs{q_k-q_{k+1}}(n-k)(n-k+1) + q_{k+1}(1-q_k)(n-k+1))\\
+	&\qquad\qquad\times (\abs{q_l-q_{l+1}}(n-l)(n-l+1) + q_{l+1}(1-q_l)(n-l+1))\\
+	&\qquad= \frac{16}{(n+1)^2(n-k)^2(n-k+1)(n-l)^2(n-l+1)}\\
+	&\qquad\qquad\times \{\abs{q_k-q_{k+1}}\abs{q_l-q_{l+1}}(n-k)(n-k+1)(n-l)(n-l+1)\\
+	&\qquad\qquad\qquad+ \abs{q_k-q_{k+1}}q_{l+1}(1-q_l)(n-k)(n-k+1)(n-l+1)\\
+	&\qquad\qquad\qquad+ \abs{q_l-q_{l+1}}q_{k+1}(1-q_k)(n-l)(n-l+1)(n-k+1)\\	
+	&\qquad\qquad\qquad+ q_{k+1}(1-q_k)q_{l+1}(1-q_l)(n-k+1)(n-l+1)\}\\
+	&\qquad\leq \frac{16}{(n+1)^2(n-k)^2(n-k+1)(n-l)^2(n-l+1)}\\
+	&\qquad\qquad\times \{\abs{q_k-q_{k+1}}\abs{q_l-q_{l+1}}(n-k)(n-k+1)(n-l)(n-l+1)\\
+	&\qquad\qquad\qquad+ \abs{q_k-q_{k+1}}(n-k)(n-k+1)(n-l+1)\\
+	&\qquad\qquad\qquad+ \abs{q_l-q_{l+1}}(n-l)(n-l+1)(n-k+1)\\	
+	&\qquad\qquad\qquad+ q_{k+1}(1-q_k)q_{l+1}(1-q_l)(n-k+1)(n-l+1)\}
+\end{align*}
+
+Now consider 
+\begin{align*}
+	&\E[(Q_{k+1}^{n+1} - Q_k^{n+1})(Q_{l+1}^{n+1} - Q_l^{n+1})]\\ 
+	&\qquad\leq \frac{16}{(n+1)^2(n-k)^2(n-k+1)(n-l)^2(n-l+1)}\\
+	&\qquad\qquad\times \{\E[\abs{q_k-q_{k+1}}\abs{q_l-q_{l+1}}](n-k)(n-k+1)(n-l)(n-l+1)\\
+	&\qquad\qquad\qquad+ \E[\abs{q_k-q_{k+1}}](n-k)(n-k+1)(n-l+1)\\
+	&\qquad\qquad\qquad+ \E[\abs{q_l-q_{l+1}}](n-l)(n-l+1)(n-k+1)\\	
+	&\qquad\qquad\qquad+ \E[q_{k+1}(1-q_k)q_{l+1}(1-q_l)](n-k+1)(n-l+1)\}\\
+	&\qquad\leq \frac{16}{(n+1)^2(n-k)^2(n-k+1)(n-l)^2(n-l+1)}\\
+	&\qquad\qquad\times \{\E[\abs{q_k-q_{k+1}}](n-k)(n-k+1)(n-l)(n-l+1)\\
+	&\qquad\qquad\qquad+ \E[\abs{q_k-q_{k+1}}](n-k)(n-k+1)(n-l+1)\\
+	&\qquad\qquad\qquad+ \E[\abs{q_l-q_{l+1}}](n-l)(n-l+1)(n-k+1)\\	
+	&\qquad\qquad\qquad+ \E[q_{k+1}(1-q_k)q_{l+1}(1-q_l)](n-k+1)(n-l+1)\}
+\end{align*}
+
+\todo{Let's assume for the moment that}
+$$\E[|q_k - q_{k+1}|] \qleq \frac{1}{n+1}$$
+and 
+$$\E[q_{k+1}(1-q_k)q_{l+1}(1-q_l)] \qleq \frac{1}{n+1}$$
+
+Then we get 
+%\begin{align*}
+%&\E[(Q_{k+1}^{n+1} - Q_k^{n+1})(Q_{l+1}^{n+1} - Q_l^{n+1})]\\ 
+%&\qquad\leq \frac{16}{(n+1)^3(n-k)^2(n-k+1)(n-l)^2(n-l+1)}\\
+%&\qquad\qquad\times \{(n-k)(n-k+1)(n-l)(n-l+1)\\
+%&\qquad\qquad\qquad+ (n-k)(n-k+1)(n-l+1)\\
+%&\qquad\qquad\qquad+ (n-l)(n-l+1)(n-k+1)\\	
+%&\qquad\qquad\qquad+ (n-k+1)(n-l+1)\}\\
+%&\qquad= \frac{16}{(n+1)^3(n-k)^2(n-k+1)(n-l)^2(n-l+1)}\\
+%&\qquad\qquad\times \{(n-k)(n-k+1)(n-l+1)^2\\
+%&\qquad\qquad\qquad+ (n-k+1)(n-l+1)^2\}\\
+%&\qquad= \frac{16(n-k+1)^2(n-l+1)^2}{(n+1)^3(n-k)^2(n-k+1)(n-l)^2(n-l+1)}
+%\end{align*}
+\begin{align*}
+	&\E[(Q_{k+1}^{n+1} - Q_k^{n+1})(Q_{l+1}^{n+1} - Q_l^{n+1})]\\ 
+	&\qquad\leq \frac{16}{(n+1)^3(n-k)^2(n-k+1)(n-l)^2(n-l+1)}\\
+	&\qquad\qquad\times \{(n-k)(n-k+1)(n-l)(n-l+1)\\
+	&\qquad\qquad\qquad+ (n-k)(n-k+1)(n-l+1)\\
+	&\qquad\qquad\qquad+ (n-l)(n-l+1)(n-k+1)\\	
+	&\qquad\qquad\qquad+ (n+1)(n-k+1)(n-l+1)\}\\
+	&\qquad= \frac{16}{(n+1)^3(n-k)^2(n-k+1)(n-l)^2(n-l+1)}\\
+	&\qquad\qquad\times \{(n-k)(n-k+1)(n-l+1)^2\\
+	&\qquad\qquad\qquad+ (n-k+1)(n-l+1)[(n-l) + (n+1)]\}\\
+	&\qquad= \frac{16}{(n+1)^3(n-k)^2(n-k+1)(n-l)^2(n-l+1)}\\
+	&\qquad\qquad\times \{(n-k+1)(n-l+1)[(n-k)(n-l+1) + (n-l) + (n+1)]\}\\
+	&\qquad= \frac{16[(n-k)(n-l+1) + (n-l) + (n+1)]}{(n+1)^3(n-k)^2(n-l)^2}\\
+\end{align*}
+
+Now combining the latter with \eqref{eq:qiminusonesq} yields
+\begin{align*}
+	\E[(Q_{i}^{n+1}-1)^2] &\leq \sum_{k=1}^{i-1}\sum_{l=1}^{i-1}\frac{16[(n-k)(n-l+1) + (n-l) + (n+1)]}{(n+1)^3(n-k)^2(n-l)^2}\\
+	&= \sum_{k=1}^{i-1}\sum_{l=1}^{i-1} \frac{16(n-l+1)}{(n+1)^3(n-k)(n-l)^2}\\
+	&\qquad+ \sum_{k=1}^{i-1}\sum_{l=1}^{i-1} \frac{16}{(n+1)^3(n-k)^2(n-l)}\\
+	&\qquad+ \sum_{k=1}^{i-1}\sum_{l=1}^{i-1} \frac{16}{(n+1)^2(n-k)^2(n-l)^2}\\
+	&\leq \frac{32}{(n+1)^3}\sum_{k=1}^{i-1}\sum_{l=1}^{i-1} \frac{1}{(n-k)(n-l)}\\
+	&\qquad+ \frac{16}{(n+1)^3}\sum_{k=1}^{i-1}\sum_{l=1}^{i-1} \frac{1}{(n-k)^2(n-l)}\\
+	&\qquad+ \frac{16}{(n+1)^2}\sum_{k=1}^{i-1}\sum_{l=1}^{i-1} \frac{1}{(n-k)^2(n-l)^2}\\
+	&\leq \frac{32}{(n+1)^3}\sum_{k=n-i+1}^{n-1}\frac{1}{k}\sum_{l=n-i+1}^{n-1} \frac{1}{l}\\
+	&\qquad+ \frac{16}{(n+1)^3}\sum_{k=n-i+1}^{n-1}\frac{1}{k^2}\sum_{l=n-i+1}^{n-1} \frac{1}{l}\\
+	&\qquad+ \frac{16}{(n+1)^2}\sum_{k=n-i+1}^{n-1}\frac{1}{k^2}\sum_{l=n-i+1}^{n-1} \frac{1}{l^2}
+\end{align*}
+
+\todo{Note that (I believe) I can show}
+$$\sum_{k=1}^{n-1} \frac{1}{k} \leq 2(n+1)^\frac{1}{3}$$
+(Everything with a smaller exponent than $(n+1)^\frac{1}{2}$ will work.)
+\\
+Therefore
+\begin{align*}
+	\E[(Q_{i}^{n+1}-1)^2]&\leq \frac{128(n+1)^\frac{2}{3}}{(n+1)^3} + \frac{64(n+1)^\frac{1}{3}}{(n+1)^3} + \frac{64}{(n+1)^2}\\
+	&= \frac{128}{(n+1)^\frac{7}{3}} + \frac{64}{(n+1)^\frac{8}{3}} + \frac{64}{(n+1)^2}\\
+	&= \frac{64}{(n+1)^2}\left(\frac{2}{(n+1)^\frac{1}{3}} + \frac{1}{(n+1)^\frac{2}{3}} + 1\right)\\
+	&\leq \frac{256}{(n+1)^2}
+\end{align*}
+
+Thus 
+\begin{equation}
+	\E[(Q_{i}^{N-k+1}-1)^2]^\frac{1}{2}\leq \frac{16}{N-k+1}
+\end{equation}
+
+Now combining the above with \eqref{eq:yn} yields 
+\begin{align*}
+	\E[Y_N^N] &\leq  \E[\StN{N}] + \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi^2(Z_{(i)}, Z_{(j)}) W^2_{(i)} W^2_{(j)}\right]^{\frac{1}{2}} \E\left[(Q_{i,j}^{N-k+1} - 1)^2\right]^{\frac{1}{2}}\\
+	&\leq \E[\StN{N}] + \sum_{k=1}^{N-1} \E\left[\doublesum\limits_{1\leq i<j\leq N-k+1}\phi^2(Z_{(i)}, Z_{(j)}) W^2_{(i)} W^2_{(j)}\right]^{\frac{1}{2}}\times \frac{16}{N-k+1}
+\end{align*}
+
+Thus it remains to show that 
+$$\E\left[\doublesum\limits_{1\leq i<j\leq N-k+1}\phi^2(Z_{(i)}, Z_{(j)}) W^2_{(i)} W^2_{(j)}\right]^{\frac{1}{2}} \leq const. $$

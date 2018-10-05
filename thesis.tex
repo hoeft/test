@@ -1,0 +1,634 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template for a Master's Thesis or Ph.D. dissertation
+% at the University of Wisconsin-Milwaukee.
+%
+% Designed for LaTeX version 2e
+%
+% Updated by Adam J. Smith
+% December, 2007
+%
+% This thesis template requires the file "UWMthesis.sty", available
+% on the UWM's Atmospheric Science Club website, and possible in other
+% locations.
+%
+% A LaTeX primer is not provided here.  For instructions on how to use commands for
+% figures, table, equations, and bibliography citations, please see the documentation
+% listed later in this document.
+% 
+% This template follows the "Fall 2007" version of the 
+% University of Wisconsin-Milwaukee standards for the Master's thesis
+% and Ph.D. dissertation.  Please feel free to update this template
+% as needed to comply with these standards.
+%
+% For current thesis and dissertation formatting information, visit the UWM graduate school
+% website at the following address:
+% http://www.graduateschool.uwm.edu/students/current/thesis-and-dissertation-formatting/
+%
+% IMPORTANT: Be sure to meet with the appropriate Graduate School personnel to verify
+% whether your final document meets the UWM standards.  If not, the document may not
+% be accepted until any problems are corrected.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% If you are writing a master's thesis, use the first option (master).
+% If you are writing a phd dissertation, use the second option (phd).
+%\documentclass[master]{UWMThesis}
+\documentclass[phd]{UWMThesis}
+
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{kantlipsum}
+\usepackage{tabularx}
+
+%Absolute value nice definition
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+%\usepackage{todonotes}
+%\usepackage{todo}
+\usepackage{fixmetodonotes}
+\defnote{Comment}{inline}{\hspace{10pt}}
+%------------------------------------
+
+% Uncomment the following "usepackage" line if you wish to use BiBTeX to create the
+% bibliography.  This package is necessary to use the \citep or \citet commands, which are
+% commonly used in publications like the Journal of Geophysical Research.
+% If the style file "natbib.sty" is not provided with your release of MiKTeX, it is available
+% on the Internet.  One example web source is:
+% http://ads.harvard.edu/pubs/bibtex/astronat/natbib.sty
+\usepackage{natbib}
+\usepackage[ngerman, english]{babel} 
+%------------------------------------
+
+% Uncomment this package if you want to use graphics files, such as .eps files
+\usepackage{graphicx}
+
+% Other packages go here as needed...
+%\usepackage{mathabx}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue]{hyperref}
+
+% make todo note lines fancy af and display at left margin
+%\let\tmptodo\todo
+%\renewcommand{\todo}[1]{\tmptodo[fancyline]{#1}}
+%\reversemarginpar
+
+% --- Tikz Setup ---
+\usepackage{tikz}
+\usepackage{forest}
+\usetikzlibrary{arrows.meta, shapes.geometric, calc, shadows}
+
+\colorlet{mygreen}{green!75!black}
+\colorlet{col1in}{red!30}
+\colorlet{col1out}{red!40}
+\colorlet{col2in}{mygreen!40}
+\colorlet{col2out}{mygreen!50}
+\colorlet{col3in}{blue!30}
+\colorlet{col3out}{blue!40}
+\colorlet{col4in}{mygreen!20}
+\colorlet{col4out}{mygreen!30}
+\colorlet{col5in}{blue!10}
+\colorlet{col5out}{blue!20}
+\colorlet{col6in}{blue!20}
+\colorlet{col6out}{blue!30}
+\colorlet{col7out}{orange}
+\colorlet{col7in}{orange!50}
+\colorlet{col8out}{orange!40}
+\colorlet{col8in}{orange!20}
+\colorlet{linecol}{blue!60}
+\usetikzlibrary{shapes.gates.logic.US,trees,positioning,arrows}
+% --- Tikz Setup ---
+
+% Why not..
+\allowdisplaybreaks 
+%------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Customization %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ----- my commands -----
+\newcommand{\comment}[1]{\fbox{\begin{minipage}{\textwidth}\Comment{\textcolor{blue}{#1}}\end{minipage}}\\}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newcommand{\intrange}[3]{$#1 = #2, \dots, #3$}
+\newcommand{\itref}[2]{(#1\ref{#2})}
+
+\newenvironment{myarray}{\begin{center}$\begin{array}{ll} }{\end{array}$ \end{center}}
+
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\N}{\mathcal{N}}
+
+\newcommand{\fnkm}{F_n^{km}}
+\newcommand{\fnse}{F_n^{se}}
+\newcommand{\wn}[2]{W_{#1:#2}}
+\newcommand{\wnkm}[2]{W_{#1:#2}^{km}}
+\newcommand{\wnse}[2]{W_{#1:#2}^{se}}
+\newcommand{\wnseb}[2]{\bar{W}_{#1:#2}^{se}}
+\newcommand{\sn}[1]{S_{#1}}
+\newcommand{\snkm}[2]{S_{#1,#2}^{km}}
+\newcommand{\snse}[2]{S_{#1,#2}^{se}}
+\newcommand{\stnse}[1]{S_{2,#1}^{se}}
+\newcommand{\snseb}[2]{\bar{S}_{#1,#2}^{se}}
+\newcommand{\unkm}[2]{U_{#1,#2}^{km}}
+\newcommand{\unse}[2]{U_{#1,#2}^{se}}
+
+\newcommand{\StN}[1]{\tilde{S}_{#1}^N}
+\newcommand{\FtN}[1]{\tilde{\F}_{#1}^N}
+\newcommand{\YN}[1]{Y_{#1}^N}
+\newcommand{\xitN}[1]{\tilde{\xi}_{#1}^N}
+\newcommand{\UNab}[1]{U_{#1}^N[a,b]}
+
+\newcommand{\I}[1]{{\mathbbm{1}_{\{#1\}}}}
+
+\newcommand{\df}{d.\,f.}
+\newcommand{\ie}{i.\,e.}
+\newcommand{\iid}{i.\,i.\,d.}
+\newcommand{\rv}{r.\,v.}
+%\newcommand{\st}{s.\,t.}
+\newcommand{\wpo}{w.\,p.\,1}
+\newcommand{\as}{a.\,s.}
+\newcommand{\st}{s.\,t.}
+\newcommand{\wrt}{w.\,r.\,t.}
+\newcommand{\cf}{c.\,f.}
+
+\newcommand{\mdot}{\textrm{ .}}
+\newcommand{\mcomma}{\textrm{ ,}}
+
+\newcommand{\cfbox}[2]{%
+	\colorlet{currentcolor}{.}%
+	{\color{#1}%
+		\fbox{\color{currentcolor}#2}}%
+}
+\renewcommand{\.}{\textrm{ .}}
+
+
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{theorem}{Theorem}
+
+% ----- my mathoperators -----
+\newcommand{\doublesum}{\mathop{\sum\sum}}
+\newcommand{\qeq}{\mathop{\stackrel{?}{=}}}
+\newcommand{\qleq}{\mathop{\stackrel{?}{\leq}}}
+\newcommand{\qgeq}{\mathop{\stackrel{?}{\geq}}}
+
+
+% ----- UWM stylings -----
+%\renewcommand{\evensidemargin}{.875in}  
+%\renewcommand{\oddsidemargin}{.875in}   
+%\renewcommand{\topmargin}{-.3in}
+%\renewcommand{\headheight}{0.2in}
+%\renewcommand{\marginparwidth}{1.4in}
+%\renewcommand{\marginparsep}{1.4pt}
+%\renewcommand{\headsep}{.65in}
+%\renewcommand{\footskip}{0.3in}
+%\renewcommand{\textheight}{8in}
+%\renewcommand{\textwidth}{5.9in} % crashes todonotes
+
+\newcommand{\ls}{\vspace{.1in}}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{example}[thm]{Example}
+\newtheorem{remark}[thm]{Remark}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{ques}[thm]{Question}
+\newtheorem{exer}[thm]{Exercise}
+\numberwithin{thm}{chapter}
+
+\newcommand{\todo}{\TODO}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Personalization %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Insert your full name in the brackets.
+\renewcommand{\ThesisAuthor}{Jan Hoft}
+
+% If you are graduating in Spring, insert May.  If you are graduating in Fall, insert December.
+\renewcommand{\ThesisMonth}{May}
+
+% Insert the year of your graduation here
+\renewcommand{\ThesisYear}{2018}
+
+% Your thesis title goes here.  It will automatically be formatted to use multiple lines
+% (if needed)
+\renewcommand{\ThesisTitle}{Large sample properties of U-Statistics under semiparametric Random Censorship}
+
+% Insert your advising professor's name here.  DO NOT include a prefix of "Prof." or "Dr."
+% here!  The prefix will be inserted automatically.
+\renewcommand{\ThesisAdvisor}{Gerhard Dikta and Professor Jugal Ghorai}
+
+%------------------------------------
+
+% If your thesis or dissertation has multiple volumes, set the argument to true.
+% If not, set the argument to false.
+\setboolean{multvolumes}{false}
+
+% If your thesis or dissertation has multiple appendices, set the argument to true.
+% If not, set the argument to false.
+\setboolean{singleappendix}{false}
+
+%---------------------------------------
+
+% Creating new commands for displaying derivatives
+% Add additional new commands as needed...
+\newcommand{\ptlder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\totder}[2]{\frac{d #1}{d #2}}
+
+%---------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEGINNING OF DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	
+	%%% Tikz init %%%
+	\pgfkeys{/forest,
+		rect/.append style={rectangle, rounded corners=2pt, inner color=col6in, outer color=col6out},
+		ellip/.append style={ellipse, inner color=col5in, outer color=col5out},
+		orect/.append style={rect, font=\sffamily\bfseries\LARGE, text width=325pt, text centered, minimum height=10pt, outer color=col7out, inner color=col7in},
+		oellip/.append style={ellip, inner color=col8in, outer color=col8out, font=\sffamily\bfseries\large, text centered},
+	}
+	
+	% Formatting initial pages 
+	\ThesisFrontmatter
+	
+	%---------------------------------------
+	
+	% Creating the title page and approval page.  This is done automatically using commands
+	% in UWMThesis.cls.
+	\ThesisTitlepage
+	
+	%---------------------------------------
+	
+	% Begin typing the abstract here.  The thesis title and author will be included on this page.
+	\begin{ThesisAbstract}
+		\begin{center}\textbf{\large About this document} \end{center}
+		This is a \textbf{draft version} of my thesis. So far I was able to establish the SLLN for the the semiparametric U-Statistics of degree 2. The mathematics in here should be correct. But I still want to expand the introduction and I need to write the conclusion and the abstract. Also I want to include a simulation about the semiparametric U-Statistics of degree 2. Moreover I am not quite sure about the section titles yet, so I might change those.\\
+		\textbf{How to read this work}
+		\begin{itemize}
+			\item I put \\
+			\comment{comment} statements to mark problematic spots in this thesis and to share my thoughts about those.
+			\item All \todo{todo} statements are to mark parts of the text for myself, which I need to change later.
+		\end{itemize}
+
+		\todo{Summarize your paper here, including the basic methods used in the study.
+A signature line for your advisor will be included at the end of the abstract. NOTE: The abstract can have multiple pages, but is restricted to 400 words in length!}		
+		
+	\end{ThesisAbstract}
+	
+	%--------------------------------------
+	
+	% If you want a copyright page, uncomment these lines.  The text will be inserted automatically.
+	%\newpage
+	%\ThesisCopyright
+	
+	%--------------------------------------
+	
+	% If you want a dedication page, uncomment this line
+	% \ThesisDedication{To the Cosmos.} % optional
+	
+	%--------------------------------------
+	
+	% The next few sections must be single-spaced
+	\begin{singlespacing}
+		
+		% Adding table of contents (REQUIRED!)
+		% The entries are created automatically, based on your use of "\chapter" and "\section".
+		\tableofcontents
+		
+		%\listofnotes
+		% Adding a list of figures (REQUIRED IF YOU USE FIGURES!)
+		% Each entry is created automatically when you add
+		% a "\figure" command.
+		% If you don't have figures in your thesis, comment this line out.
+		% \listoffigures	%only if figures in text
+		
+		% Adding a list of tables (REQUIRED IF YOU USE TABLES!)
+		% Each entry is created automatically when you add
+		% a "\table" command.
+		% If you don't have tables in your thesis, comment this line out.
+		% \listoftables	% only if tables in text
+		
+		%--------------------------------------
+		
+		% A list of symbols is only required if you don't describe variables within the text.
+		% Consult with your advisor to find the best way to list your symbols.  It may also be useful
+		% to use a glossary package (e.g. nomencl.sty).  
+		
+		% If you need to use a list of symbols, insert them here.
+		% Otherwise, comment this section out.
+		
+		% Place the symbol on the left, then an \hfill command, then the variable description.
+		% (The \hfill command places the variable description at the right side of the page, with
+		%  white space separating the two entries.)
+		
+		% \begin{center}{\clearpage\textbf{\Large \sc List of Symbols}}\end{center} %\vspace*{8ex}
+		
+		% $\Gamma$ \hfill Dry adiabatic lapse rate \vfill\clearpage
+		
+	\end{singlespacing}
+	
+	%--------------------------------------
+	
+	% Insert acknowledgements here.  Be sure to include those who have provided important
+	% information for your project.  It is also customary to thank others who have assisted
+	% in your research, or include personal thank-yous.
+	
+	% DON'T FORGET TO ADD ANY COPYRIGHTS THAT MAY BE REQUIRED!  If you don't, the Library may not
+	% approve your thesis.
+	
+%	\begin{ThesisAcknowledgement}
+%		Here is a section for acknowledgements.  Be sure to thank your advisor...
+%		
+%		First, I would like to thank Dr. Vincent E. Larson for advising me on this project....
+%		
+%		Also, be sure to thank your key collaborators, including those that provided information or assistance...
+%		
+%		I also need to thank those who have provided me with critical information during this study, including Dr. Larry Carey (ESSC / University of Alabama Huntsville) and Dr. Jianguo Niu (Texas A\&M University) for providing aircraft observations, and Dr. J. Adam Kankiewicz for providing LBF rawinsonde data.  Dr. Jean-Christophe Golaz (NOAA / GFDL) has been invaluable in providing developmental assistance with the COAMPS-LES model.
+%		
+%		You may also wish to include a few personal acknowledgements.  Be brief but thorough.
+%		
+%		Finally, include any necessary copyrights...
+%		
+%		COPYRIGHT NOTICE: COAMPS\textregistered is a registered trademark of the Naval Research Laboratory.
+%		
+%		{\textit{
+%				Document note: This thesis template was originally provided by Dr. Richard Stockbridge of the UWM Math Department, Fall 2007.  It was updated by Adam J. Smith in January 2008.  All related files may be modified as needed to conform with current UWM thesis rules and requirements.
+%		}}
+%	\end{ThesisAcknowledgement}
+	
+	%------------------------------------
+	
+	% If you want to include a quote or some intersting tidbit, insert it here.
+	% Otherwise, comment it out.
+	%\ThesisFrontispiece{\begin{singlespacing}If you wish, add an optional quote or tidbit: \\
+	%		I spent a lot of money on booze, birds and fast cars. The rest I just squandered.\end{singlespacing}\\ \hfill{\itshape{George Best}}}	%optional
+	
+	%------------------------------------
+	
+	% Reformatting page style for the main body
+	\ThesisMainmatter
+	
+	%------------------------------------
+	%------------------------------------
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%% Content Includes %%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\input{introduction}
+	\cleardoublepage
+	
+	\input{notation_assumption}
+	\cleardoublepage
+	
+	\input{basics}
+	\cleardoublepage
+	
+	\input{slln}
+	\cleardoublepage
+	
+	\input{identify_limit}
+	\cleardoublepage
+	
+	% \input{distinction_proposal}
+	% \cleardoublepage
+	
+	\input{conclusion}
+	\cleardoublepage
+	
+	%-----------------------
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%% Bibliography %%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+	% Formatting the bibliography pages
+	\backmatter 
+	
+	%-----------------------
+	
+	% Adding Bibliography entry to table of contents
+	\addcontentsline{toc}{chapter}{\ \quad \textbf{Bibliography}}
+	
+	%-----------------------
+	
+	% The "\bibliographystyle" argument refers to the file (in .bst format) containing a specific citation style file.  Templates can typically be obtained from publication websites, such as the American Geophysical Union (www.agu.org), the American Meteorological Society (www.ametsoc.org), or other publishers.
+	
+	% Please make sure that your citation style is appropriate for your field, and that it follows standard style guidelines.
+	
+	% The "\bibliography" argument refers to the file (in .bib format) where your BiBTeX citations are located.  Be sure to include the entire path to the file, to avoid errors.
+	
+	% UNCOMMENT THIS SECTION IF YOU WISH TO USE BiBTeX
+	% Change this argument to match your bibliography style file
+	\bibliographystyle{./ametsoc}
+	%\bibliographystyle{alphanum}
+	
+	% Generate the bibliography using entries from the following .BIB file
+	\bibliography{./thesis}
+	%-----------------------
+	
+	% BEGINNING OF APPENDIX SECTION.
+	% IF YOU DO NOT WISH TO HAVE AN APPENDIX, COMMENT THIS ENTIRE SECTION OUT!
+	\ThesisAppendix
+	
+	% Resetting the equation and table counters to zero.  DO NOT DELETE!
+	\setcounter{equation}{0}
+	\setcounter{table}{0}
+	
+	% Adding an A in front of any equation numbers or table numbers in the appendix.  DO NOT DELETE!
+	\renewcommand{\theequation}{A\arabic{equation}}
+	\renewcommand{\thetable}{A\arabic{table}}
+	\renewcommand{\thethm}{A.\arabic{thm}}
+	
+	% Creating a new chapter (the asterisk tells LaTeX not to number the chapter)
+	\chapter*{Appendix: Supplementary Results}
+	\begin{lemma} \label{lem:bounds}
+		For $n\geq 2$ the following statements hold true
+		\begin{enumerate}[(i)]
+			\item \begin{equation}
+			\sum_{k=1}^{n-1} \frac{1}{k} \leq \ln(n-1) + 1
+			\label{eq:sum_ln}
+			\end{equation}
+			%
+			\item \begin{equation}
+			\frac{\ln(n-1)+1}{(n+1)^{\frac{1}{3}}} \leq 3
+			\label{eq:ln_over_n_upperb}
+			\end{equation}
+		\end{enumerate}
+		%	
+		\begin{proof}
+			We will start with the proof of part (i). Consider 
+			\begin{align*}
+			& \quad\sum_{k=1}^{n-1} \frac{1}{k} \quad \leq \quad  \ln(n-1) + 1 \\
+			\Leftrightarrow & \quad \sum_{k=1}^{n-1} \frac{1}{k} - 1 \quad \leq \quad  \ln(n-1)\\
+			\Leftrightarrow & \quad \sum_{k=2}^{n-1} \frac{1}{k} \quad \leq \quad  \ln(n-1)
+			\numberthis\label{eq:prodexp}
+			\end{align*}
+			%
+			Moreover we have
+			\begin{align*}
+			\sum_{k=2}^{n-1} \frac{1}{k} &= \sum_{k=2}^{n-1} \int_{k-1}^{k}\frac{1}{k} dx\\
+			&\leq \sum_{k=2}^{n-1} \int_{k-1}^{k}\frac{1}{x} dx\\
+			&\leq \sum_{k=2}^{n-1} \ln(k) - \ln(k-1)\\
+			&\leq \ln(n-1) - \ln(1)\\
+			&= \ln(n-1)
+			\end{align*}
+			Thus proving part (i). 
+			%
+			We will continue with the proof of part (ii). Note that \eqref{eq:ln_over_n_upperb} is equivalent to showing 
+			\begin{equation*}
+			\ln(n-1)+1 \leq 3(n+1)^{\frac{1}{3}}
+			\end{equation*}
+			%
+			Since $\ln(n-1)\leq \ln(n+1)$, this will be implied by the following
+			\begin{equation}
+			\ln(n+1)+1 \leq 3(n+1)^{\frac{1}{3}}
+			\label{eq:ln_root}
+			\end{equation}
+			It is easy to check that inequality \eqref{eq:ln_root} holds for $n=2$. Now consider that 
+			$$\frac{d}{dn}(\ln(n+1)+1) = \frac{1}{n+1}$$
+			and
+			$$\frac{d}{dn} 3(n+1)^\frac{1}{3} = \frac{1}{(n+1)^\frac{2}{3}}$$
+			to get
+			\begin{equation}
+			\frac{d}{dn}(\ln(n+1)+1) \leq \frac{d}{dn} 3(n+1)^\frac{1}{3}
+			\label{eq:derivs}
+			\end{equation}	
+			for all $n\geq 2$. Now the result in (ii) follows directly from \eqref{eq:ln_root} and \eqref{eq:derivs} .
+		\end{proof}
+	\end{lemma}
+	%
+	%%%%%%% TODO %%%%%%%%%%%%%
+	%\todo{Redefine $Y_n$ to start at $S_2$}
+	%\todo{Conditions on q within lemmas.}
+	%\todo{	Prove $$\left[\frac{1}{n+2} + \frac{n+1}{n+2}\left(1+\frac{x}{n+2}\right)^{2}\right] \leq \left(1+\frac{x}{n+3}\right)^{2}$$}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	\chapter*{Appendix - Old stuff, delete on release}
+%	\begin{figure}[h!]
+%		\begin{tikzpicture}[
+%		grow = right,
+%		% Label style
+%		label distance=3mm,
+%		every label/.style={blue},
+%		mainevent/.style={rectangle, rounded corners, draw, double=black, double distance =1pt, fill=yellow!20,text width=2.2cm,
+%			text centered,font=\sffamily,anchor=west},
+%		% Event style
+%		event/.style={rectangle,thick, rounded corners, draw, fill=yellow!20,text width=2.2cm,
+%			text centered,font=\sffamily,anchor=west},
+%		% Children and edges style
+%		edge from parent/.style={very thick,draw=black!70},
+%		edge from parent path={(\tikzparentnode.east) -| (0,0) |- (\tikzchildnode.west)},
+%		level 1/.style={sibling distance=3cm,level distance=0.3cm,
+%			growth parent anchor=east,nodes=event},
+%		level 2/.style={sibling distance=2.5cm, level distance=0.3cm},
+%		level 3/.style={sibling distance=1cm, level distance=0.3cm},
+%		level 4/.style={sibling distance=0.7cm, level distance=0.3cm}
+%		%%  For compatability with PGF CVS add the absolute option:
+%		%   absolute
+%		]
+%		%% Draw events and edges
+%		\node(thm_ex_limit)[mainevent]{Theorem \ref{thm:existence_limit}}
+%		child{node(thm_upcrossing)[event]{Theorem \ref{thm:upcrossing}}  
+%			child{node(lem_upcrossing_yn){Lemma \ref{lem:upcrossings_yn}}} 
+%			child{node(lem_cs){Lemma \ref{lem:cs}}
+%				child {node(lem_optional_skipping){Lemma \ref{lem:optional_skipping}}}
+%				child {node(lem_qi){Lemma \ref{lem:qi}}}
+%			}
+%			child {node(lem_qisquare_upper_bound){Lemma \ref{lem:qisquare_upper_bound}}
+%				child {node(lem_q_spacings){Lemma \ref{lem:qi_increas}}}
+%				child {node(lem_q_spacings){Lemma \ref{lem:q_spacings}}}
+%				child {node(lem_bounds){Lemma \ref{lem:bounds}}}
+%			}
+%			child {node(lem_expectation_sq){Lemma \ref{lem:expectation_sq}}
+%				child {node(lem_representation_bn){Lemma \ref{lem:representation_bn}}}
+%				child {node(lem_neveu){Lemma \ref{lem:neveu}}
+%					child {node(lem_dn_limit){Lemma \ref{lem:dn_limit}}}
+%					child {node(lem_dn_supermart){Lemma \ref{lem:dn_supermart}}}
+%					child {node(lem_hewitt_savage){Lemma \ref{lem:hewitt_savage}}}
+%				}
+%			}
+%		};
+%		\end{tikzpicture}
+%		\caption{Interdependence Structure of the lemmas and theorems within this chapter.}
+%		\label{fig:structure_ex}
+%	\end{figure}
+	% END OF APPENDIX SECTION.
+	
+	%-----------------------
+	%-----------------------
+	
+	% Uncomment this section for Ph.D. dissertations ONLY.
+	% Insert all appropriate entries as needed.
+	\begin{ThesisCV} %%only in PhD dissertations.
+		
+		{\centering \large \textbf{Jan H\"oft}\\}
+		\vspace{0.5cm}
+		\hrule
+		\begin{center}
+				\textbf{Stiftherrenstra\ss e 5, 52428 J\"ulich,}\\ 
+				\textbf{Germany}\\
+				\vspace{0.1cm}
+				-----\\
+				\vspace{0.1cm}
+				\textbf{email: jan.hoeft86@gmail.com}\\
+				\textbf{mobile: +49-176-45933938}
+		\end{center}
+		\hrule
+		\vspace{1cm}
+
+		\noindent\textbf{Date of Birth:} December 27, 1986\\
+		\textbf{Place of Birth:} Templin, Brandenburg, Germany\\
+		\\
+		\textbf{Education:}\\
+		\\
+		\begin{tabularx}{0.9\textwidth}{l X}
+			September 2006 - May 2009 & Mathematisch-Technischer Assistent, IHK zu K\"oln\\
+			September 2006 - May 2009 & B.Sc. in Scientific Programming at FH-Aachen, University of Applied Sciences\\
+			& \textbf{Thesis title:} Rissanalyse Brennstoffzellenmembran\\
+			September 2009 - May 2011 & M.Sc. in Technomathematik at FH-Aachen, University of Applied Sciences\\
+		\end{tabularx}
+		\\
+		\begin{tabularx}{0.9\textwidth}{l X}
+			\hphantom{September 2006 - May 2009} & \textbf{Thesis title:} U-Statistics under the semiparametric Random Censorship Model\\
+			Expected: May 2018 & Ph.D. in Mathematics, University of Wisconsin - Milwaukee\\
+			&\textbf{Dissertation title:} Large Sample properties of U-Statistics under semiparametric Random Censorship
+		\end{tabularx}
+		\\\\\\
+		%\clearpage
+		%
+		\noindent\textbf{Teaching \& Research Experience:}\\
+		\\
+		\begin{tabularx}{0.9\textwidth}{l X}
+			2006 - 2009 & Apprenticeship as Mathematisch-Technischer Assistent at Forschungszentrum J\"ulich, Instut f\"ur Energietechnik - Brennstoffzellen\\
+			2010 - May 2011 & Teaching Assistant, FH-Aachen, University of Applied Sciences\\
+			2011 - 2012 & Teaching Assistant, University of Wisconsin - Milwaukee\\
+			2012 - 2015 & Research Assistant, Atmospheric Sciences, University of Wisconsin - Milwaukee
+		\end{tabularx}
+		\\\\\\
+		\clearpage
+		\noindent\textbf{Awards \& Fellowships:}\\
+		\\
+		\begin{tabularx}{0.9\textwidth}{l X}
+			2011 - 2012 & Teaching Assistant Fellowship, University of Wisconsin - Milwaukee\\
+			2012 - 2015 & Research Assistant Fellowship, Atmospheric Sciences, University of Wisconsin - Milwaukee\\
+			2011, 2012 & Chancellor's Award (4x 1500\$), University of Wisconsin, Milwaukee
+		\end{tabularx}
+		
+	\end{ThesisCV}
+	
+\end{document}

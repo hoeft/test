@@ -1,0 +1,58 @@
+\begin{thebibliography}{10}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[{Bose and Sen(1999)}]{bose1999strong}
+Bose, A. and A.~Sen, 1999: The strong law of large numbers for kaplan--meier
+  u-statistics. \textit{Journal of Theoretical Probability}, \textbf{12~(1)},
+  181--200.
+
+\bibitem[{Bose and Sen(2002)}]{bose2002asymptotic}
+Bose, A. and A.~Sen, 2002: Asymptotic distribution of the kaplan--meier
+  u-statistics. \textit{Journal of multivariate analysis}, \textbf{83~(1)},
+  84--123.
+
+\bibitem[{Dikta(1998)}]{dikta1998semiparametric}
+Dikta, G., 1998: On semiparametric random censorship models. \textit{Journal of
+  Statistical Planning and Inference}, \textbf{66~(2)}, 253--279.
+
+\bibitem[{Dikta(2000)}]{dikta2000strong}
+Dikta, G., 2000: The strong law under semiparametric random censorship models.
+  \textit{Journal of Statistical Planning and Inference}, \textbf{83~(1)},
+  1--10.
+
+\bibitem[{Dikta et~al.(2005)Dikta, Ghorai, and Schmidt}]{dikta2005central}
+Dikta, G., J.~Ghorai, and C.~Schmidt, 2005: The central limit theorem under
+  semiparametric random censorship models. \textit{Journal of statistical
+  planning and inference}, \textbf{127~(1)}, 23--51.
+
+\bibitem[{Kaplan and Meier(1958)}]{kaplan1958nonparametric}
+Kaplan, E.~L. and P.~Meier, 1958: Nonparametric estimation from incomplete
+  observations. \textit{Journal of the American statistical association},
+  \textbf{53~(282)}, 457--481.
+
+\bibitem[{Lee(1990)}]{lee1990u}
+Lee, J., 1990: \textit{U-Statistics: Theory and Practice}. Statistics: A Series
+  of Textbooks and Monographs, Taylor \& Francis,
+  \urlprefix\url{https://books.google.de/books?id=CZanQod1gSEC}.
+
+\bibitem[{Neveu(1975)}]{neveu1975discrete}
+Neveu, J., 1975: \textit{Discrete-parameter martingales}, Vol.~10. Elsevier.
+
+\bibitem[{Shorack and Wellner(2009)}]{shorack2009empirical}
+Shorack, G. and J.~Wellner, 2009: \textit{Empirical Processes with Applications
+  to Statistics}. Classics in Applied Mathematics, Society for Industrial and
+  Applied Mathematics (SIAM, 3600 Market Street, Floor 6, Philadelphia, PA
+  19104).
+
+\bibitem[{Stute and Wang(1993)}]{stute1993strong}
+Stute, W. and J.-L. Wang, 1993: The strong law under random censorship.
+  \textit{The Annals of Statistics}, 1591--1607.
+
+\end{thebibliography}
