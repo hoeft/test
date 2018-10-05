@@ -21,9 +21,9 @@ where
 	\label{eq:qi}
 \end{equation}
 and 
-$$\pi_i = \prod\limits_{k=1}^{i-1} \frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}$$
+$$\pi_i = \prod\limits_{k=1}^{i-1} \frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\mdot$$
 Then we have
-$$\E[\sn{n}|\F_{n+1}] = \doublesum\limits_{1\leq i<j \leq n+1} \phi(Z_{i:n+1},Z_{j:n+1}) \wn{i}{n+1}\wn{j}{n+1}Q_{ij}^{n+1}$$
+$$\E[\sn{n}|\F_{n+1}] = \doublesum\limits_{1\leq i<j \leq n+1} \phi(Z_{i:n+1},Z_{j:n+1}) \wn{i}{n+1}\wn{j}{n+1}Q_{ij}^{n+1}\mdot$$
 \end{lemma}
 
 \begin{proof}
@@ -34,27 +34,25 @@ for $1\leq i\leq n$ with $\pi_i$ as defined above. Note that $\pi_1 = 1$, since 
 	A_{i+1} &= \pi_{i+1} + \sum\limits_{r=1}^i\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})} \right]\\
 	&= \pi_i \left[ \frac{n-i+1-q(Z_{i:n+1})}{n-i+2-q(Z_{i:n+1})}\right] + \sum\limits_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right] + \left[\frac{\pi_i}{n-i+2-q(Z_{i:n+1})}  \right]\\
 	&= \pi_i + \sum\limits_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right]\\
-	&= A_i
+	&= A_i\mdot
 \end{align*}
 And therefore 
 \begin{equation}
-1=A_1=A_2=\dots=A_{n-1}=A_n
-\label{eq:Ai}
+	1=A_1=A_2=\dots=A_{n-1}=A_n
+	\label{eq:Ai}\mdot
 \end{equation}
 %
 Now let's establish lemma \ref{lem:qi}. Let $F_n^q$ denote the measure that assigns mass to $Z_{1:n},\dots,Z_{n:n}$, then
 \begin{align*}
 \E[\sn{n}|\F_{n+1}] &= \E[\doublesum\limits_{1\leq i<j\leq n} \phi(Z_{i:n},Z_{j:n}) \wn{i}{n}\wn{j}{n}|\F_{n+1}]\\
     &= \E[\doublesum\limits_{1\leq i<j\leq n+1} \phi(Z_{i:n+1},Z_{j:n+1}) F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]\\
-		&= \doublesum\limits_{1\leq i<j\leq n+1} \phi(Z_{i:n+1},Z_{j:n+1}) \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]
-%\label{eq:}
+		&= \doublesum\limits_{1\leq i<j\leq n+1} \phi(Z_{i:n+1},Z_{j:n+1}) \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]\mdot
 \end{align*}
 %
 Consider for $1\leq i<j\leq n$ 
 \begin{align*}
 & \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}] \\
-&=\E\left[\sum\limits_{r=1}^{n+1}F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}I_{\{Z_{n+1}=Z_{r:n+1}\}}|\F_{n+1}\right]
-%\label{eq:}
+&=\E\left[\sum\limits_{r=1}^{n+1}F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}I_{\{Z_{n+1}=Z_{r:n+1}\}}|\F_{n+1}\right]\mdot
 \end{align*}
 %
 Define the set $A_{rn} := \{Z_{n+1}=Z_{r:n+1}\}$. Note that on $A_{rn}$ we have for $1\leq l\leq n+1$
@@ -71,7 +69,7 @@ F_n^q\{Z_{l:n+1}\} = \begin{cases}
 W_{l:n} & l<r \\
 0 & l=r\\
 W_{l-1:n} & l>r
-\end{cases}
+\end{cases}\mdot
 \label{eq:change_order_w}
 \end{equation}
 %
@@ -80,7 +78,7 @@ Now we have
 &  \sum\limits_{r=1}^{n+1}F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}I_{\{Z_{n+1}=Z_{r:n+1}\}}\nonumber\\
 &= \sum\limits_{r=1}^{n+1}F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}I_{A_{rn}}\nonumber\\
 &= \sum\limits_{r=1}^{i-1}\wn{i-1}{n}\wn{j-1}{n}I_{A_{rn}} + \sum\limits_{r=i+1}^{j-1}\wn{i}{n}\wn{j-1}{n}I_{A_{rn}} + \sum\limits_{r=j+1}^{n+1}\wn{i}{n}\wn{j}{n}I_{A_{rn}}\nonumber\\
-&=: T_1 + T_2 + T_3
+&=: T_1 + T_2 + T_3\mdot
 \label{eq:sum_t}
 \end{align}
 %
@@ -100,8 +98,7 @@ using \eqref{eq:change_order_delta}. We will now continue to find an expression 
 		& \qquad \times \left[\frac{\prod_{k=1}^{r-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+1}\right]}{\prod_{k=1}^{r-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+2}\right]}\right]^2\\
 		&= \sum\limits_{r=1}^{i-1} \frac{q(Z_{i:n+1})}{n-i+2} \prod_{k=1}^{r-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+2}\right]\prod_{k=r}^{i-2}\left[1-\frac{q(Z_{k+1:n+1})}{n-k+1}\right]\\
 		& \qquad \times \frac{q(Z_{j:n+1})}{n-j+2} \prod_{k=1}^{r-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+2}\right]\prod_{k=r}^{j-2}\left[1-\frac{q(Z_{k+1:n+1})}{n-k+1}\right]I_{A_{rn}}\\
-		& \qquad \times \prod_{k=1}^{r-1}\left[ \frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]^2\prod_{k=1}^{r-1}\left[ \frac{n-k+2}{n-k+1}\right]^2\\
-%\label{eq:}
+		& \qquad \times \prod_{k=1}^{r-1}\left[ \frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]^2\prod_{k=1}^{r-1}\left[ \frac{n-k+2}{n-k+1}\right]^2\mdot
 \end{align*}
 %
 Now using index transformation on the products $\prod_{k=r}^{i-2}[\ldots]$ and $\prod_{k=r}^{j-2}[\ldots]$ yields
@@ -113,35 +110,34 @@ Now using index transformation on the products $\prod_{k=r}^{i-2}[\ldots]$ and $
 	& \qquad \times \frac{q(Z_{j:n+1})}{n-j+2} \prod_{k=1}^{j-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+2}\right]\left[1-\frac{q(Z_{r:n+1})}{n-r+2}\right]^{-1}I_{A_{rn}}\\
 	& \qquad \times \prod_{k=1}^{r-1}\left[ \frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]^2\prod_{k=1}^{r-1}\left[ \frac{n-k+2}{n-k+1}\right]^2\\
 	&= \wn{i}{n+1}\wn{j}{n+1}\sum\limits_{r=1}^{i-1}\prod_{k=1}^{r-1} \left[ \frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]^2\prod_{k=1}^{r-1} \left[ \frac{n-k+2}{n-k+1}\right]^2\\
-	& \qquad \times \left[ \frac{n-r+2}{n-r+2-q(Z_{r:n+1})}\right]^2I_{A_{rn}}\\
+	& \qquad \times \left[ \frac{n-r+2}{n-r+2-q(Z_{r:n+1})}\right]^2I_{A_{rn}}\mdot
 \end{align*}
 %
 Note that 
 \begin{align}
-\prod_{k=1}^{r-1}\left[\frac{n-k+2}{n-k+1}\right] &= \frac{n+1}{n} \cdot \frac{n}{n-1} \cdots \frac{n-r+4}{n-r+3} \cdot \frac{n-r+3}{n-r+2}\nonumber\\
-&= \frac{n+1}{n-r+2}
-\label{eq:telescope_prod}
+	\prod_{k=1}^{r-1}\left[\frac{n-k+2}{n-k+1}\right] &= \frac{n+1}{n} \cdot \frac{n}{n-1} \cdots \frac{n-r+4}{n-r+3} \cdot \frac{n-r+3}{n-r+2}\nonumber\\
+	&= \frac{n+1}{n-r+2}\mdot
+	\label{eq:telescope_prod}
 \end{align}
 %
 and recall the following definition
 \begin{equation*}
-	\pi_r = \prod_{k=1}^{r-1} \left[ \frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]
+	\pi_r = \prod_{k=1}^{r-1} \left[ \frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]\mdot
 \end{equation*}
+%
 Now we finally get	
 \begin{align*}		
 	T_1 &= \wn{i}{n+1}\wn{j}{n+1}\sum\limits_{r=1}^{i-1}\prod_{k=1}^{r-1} \left[ \frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]^2\\
 	& \qquad \times\left[\frac{n+1}{n-r+2}\right]^2 \left[ \frac{n-r+2}{n-r+2-q(Z_{r:n+1})}\right]^2I_{A_{rn}}\\
-	&= \wn{i}{n+1}\wn{j}{n+1}\sum\limits_{r=1}^{i-1}\pi_r^2 \left[ \frac{n+1}{n-r+2-q(Z_{r:n+1})}\right]^2I_{A_{rn}}\\
-%\label{eq:}
+	&= \wn{i}{n+1}\wn{j}{n+1}\sum\limits_{r=1}^{i-1}\pi_r^2 \left[ \frac{n+1}{n-r+2-q(Z_{r:n+1})}\right]^2I_{A_{rn}}\mdot
 \end{align*}
 %
 Now let's consider $T_2$. We will, again, firstly express $T_2$ completely in terms of the ordered $Z$ values \wrt\ order $n+1$ using \eqref{eq:change_order_delta}. Consider
 \begin{align*}
-T_2 &= \sum\limits_{r=i+1}^{j-1} \frac{q(Z_{i:n})}{n-i+1} \prod\limits_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n})}{n-k+1}\right]\\
-    & \qquad \times \frac{q(Z_{j-1:n})}{n-j+2} \prod\limits_{k=1}^{j-2}\left[1-\frac{q(Z_{k:n})}{n-k+1}\right]I_{A_{rn}}\\
-	&= \sum\limits_{r=i+1}^{j-1} \frac{q(Z_{i:n+1})}{n-i+1} \prod_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+1}\right]\\
-	& \qquad \times \frac{q(Z_{j:n+1})}{n-j+2} \prod_{k=1}^{r-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+1}\right]\prod_{k=r}^{j-2}\left[1-\frac{q(Z_{k+1:n+1})}{n-k+1}\right]I_{A_{rn}}
-%\label{eq:}
+	T_2 &= \sum\limits_{r=i+1}^{j-1} \frac{q(Z_{i:n})}{n-i+1} \prod\limits_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n})}{n-k+1}\right]\\
+	    & \qquad \times \frac{q(Z_{j-1:n})}{n-j+2} \prod\limits_{k=1}^{j-2}\left[1-\frac{q(Z_{k:n})}{n-k+1}\right]I_{A_{rn}}\\
+		&= \sum\limits_{r=i+1}^{j-1} \frac{q(Z_{i:n+1})}{n-i+1} \prod_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+1}\right]\\
+		& \qquad \times \frac{q(Z_{j:n+1})}{n-j+2} \prod_{k=1}^{r-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+1}\right]\prod_{k=r}^{j-2}\left[1-\frac{q(Z_{k+1:n+1})}{n-k+1}\right]I_{A_{rn}}\mdot
 \end{align*}
 %
 Now let's find a representation of $T_2$ which relies on $\wn{i}{n+1}$ and $\wn{j}{n+1}$ only. Consider
@@ -153,18 +149,18 @@ Now let's find a representation of $T_2$ which relies on $\wn{i}{n+1}$ and $\wn{
 	&= \left[\frac{n-i+2}{n-i+1}\right]\left[\frac{q(Z_{i:n+1})}{n-i+2}\right] \prod_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+2}\right] \\
 	& \qquad \times \prod_{k=1}^{i-1}\left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right] \prod_{k=1}^{i-1}\left[\frac{n-k+2}{n-k+1}\right]\\
 	& \qquad \times \sum\limits_{r=i+1}^{j-1} \frac{q(Z_{j:n+1})}{n-j+2} \prod_{k=1}^{r-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+2}\right]\prod_{k=r}^{j-2}\left[1-\frac{q(Z_{k+1:n+1})}{n-k+1}\right]I_{A_{rn}}\\
-	& \qquad \times \prod_{k=1}^{r-1}\left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right] \prod_{k=1}^{r-1}\left[\frac{n-k+2}{n-k+1}\right]\\
+	& \qquad \times \prod_{k=1}^{r-1}\left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right] \prod_{k=1}^{r-1}\left[\frac{n-k+2}{n-k+1}\right]\mdot
 \end{align*}
 %
 Now using \eqref{eq:telescope_prod} on $\prod_{k=1}^{i-1}[\ldots]$ yields
 \begin{align*}
-&= \left[\frac{n+1}{n-i+1}\right]\left[\frac{q(Z_{i:n+1})}{n-i+2}\right] \prod_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+2}\right] \\
-& \qquad \times \prod_{k=1}^{i-1}\left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]\\
-& \qquad \times \sum\limits_{r=i+1}^{j-1} \frac{q(Z_{j:n+1})}{n-j+2} \prod_{k=1}^{r-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+2}\right]\prod_{k=r}^{j-2}\left[1-\frac{q(Z_{k+1:n+1})}{n-k+1}\right]I_{A_{rn}}\\
-& \qquad \times \prod_{k=1}^{r-1}\left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right] \prod_{k=1}^{r-1}\left[\frac{n-k+2}{n-k+1}\right]\\
-&= \left[\frac{n+1}{n-i+1}\right]\wn{i}{n+1}\pi_i\\
-& \qquad \times \sum\limits_{r=i+1}^{j-1} \frac{q(Z_{j:n+1})}{n-j+2} \prod_{k=1}^{r-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+2}\right]\prod_{k=r}^{j-2}\left[1-\frac{q(Z_{k+1:n+1})}{n-k+1}\right]I_{A_{rn}}\\
-& \qquad \times \prod_{k=1}^{r-1}\left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right] \prod_{k=1}^{r-1}\left[\frac{n-k+2}{n-k+1}\right]\\
+	T_2 &= \left[\frac{n+1}{n-i+1}\right]\left[\frac{q(Z_{i:n+1})}{n-i+2}\right] \prod_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+2}\right] \\
+	& \qquad \times \prod_{k=1}^{i-1}\left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]\\
+	& \qquad \times \sum\limits_{r=i+1}^{j-1} \frac{q(Z_{j:n+1})}{n-j+2} \prod_{k=1}^{r-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+2}\right]\prod_{k=r}^{j-2}\left[1-\frac{q(Z_{k+1:n+1})}{n-k+1}\right]I_{A_{rn}}\\
+	& \qquad \times \prod_{k=1}^{r-1}\left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right] \prod_{k=1}^{r-1}\left[\frac{n-k+2}{n-k+1}\right]\\
+	&= \left[\frac{n+1}{n-i+1}\right]\wn{i}{n+1}\pi_i\\
+	& \qquad \times \sum\limits_{r=i+1}^{j-1} \frac{q(Z_{j:n+1})}{n-j+2} \prod_{k=1}^{r-1}\left[1-\frac{q(Z_{k:n+1})}{n-k+2}\right]\prod_{k=r}^{j-2}\left[1-\frac{q(Z_{k+1:n+1})}{n-k+1}\right]I_{A_{rn}}\\
+	& \qquad \times \prod_{k=1}^{r-1}\left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right] \prod_{k=1}^{r-1}\left[\frac{n-k+2}{n-k+1}\right]\mdot
 \end{align*}
 %
 Again doing an index transformation on $\prod_{k=r}^{j-2}[\ldots]$ yields
@@ -176,16 +172,17 @@ Again doing an index transformation on $\prod_{k=r}^{j-2}[\ldots]$ yields
 	& \qquad \times \prod_{k=1}^{r-1} \left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right] \prod_{k=1}^{r-1}\left[\frac{n-k+2}{n-k+1}\right]I_{A_{rn}}\\
 	&= \wn{i}{n+1}\wn{j}{n+1} \pi_i \frac{n+1}{n-i+1} \\
 	& \qquad \times \sum\limits_{r=i+1}^{j-1} \prod_{k=1}^{r-1} \left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right] \prod_{k=1}^{r-1}\left[\frac{n-k+2}{n-k+1}\right]\\
-	& \qquad \times \frac{n-r+2}{n-r+2-q(Z_{r:n+1})} I_{A_{rn}}\\
+	& \qquad \times \frac{n-r+2}{n-r+2-q(Z_{r:n+1})} I_{A_{rn}}\mdot
 \end{align*}
 %
 Now applying \eqref{eq:telescope_prod} to the latter product yields
 \begin{align*}
-	T_2	&= \wn{i}{n+1}\wn{j}{n+1} \pi_i \frac{n+1}{n-i+1} \sum\limits_{r=i+1}^{j-1} \pi_r \frac{n+1}{n-r+2-q(Z_{r:n+1})} I_{A_{rn}}	
+	T_2	&= \wn{i}{n+1}\wn{j}{n+1} \pi_i \frac{n+1}{n-i+1} \sum\limits_{r=i+1}^{j-1} \pi_r \frac{n+1}{n-r+2-q(Z_{r:n+1})} I_{A_{rn}}	\mdot
 \end{align*}
 %
 We will now proceed similarly for $T_3$. Consider
-$$T_3 = \sum\limits_{r=j+1}^{n+1} \wn{i}{n}\wn{j}{n}\I{A_{rn}}$$
+$$T_3 = \sum\limits_{r=j+1}^{n+1} \wn{i}{n}\wn{j}{n}\I{A_{rn}}\mdot$$
+%
 Note that for $j=n+1$ the sum above is empty and hence zero. Now consider for $j\leq n$
 \begin{align*}
 	T_3 &= \sum\limits_{r=j+1}^{n+1} \frac{q(Z_{i:n})}{n-i+1} \prod\limits_{k=1}^{i-1} \left[1-\frac{q(Z_{k:n})}{n-k+1}\right]\\
@@ -197,12 +194,12 @@ Note that for $j=n+1$ the sum above is empty and hence zero. Now consider for $j
 	&\qquad \times \prod\limits_{k=1}^{i-1} \left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]\prod\limits_{k=1}^{i-1} \left[\frac{n-k+2}{n-k+1}\right]\\
 	&\qquad \times \prod\limits_{k=1}^{j-1} \left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]\prod\limits_{k=1}^{j-1} \left[\frac{n-k+2}{n-k+1}\right]\I{A_{rn}}\\
 	&= \sum\limits_{r=j+1}^{n+1} \frac{n-i+2}{n-i+1}\frac{n-j+2}{n-j+1}\pi_i\pi_j \wn{i}{n+1}\wn{j}{n+1}\\	
-	&\qquad \times \prod\limits_{k=1}^{i-1} \left[\frac{n-k+2}{n-k+1}\right] \prod\limits_{k=1}^{j-1} \left[\frac{n-k+2}{n-k+1}\right]\I{A_{rn}}\\
+	&\qquad \times \prod\limits_{k=1}^{i-1} \left[\frac{n-k+2}{n-k+1}\right] \prod\limits_{k=1}^{j-1} \left[\frac{n-k+2}{n-k+1}\right]\I{A_{rn}}\mdot
 \end{align*}
 %
 Again, by \eqref{eq:telescope_prod}, we have
 \begin{align*}
-T_3 &= \sum\limits_{r=j+1}^{n+1} \frac{(n+1)^2\pi_i\pi_j}{(n-i+1)(n-j+1)}\wn{i}{n+1}\wn{j}{n+1}\I{A_{rn}}\\	
+T_3 &= \sum\limits_{r=j+1}^{n+1} \frac{(n+1)^2\pi_i\pi_j}{(n-i+1)(n-j+1)}\wn{i}{n+1}\wn{j}{n+1}\I{A_{rn}}\mdot
 \end{align*}
 %
 Therefore
@@ -217,170 +214,205 @@ Now using these expressions for $T_1$, $T_2$ and $T_3$ in equation (\ref{eq:sum_
 $$\E[I_{A_{rn}}|\F_{n+1}] = \frac{1}{n+1}$$
 yields
 \begin{align*}
-&  \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]\\
-&= \E[T_1 + T_2 + T_3|\F_{n+1}]\\
-&= \wn{i}{n+1}\wn{j}{n+1} \times \left\{\sum\limits_{r=1}^{i-1}\pi_r^2\left[\frac{n+1}{n-r+2-q(Z_{r:n+1})} \right]^2 \E[I_{A_{rn}}|\F_{n+1}]\right.\\
-& \qquad + \sum\limits_{r=i+1}^{j-1}\pi_i\pi_r \left[\frac{n+1}{n-i+1}\right]\left[\frac{n+1}{n-r+2-q(Z_{r:n+1})}\right]\E[I_{A_{rn}}|\F_{n+1}]\\
-& \qquad \left. + \pi_i\pi_j \frac{(n+1)^2}{(n-i+1)(n-j+1)}[1-I_{\{j=n+1\}}]\sum\limits_{i=j+1}^{n+1}\E[I_{A_{rn}}|\F_{n+1}]\right\}\\
-&= \wn{i}{n+1}\wn{j}{n+1}\left[\frac{1}{n+1}\right] \times \left\{\sum\limits_{r=1}^{i-1}\pi_r^2\left[\frac{n+1}{n-r+2-q(Z_{r:n+1})} \right]^2\right.\\
-& \qquad + \sum\limits_{r=i+1}^{j-1}\pi_i\pi_r \left[\frac{n+1}{n-i+1}\right]\left[\frac{n+1}{n-r+2-q(Z_{r:n+1})}\right]\\
-& \qquad \left. + \pi_i\pi_j \frac{(n+1)^2}{n-i+1}[1-I_{\{j=n+1\}}]\right\}
-%\label{eq:}
+	&  \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]\\
+	&= \E[T_1 + T_2 + T_3|\F_{n+1}]\\
+	&= \wn{i}{n+1}\wn{j}{n+1} \times \left\{\sum\limits_{r=1}^{i-1}\pi_r^2\left[\frac{n+1}{n-r+2-q(Z_{r:n+1})} \right]^2 \E[I_{A_{rn}}|\F_{n+1}]\right.\\
+	& \qquad + \sum\limits_{r=i+1}^{j-1}\pi_i\pi_r \left[\frac{n+1}{n-i+1}\right]\left[\frac{n+1}{n-r+2-q(Z_{r:n+1})}\right]\E[I_{A_{rn}}|\F_{n+1}]\\
+	& \qquad \left. + \pi_i\pi_j \frac{(n+1)^2}{(n-i+1)(n-j+1)}[1-I_{\{j=n+1\}}]\sum\limits_{i=j+1}^{n+1}\E[I_{A_{rn}}|\F_{n+1}]\right\}\\
+	&= \wn{i}{n+1}\wn{j}{n+1}\left[\frac{1}{n+1}\right] \times \left\{\sum\limits_{r=1}^{i-1}\pi_r^2\left[\frac{n+1}{n-r+2-q(Z_{r:n+1})} \right]^2\right.\\
+	& \qquad + \sum\limits_{r=i+1}^{j-1}\pi_i\pi_r \left[\frac{n+1}{n-i+1}\right]\left[\frac{n+1}{n-r+2-q(Z_{r:n+1})}\right]\\
+	& \qquad \left. + \pi_i\pi_j \frac{(n+1)^2}{n-i+1}[1-I_{\{j=n+1\}}]\right\}\mdot
 \end{align*}
 %
 Next consider that we have  
 \begin{align*}
-&  \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]\\
-&= \wn{i}{n+1}\wn{j}{n+1}(n+1) \left\{\sum\limits_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})} \right]^2\right.\\
-& \qquad + \left. \frac{\pi_i}{n-i+1} \left[\sum\limits_{r=i+1}^{j-1} \left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right] + \pi_j \right]\right\}\\
+	&  \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]\\
+	&= \wn{i}{n+1}\wn{j}{n+1}(n+1) \left\{\sum\limits_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})} \right]^2\right.\\
+	& \qquad + \left. \frac{\pi_i}{n-i+1} \left[\sum\limits_{r=i+1}^{j-1} \left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right] + \pi_j \right]\right\}\mdot
 \end{align*}
 for $1\leq i<j\leq n$. 
 %
 Now applying \eqref{eq:Ai} yields
 \begin{align*}
-&= \wn{i}{n+1}\wn{j}{n+1}(n+1) \left\{\sum\limits_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})} \right]^2\right.\\
-& \qquad + \left. \frac{\pi_i}{n-i+1} (A_j - A_{i+1} + \pi_{i+1})\right\}\\
-&= \wn{i}{n+1}\wn{j}{n+1}(n+1) \left\{\sum\limits_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})} \right]^2\right.\\
-& \qquad + \left. \frac{\pi_i\pi_{i+1}}{n-i+1}\right\}\\
-&= \wn{i}{n+1}\wn{j}{n+1}Q_i^{n+1}
-%\label{eq:}
+	&  \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]\\
+	&= \wn{i}{n+1}\wn{j}{n+1}(n+1) \left\{\sum\limits_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})} \right]^2\right.\\
+	& \qquad + \left. \frac{\pi_i}{n-i+1} (A_j - A_{i+1} + \pi_{i+1})\right\}\\
+	&= \wn{i}{n+1}\wn{j}{n+1}(n+1) \left\{\sum\limits_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})} \right]^2\right.\\
+	& \qquad + \left. \frac{\pi_i\pi_{i+1}}{n-i+1}\right\}\\
+	&= \wn{i}{n+1}\wn{j}{n+1}Q_i^{n+1}\mdot
 \end{align*}
 %
 It remains to consider the case $j=n+1$. We have
 \begin{align*}
-&  \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]\\
-&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\sum\limits_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})} \right]^2\right.\\
-& \qquad + \left. \frac{\pi_i}{n-i+1}\sum\limits_{r=i+1}^{n} \left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right]\right\}\\
-&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\sum\limits_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})} \right]^2\right.\\
-& \qquad + \left. \frac{\pi_i}{n-i+1}\left[\sum\limits_{r=1}^{n} \left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right] - \sum\limits_{r=1}^{i} \left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right]\right]\right\}\\
-&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\frac{Q_i^{n+1}}{n+1} - \frac{\pi_i\pi_{i+1}}{n-i+1}\right.\\
-& \qquad + \left. \frac{\pi_i}{n-i+1}\left[\sum\limits_{r=1}^{n} \left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right] - \sum\limits_{r=1}^{i}  \left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right]\right]\right\}
+	&  \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]\\
+	&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\sum\limits_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})} \right]^2\right.\\
+	& \qquad + \left. \frac{\pi_i}{n-i+1}\sum\limits_{r=i+1}^{n} \left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right]\right\}\\
+	&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\sum\limits_{r=1}^{i-1}\left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})} \right]^2\right.\\
+	& \qquad + \left. \frac{\pi_i}{n-i+1}\left[\sum\limits_{r=1}^{n} \left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right] - \sum\limits_{r=1}^{i} \left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right]\right]\right\}\\
+	&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\frac{Q_i^{n+1}}{n+1} - \frac{\pi_i\pi_{i+1}}{n-i+1}\right.\\
+	& \qquad + \left. \frac{\pi_i}{n-i+1}\left[\sum\limits_{r=1}^{n} \left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right] - \sum\limits_{r=1}^{i}  \left[\frac{\pi_r}{n-r+2-q(Z_{r:n+1})}\right]\right]\right\}\mdot
 \end{align*}
+%
 Now using \eqref{eq:Ai} again yields
 \begin{align*}
-&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\frac{Q_i^{n+1}}{n+1} - \frac{\pi_i\pi_{i+1}}{n-i+1}\right.\\
-& \qquad \left. + \frac{\pi_i}{n-i+1}\left[A_{n+1} - \pi_{n+1} - (A_{i+1}-\pi_{i+1}) \right] \right\}\\
-&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\frac{Q_i^{n+1}}{n+1} - \frac{\pi_i\pi_{i+1}}{n-i+1}\right.\\
-& \qquad \left. + \frac{\pi_i}{n-i+1}\left[  \pi_{i+1} - \pi_{n+1} \right] \right\}\hphantom{asdfasdfasfsadfasdfasdfasfsadfasdfasdfasfsa}
+	&  \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]\\
+	&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\frac{Q_i^{n+1}}{n+1} - \frac{\pi_i\pi_{i+1}}{n-i+1}\right.\\
+	& \qquad \left. + \frac{\pi_i}{n-i+1}\left[A_{n+1} - \pi_{n+1} - (A_{i+1}-\pi_{i+1}) \right] \right\}\\
+	&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\frac{Q_i^{n+1}}{n+1} - \frac{\pi_i\pi_{i+1}}{n-i+1}\right.\\
+	& \qquad \left. + \frac{\pi_i}{n-i+1}\left[  \pi_{i+1} - \pi_{n+1} \right] \right\}\mdot
 \end{align*}
 Note that for $1\leq i\leq n$ we have
-$$\pi_{i+1} = \frac{\pi_i (1-q(Z_{i:n+1}))}{2-q(Z_{i:n+1})}$$
+$$\pi_{i+1} = \frac{\pi_i (1-q(Z_{i:n+1}))}{2-q(Z_{i:n+1})}\mdot$$
 Thus we obtain
 \begin{align*}
-&  \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]\\
-&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\frac{Q_i^{n+1}}{n+1} - \frac{\pi_i\pi_{i+1}}{n-i+1}\right.\\
-& \qquad\qquad\qquad \left. + \frac{\pi_i}{n-i+1}\left[\pi_{i+1} - \frac{\pi_n(1-q(Z_{n:n+1}))}{2-q(z_{n:n+1})}   \right] \right\}\\
-&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\frac{Q_i^{n+1}}{n+1} - \frac{\pi_i\pi_n(1-q(Z_{n:n+1}))}{(n-i+1)(2-q(Z_{n:n+1}))} \right\}\\
-&= \wn{i}{n+1}W_{n+1:n+1} \left\{Q_i^{n+1} - \frac{\pi_i\pi_n(n+1)(1-q(Z_{n:n+1}))}{(n-i+1)(2-q(Z_{n:n+1}))} \right\}
-%\label{eq:}
+	&  \E[F_n^q\{Z_{i:n+1}\}F_n^q\{Z_{j:n+1}\}|\F_{n+1}]\\
+	&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\frac{Q_i^{n+1}}{n+1} - \frac{\pi_i\pi_{i+1}}{n-i+1}\right.\\
+	& \qquad\qquad\qquad \left. + \frac{\pi_i}{n-i+1}\left[\pi_{i+1} - \frac{\pi_n(1-q(Z_{n:n+1}))}{2-q(z_{n:n+1})}   \right] \right\}\\
+	&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\frac{Q_i^{n+1}}{n+1} - \frac{\pi_i\pi_n(1-q(Z_{n:n+1}))}{(n-i+1)(2-q(Z_{n:n+1}))} \right\}\\
+	&= \wn{i}{n+1}W_{n+1:n+1} \left\{Q_i^{n+1} - \frac{\pi_i\pi_n(n+1)(1-q(Z_{n:n+1}))}{(n-i+1)(2-q(Z_{n:n+1}))} \right\}\mdot
 \end{align*}
 \end{proof}
 %
 The following result on the increases of $Q_i^{n+1}$ will be useful for the proof of Lemma \ref{lem:qisquare_upper_bound}.
 \begin{lemma}
-	Let $Q_i^{n+1}$ be defined as in lemma \ref{lem:qi} for $1\leq i\leq n$. Moreover define 
-	$$\tilde{\pi}_i := \prod\limits_{k=1}^{i-1} \left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]\prod\limits_{k=1}^{i-1} \left[\frac{n-k+2}{n-k+1}\right]$$
+	Let $Q_i^{n+1}$ be defined as in Lemma \ref{lem:qi} for $1\leq i\leq n$. Moreover define 
+	$$\tilde{\pi}_i := \prod\limits_{k=1}^{i-1} \left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]\prod\limits_{k=1}^{i-1} \left[\frac{n-k+2}{n-k+1}\right]\mdot$$
 	%
 	Then we have
 	\begin{align*}
 		Q_{i+1}^{n+1} - Q_{i}^{n+1} &= \frac{(q_i-q_{i+1})(n-i)(n-i+1)-q_{i+1}(1-q_i)(n-i+1-q_i) }{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\\
-		&\qquad\times \frac{\tilde{\pi}_i(n-i+2)^2}{n+1}
+		&\qquad\times \frac{\tilde{\pi}_i(n-i+2)^2}{n+1}\mdot
 	\end{align*}
 	\label{lem:qi_increas}
 %
 	\begin{proof}
 		For the sake of simplicity we will write $q_{i}\equiv q(Z_{i:n+1})$ during this proof. From equation (\ref{eq:qi}) we get
-		\begin{align}
-		\frac{Q_{i+1}^{n+1}-Q_i^{n+1}}{n+1} &= \left\{ \sum\limits_{r=1}^{i} \left[ \frac{\pi_r}{n-r+2-q_r} \right]^2 + \frac{\pi_{i+1}\pi_{i+2}}{n-i} \right\}\nonumber\\
-		& - \left\{ \sum\limits_{r=1}^{i-1} \left[ \frac{\pi_r}{n-r+2-q_r} \right]^2 + \frac{\pi_i\pi_{i+1}}{n-i+1} \right\}\nonumber\\
-		&= \frac{\pi_i^2}{(n-i+2-q_i)^2}+\frac{\pi_{i+1}\pi_{i+2}}{n-i}-\frac{\pi_{i}\pi_{i+1}}{n-i+1} \nonumber\\
-		&= \frac{\pi_i^2}{(n-i+2-q_i)^2} + \frac{\pi_{i}^2(n-i+1-q_i)^2(n-i-q_{i+1})}{(n-i)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\nonumber\\
-		&  - \frac{\pi_{i}^2(n-i+1-q_i)}{(n-i+1)(n-i+2-q_i)} \nonumber\\
-		&= \pi_i^2\left\{\frac{1}{(n-i+2-q_i)^2} + \frac{(n-i+1-q_i)^2(n-i-q_{i+1})}{(n-i)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right.\nonumber\\
-		&  \left.\qquad\quad - \frac{n-i+1-q_i}{(n-i+1)(n-i+2-q_i)} \right\}\nonumber\\
-		&=: \pi_i^2\left\{a(n,i) + b(n,i) - c(n,i) \right\}
-		\label{eq:qi_diffaa}
-		\end{align}
+		\begin{align*}
+			\frac{Q_{i+1}^{n+1}-Q_i^{n+1}}{n+1} &= \left\{ \sum\limits_{r=1}^{i} \left[ \frac{\pi_r}{n-r+2-q_r} \right]^2 + \frac{\pi_{i+1}\pi_{i+2}}{n-i} \right\}\\
+			& - \left\{ \sum\limits_{r=1}^{i-1} \left[ \frac{\pi_r}{n-r+2-q_r} \right]^2 + \frac{\pi_i\pi_{i+1}}{n-i+1} \right\}\\
+			&= \frac{\pi_i^2}{(n-i+2-q_i)^2}+\frac{\pi_{i+1}\pi_{i+2}}{n-i}-\frac{\pi_{i}\pi_{i+1}}{n-i+1} \\
+			&= \frac{\pi_i^2}{(n-i+2-q_i)^2} + \frac{\pi_{i}^2(n-i+1-q_i)^2(n-i-q_{i+1})}{(n-i)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\\
+			&  - \frac{\pi_{i}^2(n-i+1-q_i)}{(n-i+1)(n-i+2-q_i)} \\
+			&= \pi_i^2\left\{\frac{1}{(n-i+2-q_i)^2} + \frac{(n-i+1-q_i)^2(n-i-q_{i+1})}{(n-i)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right.\\
+			&  \left.\qquad\quad - \frac{n-i+1-q_i}{(n-i+1)(n-i+2-q_i)} \right\}\\
+			&=: \pi_i^2\left\{a(n,i) + b(n,i) - c(n,i) \right\}\mdot \numberthis \label{eq:qi_diffaa}
+		\end{align*}
 		%
 		Now consider 
-		\begin{align}
-		& b(n,i) - c(n,i) \nonumber\\
-		&= (n-i+1-q_i)\left[\frac{(n-i+1-q_i)(n-i-q_{i+1})}{(n-i)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right.\nonumber \\
-		& \left. \qquad\qquad\qquad\qquad - \frac{1}{(n-i+1)(n-i+2-q_i)}\right]\nonumber\\
-		&= (n-i+1-q_i)\left[\frac{(n-i+1-q_i)(n-i-q_{i+1})(n-i+1)}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right.\nonumber\\
-		& \left. \qquad\qquad\qquad\qquad - \frac{(n-i+2-q_i)(n-i+1-q_{i+1})(n-i)}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right]
-		\label{eq:large_numerator}
-		\end{align}
+		\begin{align*}
+			& b(n,i) - c(n,i) \\
+			&= (n-i+1-q_i)\left[\frac{(n-i+1-q_i)(n-i-q_{i+1})}{(n-i)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right. \\
+			& \left. \qquad\qquad\qquad\qquad - \frac{1}{(n-i+1)(n-i+2-q_i)}\right]\\
+			&= (n-i+1-q_i)\left[\frac{(n-i+1-q_i)(n-i-q_{i+1})(n-i+1)}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right.\\
+			& \left. \qquad\qquad\qquad\qquad - \frac{(n-i+2-q_i)(n-i+1-q_{i+1})(n-i)}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right]\mdot \numberthis \label{eq:large_numerator}
+		\end{align*}
 		%
 		Next we will simplify the difference of the numerators above. We have 
-		\begin{align}
-		&\quad (n-i+1-q_i)(n-i-q_{i+1})(n-i+1)\nonumber\\
-		&\quad- (n-i+2-q_i)(n-i+1-q_{i+1})(n-i)\nonumber\\
-		&= (n-i+1-q_i)(n-i)(n-i+1)- q_{i+1}(n-i+1-q_i)(n-i+1)\nonumber\\
-		&\quad- (n-i+2-q_i)(n-i+1-q_{i+1})(n-i)\nonumber\\
-		&= (n-i+1-q_i)(n-i)(n-i+1)- q_{i+1}(n-i+1-q_i)(n-i+1)\nonumber\\
-		&\quad- (n-i+1-q_i)(n-i+1-q_{i+1})(n-i)- (n-i+1-q_{i+1})(n-i)\nonumber\\
-		&= (n-i+1-q_i)(n-i)(n-i+1)- q_{i+1}(n-i+1-q_i)(n-i+1)\nonumber\\
-		&\quad- (n-i+1-q_i)(n-i+1)(n-i)+ q_{i+1}(n-i+1-q_i)(n-i)\nonumber\\
-		&\quad- (n-i+1-q_{i+1})(n-i)\nonumber\\
-		&= - q_{i+1}(n-i+1-q_i) - (n-i+1-q_{i+1})(n-i)\nonumber
-		\end{align}
+		\begin{align*}
+			&\quad (n-i+1-q_i)(n-i-q_{i+1})(n-i+1)\\
+			&\quad- (n-i+2-q_i)(n-i+1-q_{i+1})(n-i)\\
+			&= (n-i+1-q_i)(n-i)(n-i+1)- q_{i+1}(n-i+1-q_i)(n-i+1)\\
+			&\quad- (n-i+2-q_i)(n-i+1-q_{i+1})(n-i)\\
+			&= (n-i+1-q_i)(n-i)(n-i+1)- q_{i+1}(n-i+1-q_i)(n-i+1)\\
+			&\quad- (n-i+1-q_i)(n-i+1-q_{i+1})(n-i)- (n-i+1-q_{i+1})(n-i)\\
+			&= (n-i+1-q_i)(n-i)(n-i+1)- q_{i+1}(n-i+1-q_i)(n-i+1)\\
+			&\quad- (n-i+1-q_i)(n-i+1)(n-i)+ q_{i+1}(n-i+1-q_i)(n-i)\\
+			&\quad- (n-i+1-q_{i+1})(n-i)\\
+			&= - q_{i+1}(n-i+1-q_i) - (n-i+1-q_{i+1})(n-i)\mdot
+		\end{align*}
 		%
 		Hence we get, according to \eqref{eq:large_numerator} 
 		\begin{align*}
-		& b(n,i) - c(n,i) \nonumber\\
-		&= -(n-i+1-q_i)\left[\frac{ q_{i+1}(n-i+1-q_i) + (n-i+1-q_{i+1})(n-i)}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right]
+			& b(n,i) - c(n,i)\\
+			&= -(n-i+1-q_i)\left[\frac{ q_{i+1}(n-i+1-q_i) + (n-i+1-q_{i+1})(n-i)}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\right]\mdot
 		\end{align*}
 		%
 		Therefore we have 
-		\begin{align}
-		& a(n,i) + b(n,i) - c(n,i) \nonumber\\
-		&= \frac{1}{(n-i+2-q_i)^2}\nonumber\\
-		&\quad - \frac{q_{i+1}(n-i+1-q_i)^2 + (n-i+1-q_i)(n-i+1-q_{i+1})(n-i)}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\nonumber\\
-		&= \frac{(n-i)(n-i+1)(n-i+1-q_{i+1})}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\nonumber\\
-		&\quad - \frac{q_{i+1}(n-i+1-q_i)^2 + (n-i+1-q_i)(n-i+1-q_{i+1})(n-i)}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\nonumber
-		\end{align}
+		\begin{align*}
+			& a(n,i) + b(n,i) - c(n,i)\\
+			&= \frac{1}{(n-i+2-q_i)^2}\\
+			&\quad - \frac{q_{i+1}(n-i+1-q_i)^2 + (n-i+1-q_i)(n-i+1-q_{i+1})(n-i)}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\\
+			&= \frac{(n-i)(n-i+1)(n-i+1-q_{i+1})}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\\
+			&\quad - \frac{q_{i+1}(n-i+1-q_i)^2 + (n-i+1-q_i)(n-i+1-q_{i+1})(n-i)}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\mdot
+		\end{align*}
 		%
 		Consider again the numerator of the latter expression. We have
-		\begin{align}
-		&= (n-i)(n-i+1)(n-i+1-q_{i+1}) - q_{i+1}(n-i+1-q_i)^2 \nonumber\\
-		& \quad - (n-i)(n-i+1-q_i)(n-i+1-q_{i+1})\nonumber\\
-		&= q_i(n-i)(n-i+1-q_{i+1}) - q_{i+1}(n-i+1-q_i)^2 \nonumber\\
-		&= q_i(n-i)^2 + q_i(1-q_{i+1})(n-i) -q_{i+1}(n-i)^2 \nonumber\\
-		&\quad - 2q_{i+1}(1-q_i)(n-i) - q_{i+1}(1-q_i)^2 \nonumber\\	
-		&= (q_i-q_{i+1})(n-i)^2 + q_i(n-i) - q_iq_{i+1}(n-i) \nonumber\\
-		&\quad - 2q_{i+1}(n-i) + 2q_iq_{i+1}(n-i) - q_{i+1}(1-q_i)^2 \nonumber\\
-		&= (q_i-q_{i+1})(n-i)^2 + (q_i + q_iq_{i+1} - 2q_{i+1})(n-i) - q_{i+1}(1-q_i)^2 \nonumber
-		\end{align}
+		\begin{align*}
+			&= (n-i)(n-i+1)(n-i+1-q_{i+1}) - q_{i+1}(n-i+1-q_i)^2\\
+			& \quad - (n-i)(n-i+1-q_i)(n-i+1-q_{i+1})\\
+			&= q_i(n-i)(n-i+1-q_{i+1}) - q_{i+1}(n-i+1-q_i)^2 \\
+			&= q_i(n-i)^2 + q_i(1-q_{i+1})(n-i) -q_{i+1}(n-i)^2 \\
+			&\quad - 2q_{i+1}(1-q_i)(n-i) - q_{i+1}(1-q_i)^2 \\	
+			&= (q_i-q_{i+1})(n-i)^2 + q_i(n-i) - q_iq_{i+1}(n-i) \\
+			&\quad - 2q_{i+1}(n-i) + 2q_iq_{i+1}(n-i) - q_{i+1}(1-q_i)^2 \\
+			&= (q_i-q_{i+1})(n-i)^2 + (q_i + q_iq_{i+1} - 2q_{i+1})(n-i) - q_{i+1}(1-q_i)^2\mdot 
+		\end{align*}
 		%
-		Note that $q_i - q_{i+1} \geq -1$ and $q_i + q_iq_{i+1} - 2q_{i+1} \geq -2$, since $0\leq q_i \leq 1$ for $1\leq i \leq n$. Similarly we have $q_{i+1}(1-q_i)^2 \leq 1$. Thus we get 
-		\begin{align}
-		& a(n,i) + b(n,i) - c(n,i) \nonumber\\
-		&= \frac{(q_i-q_{i+1})(n-i)^2 + (q_i + q_iq_{i+1} - 2q_{i+1})(n-i) - q_{i+1}(1-q_i)^2}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\nonumber\\
-		&= \frac{(q_i-q_{i+1})(n-i)^2 + [(q_i - q_{i+1}) - q_{i+1}(1-q_i))(n-i) - q_{i+1}(1-q_i)^2}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\nonumber\\
-		&= \frac{(q_i-q_{i+1})(n-i)(n-i+1) - q_{i+1}(1-q_i)(n-i+1-q_i)}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\label{eq:abc}
-		\end{align}
+		Thus we get 
+		\begin{align*}
+			& a(n,i) + b(n,i) - c(n,i) \\
+			&= \frac{(q_i-q_{i+1})(n-i)^2 + (q_i + q_iq_{i+1} - 2q_{i+1})(n-i) - q_{i+1}(1-q_i)^2}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\\
+			&= \frac{(q_i-q_{i+1})(n-i)^2 + [(q_i - q_{i+1}) - q_{i+1}(1-q_i))(n-i) - q_{i+1}(1-q_i)^2}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\\
+			&= \frac{(q_i-q_{i+1})(n-i)(n-i+1) - q_{i+1}(1-q_i)(n-i+1-q_i)}{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\mdot \numberthis\label{eq:abc}
+		\end{align*}
 		%
 		Finally note that 
-		\begin{align}
-		\tilde{\pi}_i &= \frac{n+1}{n-i+2}\prod\limits_{k=1}^{i-1} \left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]\nonumber\\
-		&= \pi_i \cdot \frac{n+1}{n-i+2}
-		\label{eq:pi_tilde_pi}
-		\end{align}
+		\begin{align*}
+			\tilde{\pi}_i &= \frac{n+1}{n-i+2}\prod\limits_{k=1}^{i-1} \left[\frac{n-k+1-q(Z_{k:n+1})}{n-k+2-q(Z_{k:n+1})}\right]\nonumber\\
+			&= \pi_i \cdot \frac{n+1}{n-i+2} \numberthis \label{eq:pi_tilde_pi}
+		\end{align*}
 		with $\pi_i$ as defined in Lemma \ref{lem:qi}. Now the statement of the lemma follows directly from \eqref{eq:qi_diffaa}, \eqref{eq:abc} and \eqref{eq:pi_tilde_pi}
 	\end{proof}
 \end{lemma}
 %
+\begin{lemma}
+	Let $q$ be monotone increasing. Then $S_n(q)$ is a non-negative reverse supermartingale.
+	
+	\begin{proof}
+		First note that 
+		\begin{align*}
+			Q_1^{n+1} = (n+1)\frac{\pi_1\pi_2}{n} = \frac{(n+1)(n-q_{k})}{n(n+1-q_k)} = \frac{n(n+1)-q_{k}(n+1)}{n(n+1)-q_k n}\leq 1 \numberthis\label{eq:Qi_lt_one}
+		\end{align*}
+		Now recall that we have 
+		\begin{align*}
+			Q_{i+1}^{n+1} - Q_{i}^{n+1} &= \frac{(q_i-q_{i+1})(n-i)(n-i+1)-q_{i+1}(1-q_i)(n-i+1-q_i) }{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\\
+			&\qquad\times \frac{\tilde{\pi}_i(n-i+2)^2}{n+1}\mdot
+		\end{align*}
+		according to Lemma \ref{lem:qi_increas}
+		%
+		Next consider that 
+		\begin{align*}
+			q_i-q_{i+1} &< 0 \\
+			&\textrm{and}\\
+			q_{i+1}(1-q_i) \geq q_{i+1} - q_i > 0 
+		\end{align*}
+		%
+		Therefore we obtain
+		\begin{align*}
+			Q_{i+1}^{n+1} - Q_{i}^{n+1} < 0
+			\numberthis\label{eq:Qi_diff_neg}
+		\end{align*}
+		%
+		Consider that we can write $Q_i^{n+1}$ as
+		\begin{align*}
+			Q_i^{n+1} &= Q_1^{n+1} + \sum_{k=1}^{n}\left(Q_{k+1}^{n+1} - Q_i^{n+1}\right)
+		\end{align*}
+		%
+		Now applying inequalities \eqref{eq:Qi_lt_one} and \eqref{eq:Qi_diff_neg} to the latter equation yields $Q_i^{n+1}\leq 1$ for all $i \leq n+1$. Moreover note that $Q_{ij}^{n+1}\leq Q_i^{n+1} \leq 1$ for all $1\leq i<j\leq n+1$. Now the latter together with Lemma \ref{lem:qi} imply the statement of the Lemma .		
+	\end{proof}
+	
+\end{lemma}
 %
 %
-\section{$S_n$ is not necessarily a reverse supermartingale} \label{sec:not_supermart}
+%
+\section{$S_n$ is not a reverse supermartingale in general} \label{sec:not_supermart}
 As discussed in Chapter \ref{ch:introduction}, the Strong Law of Large Numbers for Kaplan-Meier U-Statistics of degree $2$ was established by \cite{bose1999strong}. Recall definition of said estimator: 
 \begin{equation*}
 	S_n^{km} = \doublesum\limits_{1\leq i<j\leq n} \phi(Z_{i:n}, Z_{j:n}) W_{i:n}^{km} W_{j:n}^{km}
 \end{equation*}
 with
 \begin{equation*}
-	W_{i:n}^{km} = \frac{\delta_{[i:n]}}{n-i+1}\prod\limits_{k=1}^{i-1}\left[1-\frac{\delta_{[k:n]}}{n-k+1}\right]
+	W_{i:n}^{km} = \frac{\delta_{[i:n]}}{n-i+1}\prod\limits_{k=1}^{i-1}\left[1-\frac{\delta_{[k:n]}}{n-k+1}\right]\mdot
 \end{equation*}
 The prove of existence of the limit $S = \lim_{n\to\infty} S_n^{km}$ was here essentially based on a supermartingale argument together with \cite{neveu1975discrete}, proposition 5-3-11. In Lemma 1 of \cite{bose1999strong} a representation for $\E[S_n^{km}| \F_{n+1}]$ was derived, which is similar to our lemma \ref{lem:qi}. It was shown that for $1\leq i<j\leq n$
 $$\E[S_n^{km}|\F_{n+1}] = \doublesum\limits_{1\leq i<j \leq n+1} \phi(Z_{i:n+1},Z_{j:n+1}) W_{i:n+1}^{km}W_{j:n+1}^{km}Q_{ij}^{km}$$
@@ -393,26 +425,27 @@ Q_i^{km} - \pi_i \pi_n (1-\delta_{[n:n+1]}))\frac{n-i+2}{(n+1)(n-i+1)} &\textrm{
 and
 \begin{align*}
 Q_i^{km} &= \frac{1}{n+1} \left\{ \sum\limits_{r=1}^{i-1} \pi_r^2 \left[ \frac{n-r+2}{n-r+1} \right]^{2\delta_{[r:n+1]}} \right.\\
-		 & \quad \left. + \pi_i^2 (n-i+2) \left[\frac{(n-i)(n-i+2)}{(n-i+1)^2}\right]^{\delta_{[i:n+1]}} \right\}
+		 & \quad \left. + \pi_i^2 (n-i+2) \left[\frac{(n-i)(n-i+2)}{(n-i+1)^2}\right]^{\delta_{[i:n+1]}} \right\}\mdot
 \end{align*}
+%
 Then \cite{bose1999strong} show that $Q_{ij}^{km}\leq 1$ for $1\leq i<j\leq n$, in order to establish the reverse time supermartingale property for $(S_n^{km}, \F_n)$. However their prove relies on the fact that 
 \begin{align*}
 	W_{i:n}^{km} &= \frac{\delta_{[i:n]}}{n-i+1}\prod\limits_{k=1}^{i-1}\left[1-\frac{\delta_{[k:n]}}{n-k+1}\right] \\
-				 &= \frac{\delta_{[i:n]}}{n-i+1}\prod\limits_{k=1}^{i-1}\left[1-\frac{1}{n-k+1}\right]^{\delta_{[k:n]}}
+				 &= \frac{\delta_{[i:n]}}{n-i+1}\prod\limits_{k=1}^{i-1}\left[1-\frac{1}{n-k+1}\right]^{\delta_{[k:n]}} \mdot
 \end{align*}
 %
 But the corresponding statement is not true for $W_{i:n}$, since we have in general that
 \begin{align*}
 W_{i:n} &= \frac{q(Z_{i:n})}{n-i+1}\prod\limits_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n})}{n-k+1}\right] \\
-&\neq \frac{q(Z_{i:n})}{n-i+1}\prod\limits_{k=1}^{i-1}\left[1-\frac{1}{n-k+1}\right]^{q(Z_{k:n})}
+&\neq \frac{q(Z_{i:n})}{n-i+1}\prod\limits_{k=1}^{i-1}\left[1-\frac{1}{n-k+1}\right]^{q(Z_{k:n})}\mdot
 \end{align*}
 %
 In \cite{dikta2000strong}, the following estimator was considered
-$$S_n^{se}(q) = \sum_{i=1}^n \phi(Z_{i:n}) W_{i:n}^{se}$$
+$$S_n^{se}(q) = \sum_{i=1}^n \phi(Z_{i:n}) W_{i:n}^{se}\mdot$$
 The proof of existence of the limit $S^{se} = \lim\limits_{n\to\infty} S_n^{se}$ shows a similar structure, as the one in \cite{bose1999strong}. In Lemma 2.1 of \cite{dikta2000strong}, it was shown that $\E[\mu_n\{Z_{1:n+1}\} | \F_{n+1}] = W_{1:n}^{se}$ and for $2\leq i\leq n$
-$$\E[\mu_n\{Z_{i:n+1}\} | \F_{n+1}] = W_{i:n}^{se}Q_i^{se}$$
+$$\E[\mu_n\{Z_{i:n+1}\} | \F_{n+1}] = W_{i:n}^{se}Q_i^{se}\mcomma$$
 where $\mu_n$ is the measure assigning mass $W_{i:n}$ to  $Z_{i:n}$ and
-$$Q_i^{se} = \pi_i + \sum_{k=1}^{i-1} \frac{\pi_k}{n-k+2-q(Z_{k:n+2})}$$
+$$Q_i^{se} = \pi_i + \sum_{k=1}^{i-1} \frac{\pi_k}{n-k+2-q(Z_{k:n+2})}\mdot$$
 Here $\pi_i$ is defined as in Lemma \ref{lem:qi}. Furthermore it was shown that $Q_i^{se} = Q_{i+1}^{se} = 1$ for all $2\leq i\leq n$, which, among other arguments, implies the reverse supermartingale property for $S_n^{se}$.\\
 \\
 Within the framework of this thesis, we were neither able to show $Q_i = Q_{i+1} = 1$, nor to show that $Q_i \leq 1$ for all $1\leq i\leq n$. Therefore it is not clear, if $\{\snse{2}{n}, \F_{n+1}\}$ is a reverse supermartingale. However, in Lemma \ref{lem:qi_increas} we derived a representation for the increases $Q_{i+1} - Q_i$, which we will use in Chapter 4 in order to  generalize Doob's Upcrossing Theorem to our framework. Afterwards we will derive conditions under which the expected number of upcrossings is finite in Chapter 4. This will then imply the almost sure existence of the limit of $\snse{2}{n}$.

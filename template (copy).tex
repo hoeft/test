@@ -1,0 +1,262 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template for a Master's Thesis or Ph.D. dissertation
+% at the University of Wisconsin-Milwaukee.
+%
+% Designed for LaTeX version 2e
+%
+% Updated by Adam J. Smith
+% December, 2007
+%
+% This thesis template requires the file "UWMthesis.sty", available
+% on the UWM's Atmospheric Science Club website, and possible in other
+% locations.
+%
+% A LaTeX primer is not provided here.  For instructions on how to use commands for
+% figures, table, equations, and bibliography citations, please see the documentation
+% listed later in this document.
+% 
+% This template follows the "Fall 2007" version of the 
+% University of Wisconsin-Milwaukee standards for the Master's thesis
+% and Ph.D. dissertation.  Please feel free to update this template
+% as needed to comply with these standards.
+%
+% For current thesis and dissertation formatting information, visit the UWM graduate school
+% website at the following address:
+% http://www.graduateschool.uwm.edu/students/current/thesis-and-dissertation-formatting/
+%
+% IMPORTANT: Be sure to meet with the appropriate Graduate School personnel to verify
+% whether your final document meets the UWM standards.  If not, the document may not
+% be accepted until any problems are corrected.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% If you are writing a master's thesis, use the first option (master).
+% If you are writing a phd dissertation, use the second option (phd).
+%\documentclass[master]{UWMThesis}
+\documentclass[phd]{UWMThesis}
+
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{kantlipsum}
+\usepackage{tabularx}
+
+%\usepackage{todonotes}
+%\usepackage{todo}
+\usepackage{fixmetodonotes}
+\defnote{Comment}{inline}{\hspace{10pt}}
+\defnote{Note}{inline}{\hspace{10pt}\fbox}
+%------------------------------------
+
+% Uncomment the following "usepackage" line if you wish to use BiBTeX to create the
+% bibliography.  This package is necessary to use the \citep or \citet commands, which are
+% commonly used in publications like the Journal of Geophysical Research.
+% If the style file "natbib.sty" is not provided with your release of MiKTeX, it is available
+% on the Internet.  One example web source is:
+% http://ads.harvard.edu/pubs/bibtex/astronat/natbib.sty
+\usepackage{natbib}
+\usepackage[ngerman, english]{babel} 
+%------------------------------------
+
+%Absolute value nice definition
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+%------------------------------------
+
+% Uncomment this package if you want to use graphics files, such as .eps files
+\usepackage{graphicx}
+
+% Other packages go here as needed...
+%\usepackage{mathabx}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue]{hyperref}
+
+% make todo note lines fancy af and display at left margin
+%\let\tmptodo\todo
+%\renewcommand{\todo}[1]{\tmptodo[fancyline]{#1}}
+%\reversemarginpar
+
+% Why not..
+\allowdisplaybreaks 
+%------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Customization %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ----- my commands -----
+\newcommand{\comment}[1]{\fbox{\begin{minipage}{\textwidth}\Comment{\textcolor{blue}{#1}}\end{minipage}}\\}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newcommand{\intrange}[3]{$#1 = #2, \dots, #3$}
+\newcommand{\itref}[2]{(#1\ref{#2})}
+
+\newenvironment{myarray}{\begin{center}$\begin{array}{ll} }{\end{array}$ \end{center}}
+
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\N}{\mathcal{N}}
+
+\newcommand{\fnkm}{F_n^{km}}
+\newcommand{\fnse}{F_n^{se}}
+\newcommand{\wn}[2]{W_{#1:#2}}
+\newcommand{\wnkm}[2]{W_{#1:#2}^{km}}
+\newcommand{\wnse}[2]{W_{#1:#2}^{se}}
+\newcommand{\wnseb}[2]{\bar{W}_{#1:#2}^{se}}
+\newcommand{\sn}[1]{S_{#1}}
+\newcommand{\snkm}[2]{S_{#1,#2}^{km}}
+\newcommand{\snse}[2]{S_{#1,#2}^{se}}
+\newcommand{\stnse}[1]{S_{2,#1}^{se}}
+\newcommand{\snseb}[2]{\bar{S}_{#1,#2}^{se}}
+\newcommand{\unkm}[2]{U_{#1,#2}^{km}}
+\newcommand{\unse}[2]{U_{#1,#2}^{se}}
+
+\newcommand{\StN}[1]{\tilde{S}_{#1}^N}
+\newcommand{\FtN}[1]{\tilde{\F}_{#1}^N}
+\newcommand{\YN}[1]{Y_{#1}^N}
+\newcommand{\xitN}[1]{\tilde{\xi}_{#1}^N}
+\newcommand{\UNab}[1]{U_{#1}^N[a,b]}
+
+\newcommand{\I}[1]{{\mathbbm{I}\{#1\}}}
+%\newcommand{\I}[1]{{\mathbbm{1}\{#1\}}}
+
+\newcommand{\df}{d.\,f.}
+\newcommand{\ie}{i.\,e.}
+\newcommand{\iid}{i.\,i.\,d.}
+\newcommand{\rv}{r.\,v.}
+%\newcommand{\st}{s.\,t.}
+\newcommand{\wpo}{w.\,p.\,1}
+\newcommand{\as}{a.\,s.}
+\newcommand{\st}{s.\,t.}
+\newcommand{\wrt}{w.\,r.\,t.}
+
+\newcommand{\cfbox}[2]{%
+	\colorlet{currentcolor}{.}%
+	{\color{#1}%
+		\fbox{\color{currentcolor}#2}}%
+}
+\renewcommand{\.}{\textrm{ .}}
+
+
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{theorem}{Theorem}
+
+% ----- my mathoperators -----
+\newcommand{\doublesum}{\mathop{\sum\sum}}
+\newcommand{\qeq}{\mathop{\stackrel{?}{=}}}
+\newcommand{\qleq}{\mathop{\stackrel{?}{\leq}}}
+\newcommand{\qgeq}{\mathop{\stackrel{?}{\geq}}}
+
+\newcommand{\cf}{c.\,f.}
+\newcommand{\mdot}{\textrm{ .}}
+\newcommand{\mcomma}{\textrm{ ,}}
+
+% ----- UWM stylings -----
+%\renewcommand{\evensidemargin}{.875in}  
+%\renewcommand{\oddsidemargin}{.875in}   
+%\renewcommand{\topmargin}{-.3in}
+%\renewcommand{\headheight}{0.2in}
+%\renewcommand{\marginparwidth}{1.4in}
+%\renewcommand{\marginparsep}{1.4pt}
+%\renewcommand{\headsep}{.65in}
+%\renewcommand{\footskip}{0.3in}
+%\renewcommand{\textheight}{8in}
+%\renewcommand{\textwidth}{5.9in} % crashes todonotes
+
+\newcommand{\ls}{\vspace{.1in}}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{example}[thm]{Example}
+\newtheorem{remark}[thm]{Remark}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{ques}[thm]{Question}
+\newtheorem{exer}[thm]{Exercise}
+\numberwithin{thm}{chapter}
+
+\newcommand{\todo}{\TODO}
+
+% \renewcommand{\phi}{\varphi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Personalization %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Insert your full name in the brackets.
+\renewcommand{\ThesisAuthor}{Jan Hoft}
+
+% If you are graduating in Spring, insert May.  If you are graduating in Fall, insert December.
+\renewcommand{\ThesisMonth}{May}
+
+% Insert the year of your graduation here
+\renewcommand{\ThesisYear}{2018}
+
+% Your thesis title goes here.  It will automatically be formatted to use multiple lines
+% (if needed)
+\renewcommand{\ThesisTitle}{Large sample properties of U-Statistics under semiparametric Random Censorship}
+
+% Insert your advising professor's name here.  DO NOT include a prefix of "Prof." or "Dr."
+% here!  The prefix will be inserted automatically.
+\renewcommand{\ThesisAdvisor}{Gerhard Dikta and Professor Jugal Ghorai}
+
+%------------------------------------
+
+% If your thesis or dissertation has multiple volumes, set the argument to true.
+% If not, set the argument to false.
+\setboolean{multvolumes}{false}
+
+% If your thesis or dissertation has multiple appendices, set the argument to true.
+% If not, set the argument to false.
+\setboolean{singleappendix}{false}
+
+%---------------------------------------
+
+% Creating new commands for displaying derivatives
+% Add additional new commands as needed...
+\newcommand{\ptlder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\totder}[2]{\frac{d #1}{d #2}}
+
+%---------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEGINNING OF DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	
+	% \listofnotes
+	
+	\tableofcontents
+
+	\input{notation_assumption}
+	
+	\chapter{Modifying the Martingale Convergence Theorem}
+	\input{corr3}
+
+
+	\bibliographystyle{./ametsoc}
+	%\bibliographystyle{alphanum}
+	
+	% Generate the bibliography using entries from the following .BIB file
+	\bibliography{./thesis}
+\end{document}
