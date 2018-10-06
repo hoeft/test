@@ -510,8 +510,9 @@ A signature line for your advisor will be included at the end of the abstract. N
 		\end{proof}
 	\end{lemma}
 %
-\chapter{Appendix: On finding weaker assumptions}
-During this section we will generalize Doob's Upcrossing Theorem to our framework. To get closer to the situation of Doob's Upcrossing Theorem, we define the following quantities. Let $N<\infty$ and define for $1\leq n\leq N$ 
+\chapter{Appendix: Thoughts on finding weaker assumptions}
+
+In Section \ref{sec:not_supermart}, we were only able to show that $S_n(q)$ is a reverse supermartingale under the assumption that $q$ is monotone increasing. To establish the almost sure existence of limits of supermartingale processes, one considers the number of upcrossings of an interval $[a,b]$ by the process. This was done in the famous Upcrossing Theorem by Doob \todo{cite}. During this section we will generalize Doob's Upcrossing Theorem to our framework in order to explore ways to establish weaker assumptions. To get closer to the situation of Doob's Upcrossing Theorem, we define the following quantities. Let $N<\infty$ and define for $1\leq n\leq N$ 
 \begin{equation*}
 \StN{n} := \sn{N-n+1} \textrm{, } \FtN{n} := \F_{N-n+1} \textrm{ \ and \ } \xitN{n} := \xi_{N-n+1}\mdot
 \end{equation*}
@@ -563,9 +564,7 @@ Below we will define everything needed, in order to generalize Doob's Upcrossing
 	for $1\leq n\leq N$. 	
 \end{defn}
 %
-The following lemma shows that the expected number of upcrossings of $[a,b]$ is bounded above by the expected value of $Y_n^N$. Thus afterwards it will remain to show that the limit $\E[Y_N^N]$ has a finite limit, which will be done in Section \ref{sec:dn}.
-
-Let's first define the set of all $\omega$ for which $S_n$ does not converge as
+Let's now explore how $\lim_{N\to\infty}\UNab{N}<\infty$ implies that $S$ must exist amost surely. Suppose for now, that $\lim_{N\to\infty}\UNab{N}<\infty$ and define the set of all $\omega$ for which $S_n$ does not converge as
 $$\Lambda := \{\omega | S_n(\omega) \textrm{ does not converge}\}\mdot$$
 %
 Consider that can write
@@ -592,10 +591,7 @@ Consequently we get that
 \label{eq:lambda_u}
 \end{equation}
 %
-But, according to Theorem \ref{thm:upcrossing}, we have
-$$\lim\limits_{N\to\infty}\E[\UNab{N}]<\infty\mdot$$
-%
-Clearly $\UNab{N}$ is non-decreasing in $N$. Hence we get by virtue of the Monotone Convergence Theorem 
+Note that $\UNab{N}$ is clearly non-decreasing in $N$. Now if $\lim_{N\to\infty}\E[\UNab{N}]<\infty$, we can apply the Monotone Convergence Theorem  to obtain
 $$\lim\limits_{N\to\infty}\E[\UNab{N}] = \E[U_\infty[a,b]] <\infty$$	
 %	
 and hence that
@@ -608,6 +604,7 @@ Now the latter together with \eqref{eq:lambda_u} implies that $\P(\Lambda_{a,b})
 %
 %
 %
+The following Lemmas show how Doob's Upcrossing Theorem can be adapted to our framework. We will show that $\E[\UNab{n}]$ is bounded above by $\E[Y_n^N]/(b-a)$.
 \begin{lemma}
 	For $1\leq n\leq N$ we have
 	$$\E[\UNab{n}]\leq \frac{\E[\YN{n}]}{b-a}\mdot$$
@@ -626,7 +623,7 @@ Now the latter together with \eqref{eq:lambda_u} implies that $\P(\Lambda_{a,b})
 	From here the assertion follows directly.
 \end{proof}
 %
-The following lemma provides a representation for the expectation of the process $Y_N^N$.
+The following lemma provides a representation for the expectation of the process $Y_N^n$.
 \begin{lemma}
 	\label{lem:optional_skipping}
 	For $1\leq n\leq N$ let
@@ -683,7 +680,7 @@ The following lemma provides a representation for the expectation of the process
 	Note that we have $\YN{1}=\StN{1}$, as the sum in the definition above is in this case empty and hence treated as zero. Moreover note that we have $\YN{n+1} = \StN{n+1}$ if $\epsilon_k=1$ for all $1\leq k \leq n$. 
 \end{remark}
 %
-The Lemma below establishes an upper bound for $\E[Y_N^N]$. 
+The Lemma below establishes an upper bound for $\E[Y_N^N]$ in terms of $Q_{ij}^{N-k+1}$, as defined in Lemma \ref{lem:qi}. 
 \begin{lemma} \label{lem:cs}
 	We have for $N\geq 2$
 	\begin{align*}
@@ -691,13 +688,12 @@ The Lemma below establishes an upper bound for $\E[Y_N^N]$.
 	\end{align*}
 	where
 	\begin{align*}
-	\alpha_{N-k+1} &:= \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi^2(Z_{i:N-k+1}, Z_{j:N-k+1}) W^2_{i:N-k+1} W^2_{j:N-k+1}\right]^{\frac{1}{2}}\\
-	&\qquad\qquad\qquad\qquad \times \E\left[(Q_{i,j}^{N-k+1} - 1)^2\right]^{\frac{1}{2}}\mdot
+	\alpha_{N-k+1} &:= \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) W_{i:N-k+1} W_{j:N-k+1}(Q_{i,j}^{N-k+1} - 1)\right]\mdot
 	\end{align*}
 	%
 	\begin{proof}
 		Combining Lemmas \ref{lem:optional_skipping} and \ref{lem:upcrossings_yn} yields the following for $n\leq N$
-		$$(b-a) \E[U_n[a,b]] \leq \E[Y_n^N] \leq \E[\StN{n}] - \sum_{k=1}^{n-1} \E[(1-\epsilon_k) \left(\E[\StN{k+1} | \F_k^N] - \StN{k}\right)]\mdot$$
+		$$(b-a) \E[U_n[a,b]] \leq \E[Y_n^N] = \E[\StN{n}] - \sum_{k=1}^{n-1} \E[(1-\epsilon_k) \left(\E[\StN{k+1} | \F_k^N] - \StN{k}\right)]\mdot$$
 		%
 		Moreover we get from Lemma \ref{lem:qi}
 		\begin{align*}
@@ -707,7 +703,7 @@ The Lemma below establishes an upper bound for $\E[Y_N^N]$.
 		%
 		Therefore we obtain
 		\begin{align*}
-		\E[Y_N^N] &\leq \E[\StN{N}] - \sum_{k=1}^{N-1} \E[(1-\epsilon_k) \E[\StN{k+1} | \F_k^N] - \StN{k} ]\\
+		\E[Y_N^N] &= \E[\StN{N}] - \sum_{k=1}^{N-1} \E[(1-\epsilon_k) \E[\StN{k+1} | \F_k^N] - \StN{k} ]\\
 		&=  \E[\StN{N}] - \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1} \E\left[(1-\epsilon_k)\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right. \\
 		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left. W_{i:N-k+1} W_{j:N-k+1}(Q_{i,j}^{N-k+1} - 1) \right]\\
 		&\leq  \E[\StN{N}] + \left|\sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1} \E\left[(1-\epsilon_k)\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right.\right. \\
@@ -728,7 +724,9 @@ The Lemma below establishes an upper bound for $\E[Y_N^N]$.
 	\end{proof}
 \end{lemma}
 %
-The following lemma is similar to \cite{neveu1975discrete}, Proposition 5-3-11, and it will be essential to identify the limit of $S_n$.
+In addition to the almost sure existence of $S(q)$ we need the following statement 
+$$S = \lim\limits_{n\to\infty} S_n = \lim\limits_{n\to\infty}\E[S_n]$$
+in order to identify $S(q)$ in Lemma \ref{lem:sn_limit}. This could be established by the following Lemma.
 \begin{lemma}
 	The following statement holds true:
 	$$S_\infty = \lim\limits_{n\to\infty} \E[S_n| \F_\infty] = \lim\limits_{n\to\infty}\E[S_n]$$

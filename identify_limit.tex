@@ -49,7 +49,7 @@ We will now continue to identify the limit $S(m(\cdot,\hat{\theta}_n))$ througho
 	\label{fig:structure_identify}
 \end{figure}
 %
-\\
+\section{The reverse supermartingale $D_n$}
 Let's first define the following quantities for $n\geq 1$ and $s < t$:
 \begin{align*}
 B_n(s) &:= \prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_{k} < s}}\\
@@ -58,21 +58,21 @@ D_n(s,t) &:= \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I{Z
 \Delta_n(s,t) &:= \E\left[D_n(s,t) \right]\\
 \bar{\Delta}_n(s,t) &:= \E\left[C_n(s)D_n(s,t) \right]\mdot
 \end{align*}
-Here $Z_{0:n} := -\infty$ and $Z_{n+1:n} := \infty$.\\
+Here $Z_{0:n} := 0$ and $Z_{n+1:n} := \infty$.\\
 \\
 During this section, we will derive a representation of $\E[S_n]$ which involves the process $D_n$. This will be done in Lemma \ref{lem:zizone} and Lemma \ref{lem:representation_bn}. We will then show that $\{D_n,\F_n\}$ is a reverse supermartingale in Lemma \ref{lem:dn_supermart} and identify the limit of $D_n$ in Lemma \ref{lem:dn_limit}. Moreover Lemmas \ref{lem:zizone}, \ref{lem:representation_bn} and \ref{lem:neveu} will play a central role in identifying the limit $S$ in Chapter \ref{ch:identify_limit}.\\
 \\
 The lemma below contains a basic result needed to prove Lemma \ref{lem:representation_bn}.
 \begin{lemma}
 	\label{lem:bnbn_change_order}
-	Let $s\neq t$. Then the conditional expectation 
+	Let $i\neq j$. Then the conditional expectation 
 	$$\E[B_n(s)B_n(t) | Z_i=s, Z_j=t]$$ 
 	is independent of $i,j$ and hence
 	$$\E[B_n(s)B_n(t) | Z_i=s, Z_j=t] = \E[B_n(s)B_n(t) | Z_1=s, Z_2=t]$$
 	holds almost surely.
 	%
 	\begin{proof}
-		For the sake of notational simplicity denote for $s<t$ $s_k^n := \I{Z_{k:n} < s}$ and $t_k^n := \I{s\leq Z_{k:n} < t}$. Consider on $\{s<t\}$ 
+		For the sake of notational simplicity denote for $s<t$ $s_k^n := \I{Z_{k:n} < s}$ and $t_k^n := \I{s\leq Z_{k:n} < t}$. Note that $i\neq j$ implies $s\neq t$, since the $(Z_i)_{i\leq n}$ are pairwise distinct. Now consider on $\{s<t\}$ 
 		\begin{align*}
 		&\E\left[B_n(s)B_n(t)|Z_i=s, Z_j=t\right]\\
 		&= \E\left[\prod_{k=1}^{n}\left(1+\frac{1-q(Z_{k:n})}{n-k}\right)^{2s_k^n + t_k^n} | Z_i=s, Z_j=t\right]\\
@@ -138,22 +138,14 @@ The lemma below contains a basic result needed to prove Lemma \ref{lem:represent
 		Consider that $\{Z_i=Z_j\}$ is a measure zero set, since $H$ is continuous. Therefore the following holds for $1\leq i,j \leq n$ 
 		\begin{align*}
 		& \E\left[\tilde{\phi}(Z_{i},Z_{j}) \E\left[B_n(Z_{i}) B_n(Z_{j})| Z_i,Z_j\right]\right]\\
-		&= \E\left[\I{Z_i<Z_j}\tilde{\phi}(Z_{i},Z_{j}) \E\left[B_n(Z_{i}) B_n(Z_{j})| Z_i,Z_j\right]\right]\\
-		&\qquad + \E\left[\I{Z_i>Z_j}\tilde{\phi}(Z_{i},Z_{j}) \E\left[B_n(Z_{i}) B_n(Z_{j})| Z_i,Z_j\right]\right]\\
-		&= \int_{0}^{\infty}\int_{0}^{\infty}\I{s<t}\tilde{\phi}(s,t) \E\left[B_n(s) B_n(t)| Z_i=s,Z_j=t\right]H(ds)H(dt)\\
-		&\qquad + \int_{0}^{\infty}\int_{0}^{\infty}\I{s>t}\tilde{\phi}(s,t) \E\left[B_n(s) B_n(t)| Z_i=s,Z_j=t\right]H(ds)H(dt)\\
-		&=: \int_{0}^{\infty}\int_{0}^{\infty}\tilde{\phi}(s,t) I_1(s,t) H(ds)H(dt) + \int_{0}^{\infty}\int_{0}^{\infty}\tilde{\phi}(s,t) I_2(s,t)H(ds)H(dt)\mdot \numberthis\label{eq:ioneitwo}
+		&= \E\left[\I{Z_i\neq Z_j}\tilde{\phi}(Z_{i},Z_{j}) \E\left[B_n(Z_{i}) B_n(Z_{j})| Z_i,Z_j\right]\right]\\
+		&= \E\left[\I{i\neq j}\tilde{\phi}(Z_{i},Z_{j}) \E\left[B_n(Z_{i}) B_n(Z_{j})| Z_i,Z_j\right]\right]\\
+		&= \int_{0}^{\infty}\int_{0}^{\infty}\I{i\neq j}\tilde{\phi}(s,t) \E\left[B_n(s) B_n(t)| Z_i=s,Z_j=t\right]H(ds)H(dt)\mdot \numberthis\label{eq:ioneitwo}
 		\end{align*}
 		%
-		Now let's consider $I_1$ above. Using Lemma \ref{lem:bnbn_change_order} we obtain for $1\leq i,j\leq n$
+		According to Lemma \ref{lem:bnbn_change_order} we have for $1\leq i\neq j\leq n$
 		\begin{align*}
-		I_1(s,t) &= \I{s<t} \E[B_n(s)B_n(t)|Z_i=s, Z_j=t]\\
-		&= \I{s<t} \E[B_n(s)B_n(t)|Z_1=s, Z_2=t]
-		\end{align*}
-		and 
-		\begin{align*}
-		I_2(s,t) &= \I{s>t} \E[B_n(s)B_n(t)|Z_i=s, Z_j=t]\\
-		&= \I{s>t} \E[B_n(s)B_n(t)|Z_1=s, Z_2=t]\mdot
+		\E[B_n(s)B_n(t)|Z_i=s, Z_j=t] = \E[B_n(s)B_n(t)|Z_1=s, Z_2=t]
 		\end{align*}
 		%
 		Therefore we obtain, according to \eqref{eq:ioneitwo}, that 
@@ -172,7 +164,7 @@ The lemma below contains a basic result needed to prove Lemma \ref{lem:represent
 	\end{align*}
 	%
 	\begin{proof}
-		Consider the following
+		Note that w.l.o.g. we can assume that the $(Z_i)_{i\leq n}$ are pairwise distinct, since $H$ is continuous. Consider the following
 		\begin{align*}
 		B_n(Z_1)B_n(Z_2) &= \prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_{k} < Z_1}+\I{Z_{k} < Z_2}}\\
 		&= \left[1+\frac{1-q(Z_{1})}{n-R_{1,n}}\right]^{\I{Z_{1} < Z_2}} \left[1+\frac{1-q(Z_{2})}{n-R_{2,n}}\right]^{\I{Z_{2} < Z_1}}\\
@@ -213,7 +205,7 @@ The lemma below contains a basic result needed to prove Lemma \ref{lem:represent
 		\left[1+\frac{1-q(Z_{1})}{n-R_{1,n}}\right] = \sum_{i=1}^{n-1}\left[1+\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < Z_1 \leq Z_{i:n-2}}\mdot
 		\end{align*}
 		%
-		Note that $Z_{k:n-2}$ is independent of $Z_1$ and $Z_2$ for $k=1,\dots,n-2$. Therefore we obtain the following, by conditioning \eqref{eq:bnbn_rank} on $Z_1,Z_2$:
+		Recall that we set $Z_{0:n}=0$ and $Z_{n-1:n-2}=\infty$. Now note that $Z_{k:n-2}$ is independent of $Z_1$ and $Z_2$ for $k=1,\dots,n-2$. Therefore we obtain the following, by conditioning \eqref{eq:bnbn_rank} on $Z_1,Z_2$:
 		\begin{align*}
 		&\E[B_n(Z_1)B_n(Z_2)|Z_1 = s, Z_2 = t]\\
 		&= \I{s<t}\E\left[\left(\sum_{i=1}^{n-1}\left[1+\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}}\right)\right.\\
@@ -237,8 +229,8 @@ The lemma below contains a basic result needed to prove Lemma \ref{lem:represent
 		\end{align*}		
 		%
 		Consider that we have
-		$$\E[\alpha(Z_1,Z_2)] = \E[\alpha(Z_2,Z_1)]$$
-		under (A\ref{ass:kernel_gen}), because $Z_1$ and $Z_2$ are \iid\ and 
+		$$\E[\alpha(Z_1,Z_2)] = \E[\alpha(Z_2,Z_1)]\mcomma$$
+		because $Z_1$ and $Z_2$ are \iid\ and $\alpha$ is symmetric in its arguments. Moreover
 		$$\E[\beta(Z_1,Z_2)] = 0$$
 		since $H$ is continuous. Therefore we get 
 		\begin{align*}
@@ -246,17 +238,18 @@ The lemma below contains a basic result needed to prove Lemma \ref{lem:represent
 		&= \E[\tilde{\phi}(Z_1,Z_2)(\alpha(Z_1,Z_2) + \alpha(Z_2,Z_1) + \beta(Z_1,Z_2))]\\
 		&= \E[2\tilde{\phi}(Z_1,Z_2)\alpha(Z_1,Z_2)]\mdot \numberthis\label{eq:expectationalpha}
 		\end{align*}
+		under (A\ref{ass:kernel_gen}). 
 		%
 		Next consider that 
 		\begin{align*}
-		\alpha(s,t) &=\I{s<t}\E\left[(1+C_n(s)) D_{n-2}(s,t) \right]\\
+		\alpha(s,t) &=\I{s<t}\E\left[(1+C_{n-2}(s)) D_{n-2}(s,t) \right]\\
 		&= \I{s<t}(\Delta_{n-2}(s,t) + \bar{\Delta}_{n-2}(s,t))\mdot
 		\end{align*}
 		The latter equality holds, since
 		\begin{align*}
 		&\sum_{i=1}^{n-1}\left[1+\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}}\\
 		&=\sum_{i=1}^{n-1}\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}} + \sum_{i=1}^{n-1}\left[\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}}\\
-		&= 1 + C_n(s)\mdot
+		&= 1 + C_{n-2}(s)\mdot
 		\end{align*}
 		Now the statement of the lemma follows directly from \eqref{eq:expectationalpha}.
 	\end{proof}
@@ -320,7 +313,7 @@ $$D(s,t) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \
 		%
 		Note that the second term on the right hand side of the latter equation above tends to zero for  $n\to\infty$, because
 		\begin{align*}
-		& \int_{0}^{s-} \frac{(1-q(z))(H_n(z)-H(z)-\frac{2}{n})}{(1-H_n(z)+\frac{2}{n})(1-H(z))} H_n(dz)\\
+		& \left|\int_{0}^{s-} \frac{(1-q(z))(H_n(z)-H(z)-\frac{2}{n})}{(1-H_n(z)+\frac{2}{n})(1-H(z))} H_n(dz)\right|\\
 		&\leq \frac{\sup_{z}|H_n(z)- H(z) -\frac{2}{n}|}{1-H(s)} \int_{0}^{s-}\frac{1}{1-H_n(z)} H_n(dz) \longrightarrow 0
 		\end{align*}
 		%
@@ -337,6 +330,10 @@ $$D(s,t) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \
 		almost surely.
 	\end{proof}
 \end{lemma}
+
+\begin{remark}
+	The measure zero set $\{\omega| D_n(s,t;\omega) \to D(s,t) \textrm{ as } n\to\infty\}$ is independent of $s$ and $t$.
+\end{remark}
 %
 \begin{lemma} \label{lem:dn_supermart}
 	$\{D_n, \F_n\}_{n\geq 1}$ is a non-negative reverse supermartingale.
@@ -359,7 +356,7 @@ $$D(s,t) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \
 		%
 		Now each product within the conditional expectation is measurable \wrt\ $\F_{n+1}$. Moreover we have for $i=1,\dots,n$ 
 		\begin{align*}
-		\E[\I{Z_{n+1}=Z_{i:n+1}}|\F_n+1] &= \P(Z_{n+1}=Z_{i:n+1}|\F_{n+1})\\
+		\E[\I{Z_{n+1}=Z_{i:n+1}}|\F_{n+1}] &= \P(Z_{n+1}=Z_{i:n+1}|\F_{n+1})\\
 		&= \P(R_{n+1,n+1} = i)\\
 		&= \frac{1}{n+1}\mdot
 		\end{align*}
@@ -555,7 +552,7 @@ and
 \end{align*}
 
 \begin{lemma}
-	For continuous $H$ the following statements hold
+	Let $H$ be continuous and $q$ be increasing. Then the following statements hold
 	$$\lim\limits_{n\to\infty} S_n(q) = S(q)$$
 	and 
 	$$\lim\limits_{n\to\infty} \bar{S}_n(q) = \bar{S}(q)$$
@@ -563,7 +560,9 @@ and
 	\label{lem:sn_limit}
 	%
 	\begin{proof}
-		Suppose $H$ is continuous. First consider that we have
+		Suppose $H$ is continuous and $q$ is increasing. First consider that $S$ exists almost surely and we have
+		$$\lim\limits_{n\to\infty} S_n = \lim\limits_{n\to\infty} \E[S_n] = S$$
+		according to Theorem \ref{thm:ex_limit_sn}. Next consider
 		\begin{align*}
 			\E[S_n(q)] &= \frac{n-1}{n} \E[\phi(Z_1,Z_2)q(Z_1)q(Z_2)\{\Delta_{n-2}(Z_1, Z_2) + \bar\Delta_{n-2}(Z_1, Z_2)\} \I{Z_1<Z_2}]	\\
 			&= \frac{n-1}{n} \E[\phi(Z_1,Z_2)q(Z_1)q(Z_2)\Delta_{n-2}(Z_1, Z_2)\I{Z_1<Z_2}]\\
@@ -571,7 +570,7 @@ and
 		\end{align*}
 		by Lemma \ref{lem:Sn_Delta}. 
 		%
-		Next note that we get from Lemma \ref{lem:dn_limit} that $D_n(s,t) \to D(s,t)$ \wpo, and according to Lemma \ref{lem:Cn_bounds_and_limit} $C_n(s) \to 0$ \wpo. Thus $\bar{\Delta}_n(s,t) \to 0$ as $n\to\infty$ for each $s<t$.
+		Note that we get from Lemma \ref{lem:dn_limit} that $D_n(s,t) \to D(s,t)$ \wpo, and according to Lemma \ref{lem:Cn_bounds_and_limit} $C_n(s) \to 0$ \wpo. Thus $\bar{\Delta}_n(s,t) \to 0$ as $n\to\infty$ for each $s<t$.
 		%
 		Moreover, the fact that $0\leq C_n(s)\leq 1$ and Lemma \ref{lem:neveu} imply that $\bar{\Delta}_n(s,t) \leq \Delta_n(s,t) \leq D(s,t)$ for all $n\geq 2$. Now note that $D(s,t)$ is integrable, since on $\{Z_1<Z_2\}$ we have
 		\begin{align*}
@@ -597,13 +596,41 @@ and
 		&= \frac{1}{2}\int_{0}^{\infty}\int_{0}^{\infty}\phi(s,t)q(s) \exp\left(\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz)\right)\\
 		&\qquad\qquad \times q(t)\exp\left(\int_{0}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right) H(ds)H(dt)
 		\end{align*}
-		almost surely, since $\phi(s,t)q(s)q(t)D(s,t)$ is symmetric by (A\ref{ass:kernel_gen}), and $Z_1$ and $Z_2$ are \iid. By similar arguments, we obtain $\bar{S}_n \to \bar{S}$ \wpo. 
+		almost surely, since $\phi(s,t)q(s)q(t)D(s,t)$ is symmetric by (A\ref{ass:kernel_gen}), and $Z_1$ and $Z_2$ are \iid. This concludes the argument for $S_n$. By similar arguments, we obtain $\bar{S}_n \to \bar{S}$ \wpo. 
 	\end{proof}
 \end{lemma}
 %
+%
+%
+%
+\section{On the censoring model $m$}
+\todo{Relationship of model $m$  and hazard rates}. However, we can show that common choices for $m$ (\cf\ \todo{cite}) will work within this framework, though some under restrictions. Consider the following examples:
+\begin{example}
+	Let $\theta=(\theta_1, \theta_2)$. For $\theta_1>0$ and $\theta_2<0$ let
+	$$m(t, \theta) := \frac{\theta_1}{\theta_1 + t^\theta_2}\mdot$$
+	%
+	Clearly $m(t,\theta)$ is increasing in $t$. \todo{More Weibull framework. Conclude that $\theta_2>0$ is restriction.}
+\end{example}
+%
+\begin{example}
+	For $\theta>0$ let
+	$$m(t, \theta) := \frac{1}{1 + + \exp(-\theta t)}\mdot$$
+	%
+	The logistic model works without restrictions, since $m(t,\theta)$ is increasing whenever $\theta>0$.
+\end{example}
+%
+\begin{example}
+	For $\theta>0$ let
+	$$m(t, \theta) := \frac{1}{1 - \exp(-\exp(\theta t))}\mdot$$
+	%
+	The complementary log-log model is increasing if $\theta>0$.
+\end{example}
+
+\section{Calculating the limit} \label{sec:model}
+
 In order to identify the limit of $\snse{2}{n} = S_n(m(\cdot, \hat\theta_n))$ we need the statement of Corollary \ref{lem:sandwich}, which is based upon the following lemma. Define for any $\epsilon >0$ let
 $$M_{1,\epsilon}(x) := \max(0, m(x, \theta_0) - \epsilon)) \textrm{ and } M_{2,\epsilon}(x) := \min(1, m(x, \theta_0) + \epsilon))$$
-\begin{lemma}
+\begin{lemma} 
 	Suppose (M\ref{ass:m_consistency}) and (M\ref{ass:m_nbhd}) hold. Then the following statements hold for each $0 < \epsilon \leq 1$ and $n$ large enough
 	\begin{enumerate}[(i)]
 		\item $M_{1,\epsilon}(x) \leq m(x,\hat\theta_n) \leq M_{2,\epsilon}(x)$
@@ -771,7 +798,7 @@ Now we are in a position, to identify $S = \lim_{n\to\infty} \snse{2}{n}$. The f
 			&= \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)}{m(s,\theta_0)m(t,\theta_0)(1-H(s))^\epsilon(1-H(t))^\epsilon} F(ds)F(dt)\mdot
 		\end{align*}
 		%
-		But by condition (A\ref{ass:intgral_phi_q}), the integral above is finite. Moreover we know that $S(M_{1,\epsilon})$ exists almost surely under (A\ref{ass:kernel_gen}) through (A\ref{ass:m_H_one}), by Theorem \ref{thm:ex_limit_sn}. Therefore we get by Lemma \ref{lem:sn_limit} that for each $0<\epsilon\leq1$ we have $S_n(M_{1,\epsilon}) + 4\epsilon \bar{S}_n(M_{1,\epsilon}) \to S(M_{1,\epsilon}) + 4\epsilon \bar{S}(M_{1,\epsilon})$ \wpo\ as $n\to\infty$. 
+		But by condition (A\ref{ass:intgral_phi_q}), the integral above is finite. Moreover $M_{1,\epsilon}(x)$ is increasing in $x$, since $m$ is increasing under (A\ref{ass:m_increas}). Therefore $S(M_{1,\epsilon})$ exists almost surely under (A\ref{ass:kernel_gen}) through (A\ref{ass:m_increas}), by Theorem \ref{thm:ex_limit_sn}. Hence we have that for each $0<\epsilon\leq1$ we have $S_n(M_{1,\epsilon}) + 4\epsilon \bar{S}_n(M_{1,\epsilon}) \to S(M_{1,\epsilon}) + 4\epsilon \bar{S}(M_{1,\epsilon})$ \wpo\ as $n\to\infty$, according to Lemma \ref{lem:sn_limit} . 
 		%
 		Next consider that 
 		\begin{align*}

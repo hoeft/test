@@ -16,7 +16,7 @@ The expression on the right hand side in the equation above is known as V-statis
 U_{kn}(\phi) = {n \choose k}^{-1} \sum\limits_{[n,k]} \phi(X_{i_1},...,X_{i_k})\mcomma
 \label{eq:0102}
 \end{equation}
-where the sum iterates over all sets $\{i_1,...,i_k\}$ \st\ $ 1\leq i_1 < i_2 < ... < i_n \leq n$. We call \eqref{eq:0102} U-Statistics of order $k$. In \cite{lee1990u} it was shown, that that the U-Statistics is the unbiased minimum variance estimator for \eqref{eq:0101}. Observe that for $k=2$, equation \eqref{eq:0102} simplifies to
+where the sum iterates over all sets $\{i_1,...,i_k\}$ \st\ $ 1\leq i_1 < i_2 < ... < i_n \leq n$. We call \eqref{eq:0102} U-Statistics of order $k$. In \cite{lee1990u} it was shown, that the U-Statistics is the unbiased minimum variance estimator for \eqref{eq:0101}. Observe that for $k=2$, equation \eqref{eq:0102} simplifies to
 $$U_{2n}(\phi)=\frac{2}{n(n-1)}\doublesum\limits_{1\leq i<j \leq n}\phi(X_i,X_j)$$
 and we have
 $$\E(U_{2n}(\phi))=\int \int \phi dF dF$$
@@ -41,7 +41,7 @@ Replacing the true $F$ in \eqref{eq:0103} by $\fnkm$ yields
 $$\snkm{1}{n}(\phi):=\int_0^\infty \phi dF_n^{km}=\sum_{i=1}^n \phi(Z_{i:n}) \wnkm{i}{n}$$
 where $\wnkm{i}{n}$ denotes the weight placed on $Z_{i:n}$ by $F_n^{km}$. That is\\
 \begin{myarray}
- \wnkm{i}{n} &= \fnkm(Z_{i+1:n}) - \fnkm(Z_{i:n})\\
+ \wnkm{i}{n} &= \fnkm(Z_{i:n}) - \fnkm(Z_{i-1:n})\\
           &= \frac{\delta_{[i:n]}}{n-i+1}\prod_{j=1}^{i-1}\left( \frac{n-j}{n -j+1} \right)^{\delta_{[j:n]}}\\
 \end{myarray}
 It is easy to see, that the Kaplan-Meier estimator only puts mass at uncensored $Z$-values, \ie 
@@ -69,7 +69,7 @@ belongs to some parametric family, \ie\
 $$m(z) = m(z,\theta_0)$$
 where $\theta_0=(\theta_{0,1},...,\theta_{0,p})\in \Theta \subset \R^p$. \\
 \\
-\todo{Discuss} \cite{dikta1998semiparametric}\\
+\todo{Discuss} \cite{dikta1998semiparametric}, Dikta, 2014, Asymptotic Optimality\\
 \\
 Now the semiparametric estimator is defined by
 $$1-\fnse(t) = \prod\limits_{i:Z_i\leq t}\left(1-\frac{m(Z_i,\hat{\theta}_n)}{n-R_i+1}\right)$$
@@ -81,7 +81,7 @@ where
 $$\wnse{i}{n} = \frac{m(Z_{i:n}, \hat{\theta}_n)}{n-i+1} \prod\limits_{j=1}^{i-1}\left(1-\frac{m(Z_{j:n}, \hat{\theta}_n)}{n-j+1}\right)$$
 is the mass that $\fnse$ assigns to $Z_{i:n}$. $\wnse{i}{n}$ will be called $i$-th semiparametric weight throughout this document. The SLLN and the CLT for the semiparametric U-Statistic $\snse{1}{n}$ have been established in \citet{dikta2000strong} and \citet{dikta2005central} respectively.\\
 \\
-The goal of this thesis will be to study the asymptotic behavior of the semiparametric U-Statistic of degree $2$, which will be defined in the next chapter. In particular, we are interested in the strong law of large numbers for $\snse{2}{n}$. The main statement of this thesis is contained in Theorem \ref{thm:snmn_limit} at the end of Chapter \ref{ch:identify_limit}.\\
+The goal of this thesis will be to study the strong law of large numbers for the semiparametric U-Statistic of degree $2$, which will be defined in the next chapter. The main statement of this thesis is contained in Theorem \ref{thm:snmn_limit} at the end of Chapter \ref{ch:identify_limit}.\\
 \\
 \todo{Examples for different Kernels $\phi$.}
 %We can now define the semiparametric U-Statistic as
