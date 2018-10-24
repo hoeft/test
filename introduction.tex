@@ -47,7 +47,7 @@ $$Z_i = min(X_i,Y_i) \text{ and } \delta_i=I_{X_i\leq Y_i}$$
 where $X_i$ is the true lifetime and $Y_i$ is the so called censoring time. The sequences $X_i$ and $Y_i$ are also \iid and they are assumed to be independent of each other. Throughout this work the probability distribution functions (\df) of $X$, $Y$ and $Z$ will be notated $F$, $G$ and $H$ respectively. We assume that those \df's are continuous and concentrated on $\R_+ := \R\cap [0,\infty]$.\\
 
 % Kaplan Meier U-Statistics
-Within this framework we want to study the strong law of large numbers for U-statistics estimators of $\theta^*$  based on our observations $(Z_i, \delta_i)_{i\leq n}$ instead of  $(X_i)_{i\leq n}$. To do so, we need new estimates for our \df\ $F$ which are based on our observations $(Z_i, \delta_i)$. Following \cite{shorack2009empirical}, we may find those estimators by considering the cumulative hazard function of $F$
+Within this framework we want to study the strong law of large numbers for U-statistics estimators of $\theta^*$  based on our observations $(Z_i, \delta_i)_{i\leq n}$ instead of  $(X_i)_{i\leq n}$. To do so, we need new estimates for our \df\ $F$ which are based on our observations $(Z_i, \delta_i)$. Following the calculations in Chapter 7 of \cite{shorack2009empirical}, we may find those estimators by considering the cumulative hazard function of $F$
 $$\Lambda(x) = \int_{0}^{x} \frac{1}{1-F(z)} F(dz) = \int_{0}^{x} \frac{1}{1-F(z)} H^1(dz)\mcomma$$
 with $H^1(z)=\P(\delta=1, Z\leq z)$. An estimator for the cumulative hazard rate was introduced by \cite{nelson1972theory} and \cite{aalen1978nonparametric}, \ie
 $$\Lambda_n(x) = \int_{0}^{x} \frac{1}{1-H_n(z-)} H_n^1(dz) = \sum_{i=1}^{n} \frac{\delta_i \I{Z_i \leq x}}{n - R_{i,n} +1}\mcomma$$
@@ -97,19 +97,28 @@ belongs to some parametric family, \ie\
 $$m(z) = m(z,\theta_0)$$
 where $\theta_0=(\theta_{0,1},...,\theta_{0,p})\in \Theta \subset \R^p$. This framework is called the semiparametric Random Censorship Model (SRCM).
 %
-Now the semiparametric estimator is defined by
-$$1-\fnse(t) = \prod\limits_{i:Z_i\leq t}\left(1-\frac{m(Z_i,\hat{\theta}_n)}{n-R_i+1}\right)$$
-as it was introduced by \citet{dikta2000strong}. Here $\hat{\theta}_n$ denotes the Maximum Likelihood Estimate (MLE) of $\theta_0$. That is, $\hat{\theta}_n$ is the maximizer of 
+\cite{dikta1998semiparametric} introduced the following PLE
+$$1-F_n^{se,1}(t) = \prod\limits_{i:Z_i\leq t}\left(1-\frac{1}{n-R_i+1}\right)^{m(Z_i,\hat{\theta}_n)}\mdot$$
+uniform consistency and a functional CLT result were established for $F_n^{se,1}$ by \cite{dikta1998semiparametric}. Here $\hat{\theta}_n$ denotes the Maximum Likelihood Estimate (MLE) of $\theta_0$. That is, $\hat{\theta}_n$ is the maximizer of 
 $$L_n(\theta)=\prod\limits_{i=1}^{n} m(Z_i,\theta)^{\delta_i}(1-m(Z_i,\theta))^{1-\delta_i}.$$
-Now again by replacing the true \df\ $F$ by $\fnse$ in \eqref{eq:0103} we obtain the semiparametric version of $\snkm{1}{n}$, namely
+Later in \cite{dikta2000strong} another semiparametric estimator was introduced, \ie\
+$$1-\fnse(t) = \prod\limits_{i:Z_i\leq t}\left(1-\frac{m(Z_i,\hat{\theta}_n)}{n-R_i+1}\right)\mdot$$
+In this thesis we will consider integrals of measurable functions \wrt\ $\fnse$. By replacing again the true \df\ $F$ by $\fnse$ in our integral equation \eqref{eq:0103} we obtain the semiparametric version of $\snkm{1}{n}$, namely
 $$\snse{1}{n}(\phi)=\int_0^\infty \phi d\fnse = \sum\limits_{i=1}^n \phi(Z_{i:n})\wnse{i}{n}$$
 where 
 $$\wnse{i}{n} = \frac{m(Z_{i:n}, \hat{\theta}_n)}{n-i+1} \prod\limits_{j=1}^{i-1}\left(1-\frac{m(Z_{j:n}, \hat{\theta}_n)}{n-j+1}\right)$$
-is the mass that $\fnse$ assigns to $Z_{i:n}$. $\wnse{i}{n}$ will be called $i$-th semiparametric weight throughout this document. The SLLN and the CLT for the semiparametric U-Statistic $\snse{1}{n}$ have been established in \citet{dikta2000strong} and \citet{dikta2005central} respectively. In \cite{dikta2014efficient} it is shown, that  $\snse{1}{n}$ is asymptotically efficient. Moreover \cite{dikta2016volterra} shows a way to derive strongly consistent, asymptotically normal and efficient estimators from solving a Volterra type integral equation by different numeric schemes.\\
+is the mass that $\fnse$ assigns to $Z_{i:n}$. $\wnse{i}{n}$ will be called $i$-th semiparametric weight throughout this document. The SLLN and the CLT for the semiparametric U-Statistic $\snse{1}{n}$ have been established in \citet{dikta2000strong} and \citet{dikta2005central} respectively. In \cite{dikta2014efficient} it is shown, that  $\snse{1}{n}$ is asymptotically efficient. Moreover \cite{dikta2016volterra} shows a way to derive strongly consistent, asymptotically normal and efficient estimators from solving a Volterra type integral equation by different numeric schemes.  One of the estimators derived is
+$$S^{se,2}_{1,n}(\phi)=\int_0^\infty \phi dF^{se,2}_n = \sum\limits_{i=1}^n \phi(Z_{i:n})W^{se,2}_{i,n}$$
+where 
+$$W^{se,2}_{i,n} = \frac{m(Z_{i:n}, \hat{\theta}_n)}{n-i+1} \prod\limits_{j=1}^{i-1}\left(1-\frac{m(Z_{j:n}, \hat{\theta}_n)}{n-j+m(Z_{j:n})}\right)\mdot$$
+This estimator is a proper distribution function, while $\snse{1}{n}$ and $\snkm{1}{n}$ are sub-distribution functions if the largest observation is censored.
+\\
 \\
 During this thesis we will establish the strong law of large numbers for the following estimator
 $$S_{2,n}^{se} := \doublesum\limits_{1\leq i<j\leq n}\phi(Z_{i:n}, Z_{j:n})W_{i,n}^{se}W_{j,n}^{se}\mdot$$
-We will call $S_{2,n}^{se}$ the semiparametric U-Statistic or semiparametric estimator. The main statement of this thesis follows.
+We will call $S_{2,n}^{se}$ the semiparametric U-Statistic or semiparametric estimator. \\
+\\
+The main result of this thesis is stated in the following theorem.
 \begin{thm}
 	Suppose (A\ref{ass:kernel_gen}) through (A\ref{ass:m_increas}), (M\ref{ass:m_consistency}) and (M\ref{ass:m_nbhd}) hold. Then we have
 	$$\lim\limits_{n\to\infty} S_n(m(\cdot, \hat{\theta}_n)) = \frac{1}{2}\int_{0}^{\tau_H}\int_{0}^{\tau_H} \phi(s,t) F(ds)F(dt)\mdot$$

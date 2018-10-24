@@ -255,30 +255,26 @@ The lemma below contains a basic result needed to prove Lemma \ref{lem:represent
 	\end{proof}
 \end{lemma}
 %
-Recall the following  definition from chapter \ref{ch:notation}:
-$$D_n(s,t) := \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I{Z_k<s}} \prod_{k=1}^{n}\left[1+\frac{1-q(Z_k)}{n-R_ {k,n}+1}\right]^{\I{s < Z_k < t}}\\$$
-The next lemma identifies the almost sure limit of $D_n$ for $n\to\infty$. Define for $s<t$
-$$D(s,t) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right)$$
+Next recall the following definitions for $s<t$ from Chapter \ref{ch:notation}:
+$$D_n(s,t) := \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I{Z_k<s}} \prod_{k=1}^{n}\left[1+\frac{1-q(Z_k)}{n-R_ {k,n}+1}\right]^{\I{s < Z_k < t}}$$
+and 
+$$D(s,t) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right)\mdot$$
+The next lemma identifies the almost sure limit of $D_n$ for $n\to\infty$. 
+%
 \begin{lemma} \label{lem:dn_limit}
 	For any $s < t \leq T$ \st\ $H(T)<1$, we have
 	$$\lim\limits_{n\to\infty}D_n(s,t) = D(s,t)\mdot$$
 	%	
 	\begin{proof}
-		First recall the following definition
-		\begin{align*}
-		D_n(s,t) &:= \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I{Z_k<s}} \prod_{k=1}^{n}\left[1+\frac{1-q(Z_k)}{n-R_ {k,n}+1}\right]^{\I{s < Z_k < t}} \mdot
-		\end{align*}
-		%
-		Next let 
+		First define the following quantities for for $s<t$ and $k=1,\dots,n$
 		\begin{align*}
 		x_k &:= \frac{1-q(Z_k)}{n(1- H_n(Z_k) + 2/n)}\\
 		y_k &:= \frac{1-q(Z_k)}{n(1- H_n(Z_k) + 1/n)}\\
 		s_k &:= \I{Z_k < s} \\
-		t_k &:= \I{s < Z_k < t}
+		t_k &:= \I{s < Z_k < t}\mdot
 		\end{align*}
-		for $s<t$ and $k=1,\dots,n$.
 		%
-		Now consider 
+		Now consider that we have
 		\begin{align*}
 		D_n(s,t) &= \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n(1- H_n(Z_k) + 2/n)}\I{Z_k<s}\right]^{2}\\ 
 		&\qquad \times \prod_{k=1}^{n}\left[1+\frac{1-q(Z_k)}{n(1-H_n(Z_k)+1/n)}\I{s < Z_k < t}\right]\\
@@ -784,7 +780,12 @@ and
 \end{align*}
 
 \begin{lemma}
-	Let $H$ be continuous and $q$ be increasing. Then the following statements hold true:
+	Let $H$ be continuous and $q$ satisfy
+	\begin{enumerate}[(i)]
+		\item $q(t) = c$ is constant for some $0\leq c\leq 1$ and for all $0\leq t< T_q$. 
+		\item $q(t)$ is non-decreasing for all $t\geq T_q$. 
+	\end{enumerate} 
+	for some $0\leq T_q\leq \infty$. Then the following statements hold true:
 	$$\lim\limits_{n\to\infty} S_n(q) = S(q)$$
 	and 
 	$$\lim\limits_{n\to\infty} \bar{S}_n(q) = \bar{S}(q)$$
@@ -792,7 +793,7 @@ and
 	\label{lem:sn_limit}
 	%
 	\begin{proof}
-		Suppose $H$ is continuous and $q$ is increasing. First consider that $S$ exists almost surely and we have
+		Suppose $H$ is continuous and $q$ satisfies conditions \textit{(i)} and \textit{(ii)} above. First consider that $S$ exists almost surely and we have
 		$$\lim\limits_{n\to\infty} S_n = \lim\limits_{n\to\infty} \E[S_n] = S$$
 		according to Theorem \ref{thm:ex_limit_sn}. Next consider
 		\begin{align*}
@@ -1018,7 +1019,7 @@ Now we are in a position, to identify $S = \lim_{n\to\infty} \snse{2}{n}$.
 		&= \frac{1}{2}\int_{0}^{\tau_H} \int_{0}^{\tau_H} \frac{\phi(s,t)}{m(s,\theta_0)m(t,\theta_0)(1-H(s))^\epsilon(1-H(t))^\epsilon} F(ds)F(dt)\mdot
 	\end{align*}
 	%
-	But by condition (A\ref{ass:intgral_phi_q}), the integral above is finite. Moreover $M_{1,\epsilon}(x)$ is increasing in $x$, since $m$ is increasing under (A\ref{ass:m_increas}). Therefore $S(M_{1,\epsilon})$ exists almost surely under (A\ref{ass:kernel_gen}) through (A\ref{ass:m_increas}), by Theorem \ref{thm:ex_limit_sn}. Hence we have that for each $0<\epsilon\leq1$ we have $S_n(M_{1,\epsilon}) + 4\epsilon \bar{S}_n(M_{1,\epsilon}) \to S(M_{1,\epsilon}) + 4\epsilon \bar{S}(M_{1,\epsilon})$ \wpo\ as $n\to\infty$, according to Lemma \ref{lem:sn_limit} . 
+	But by condition (A\ref{ass:intgral_phi_q}), the integral above is finite. Moreover $M_{1,\epsilon}(x)$ is non-decreasing in $x$, since $m$ is non-decreasing under (A\ref{ass:m_increas}). Therefore $S(M_{1,\epsilon})$ exists almost surely under (A\ref{ass:kernel_gen}) through (A\ref{ass:m_increas}), by Theorem \ref{thm:ex_limit_sn}. Hence we have that for each $0<\epsilon\leq1$ we have $S_n(M_{1,\epsilon}) + 4\epsilon \bar{S}_n(M_{1,\epsilon}) \to S(M_{1,\epsilon}) + 4\epsilon \bar{S}(M_{1,\epsilon})$ \wpo\ as $n\to\infty$, according to Lemma \ref{lem:sn_limit} . 
 	%
 	Next consider that 
 	\begin{align*}

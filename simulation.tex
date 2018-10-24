@@ -1,6 +1,8 @@
 \chapter{Simulations} \label{ch:simulation}
 
-\section{Computational Aspects}
+In Chapter \ref{ch:model} we discussed different configurations of our pdf's $f$ and $g$, and the censoring model $m$, which satisfy condition (A\ref{ass:m_increas}). We will now see simulation studies corresponding to some of those setups. In Section \ref{sec: computational_aspects} we will detail, how those simulations are calculated. The remaining sections of this chapter will show simulations for different setups of $f$, $g$ and $m$.
+
+\section{Computational Aspects}\label{sec: computational_aspects}
 Assume that we have $(Z_i, \delta_i)_{i\leq n}$ is a sample in the sense of RCM. Define the target value 
 $$\theta^* := \int_{0}^{\tau_H}\int_{0}^{\tau_H} \phi(s,t) F(ds)F(dt)$$
 and denote $U_n$ an estimator for $\theta^*$. In the following, we will estimate the above for different kernels $\phi$ under different censoring models $m$ for $F_n^{se}$. For the simulation, one chooses first an appropriate censoring model $m$ in connection with the compatible distribution for $X$ and/or $Y$. The kernel $\phi$ can be chosen separately. Then the Maximum Likelihood estimate for $\hat\theta_n$ is calculated. Afterwards, the Kaplan-Meier and the semiparametric weights are calculated, using the following formulas
@@ -20,7 +22,9 @@ $$Bias(\sigma_n) = \frac{1}{M}\sum_{j=1}^{M}(\sigma_{n,j} - \theta^*)\mdot$$
 For the Variance of $\sigma_n$ we use
 $$Var(\sigma_n) = \frac{1}{M-1}\sum_{j=1}^{M}(\sigma_{n,j} - \bar\sigma_M)^2 \quad\text{ with }\quad \bar\sigma_M = \frac{1}{M} \sum_{j=1}^{M} \sigma_{n,j}\mdot$$
 The mean squared error (MSE) will be estimated by
-$$MSE(\sigma_n) = \frac{1}{M}\sum_{j=1}^{M}(\sigma_{n,j} - \theta^*)^2$$. 
+$$MSE(\sigma_n) = \frac{1}{M}\sum_{j=1}^{M}(\sigma_{n,j} - \theta^*)^2\mdot$$ 
+Additionally, we will calculate the average proportion of uncensored observations by
+$$\bar c = \frac{1}{M} \sum_{j=1}^{M} c_{n,j} \quad\textrm{ with } \quad c_{n,j} = \frac{1}{n} \sum_{i=1}^{n} \delta_{[i:n+1]}\mdot$$
 Furthermore we will calculate quantiles of $F_n^{km}$ and $F_n^{se}$, by
 $$q_n^{se}(p) = \inf\{t \in \R_+| F_n^{se}(t) \geq p\}$$
 and
@@ -31,56 +35,24 @@ respectively. In order to get information about the underlying estimates $F_n^{s
 %
 \section{Simulation 1} \label{sec:sim_expexp}
 Suppose $X \sim Exp(\alpha)$ and $Y\sim Exp(\beta)$. Then we have
-$$m(z,\theta) = \frac{\alpha}{\alpha + \beta}\mdot$$
-Note that $m$ is constant in this case. Hence we are in the situation of proportional hazards model, as described in \ref{ex:intro_phm}.\\
+$$m(z,\theta) = \frac{\alpha}{\alpha + \beta} = \theta\mdot$$
+is constant in this case. Hence we are in the situation of proportional hazards model, as described in \ref{ex:intro_phm}.\\
 \\
 For this simulation, we chose $\alpha = 2$ and $\beta = 1$. The target value was here
 $$Var(X) = \frac{1}{\alpha^2}=\frac{1}{4}\mdot$$
-
-\clearpage
+For this simulation we will calculate the Cheng-Lin estimate (see Example \ref{ex:intro_phm}) of $Var(X)$, namely $\sigma_n^{cl}$, additionally to $\sigma_n^{se}$ and $\sigma_n^{km}$. We calculate  $\sigma_n^{cl}$ as
+$$\doublesum\limits_{1\leq i < j \leq n} \phi(Z_{i:n}, Z_{j:n}) W_{i,n}^{cl} W_{j,n}^{cl}$$
+where
+$$W_{i,n}^{cl} = \left[1-\left(\frac{n-i}{n-i+1}\right)^{c_n}\right] \times \prod_{k=1}^{i-1}\left[\frac{n-k}{n-k+1}\right]^{c_n}\mdot$$
+Bias, variance, MSE and quantiles will be calculated and displayed for $\sigma_n^{cl}$ in Table \ref{tab:res_expexp1} and Table \ref{tab:res_expexp2}, in order to compare the values with corresponding ones for $\sigma_n^{se}$ and $\sigma_n^{km}$. We expect that $\sigma_n^{se}$ and $\sigma_n^{cl}$ will show similar results, because of \cite{dikta2000strong}, page 3. Figure \ref{fig:dens_expexp} shows the pdf's $f$ and $g$, as well as the censoring model.
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{./figures/exp_exp_dens}
+		\includegraphics[width=0.7\textwidth]{./figures/exp_exp_dens}
 	\end{center}
 	\caption{Probability density functions $f$, $g$ and censoring model $m$ for Simulation 1.}
 	\label{fig:dens_expexp}
 \end{figure}
-Figure \ref{fig:dens_expexp} indicates that larger values will be censored rather than smaller values. 
-%$$f(z) = \alpha\beta (\alpha z)^{\beta-1}\exp\left(-(\alpha z)^{\beta}\right)$$
-%$$m(z,\theta) = \frac{1}{1+\exp(-\theta z)} \textrm{ with } \theta = \left(\frac{\alpha_2^{\beta_2}\beta_2}{\alpha_1^{\beta_1}\beta_1}, \beta_2 - \beta_1\right)$$
-%Then the pdf of $Y$ is given by 
-%$$g(z) = 2\alpha^2 z \exp\left(-\theta z\right) \exp\left(\frac{-2\alpha^2(1-(\theta z + 1)\exp(-\theta z))}{\theta^2}\right)\mdot$$
-Table \ref{tab:res_expexp1} and table \ref{tab:res_expexp2} show the results of the simulation. A graphical display of the results is depicted in figure \ref{fig:mse_expexp}.
-\begin{table}[h!]
-	\begin{center}
-		%run(n = c(500,1000,5000), theta1 = c(2,1), theta2 = c(1,1))
-		\begin{tabular}{| l || c | c | c |}
-		\hline
-		&       $n=100$   &    $n=500$    &    $n=1000$\\
-		\hline
-		\hline
-%		$Var$ & 0.25 & 0.25 & 0.25\\
-%		$U_n^{se}$ & 0.178959 & 0.214204 & 0.228216\\
-%		$U_n^km$ & 0.17329 & 0.205476 & 0.226042\\
-		$Bias(\sigma_n^{se})$ & -0.071041 & -0.035796 & -0.021784\\
-		$Bias(\sigma_n^{km})$ & -0.07671 & -0.044524 & -0.023958\\
-		\hline
-		$Var(\sigma_n^{se})$ & 0.003708 & 0.00132 & 0.000911\\
-		$Var(\sigma_n^{km})$ & 0.009248 & 0.002407 & 0.0019\\
-		\hline
-		$MSE(\sigma_n^{se})$ & 0.008755 & 0.002601 & 0.001385\\
-		$MSE(\sigma_n^{km})$  & 0.015133 & 0.004389 & 0.002474\\
-		\hline
-		\hline
-		$\bar c$  & 0.3247 & 0.33262 & 0.33503\\
-		\hline
-		\end{tabular}
-	\end{center}
-	\caption{Results for the variance estimators of Simulation 1.}
-	\label{tab:res_expexp1}
-\end{table}
-%
-As we can see, bias, variance and MSE are decreasing to zero for both estimators. The semiparametric estimator is performing clearly better under this setup. Figure \ref{fig:mse_expexp} indicates that the gain in efficiency is greater for smaller sample sizes. Moreover we can see that the gain in efficiency for $\sigma_{n}^{se}$ is more related to the bias, than to the variance. 
+ Under this setup we have $m(\cdot, \theta) = 2/3$. Since the censoring model is constant, we can expect that censoring will be occurring at the same rate over the whole domain.
 \begin{table}[h!]
 	\begin{center}
 		%run(n = c(500,1000,5000), theta1 = c(2,1), theta2 = c(1,1))
@@ -89,44 +61,80 @@ As we can see, bias, variance and MSE are decreasing to zero for both estimators
 			&       $n=100$   &    $n=500$    &    $n=1000$\\
 			\hline
 			\hline
-			$Bias(q^{se}_n(0.25)) $  & -0.009688 & -0.002208 & -0.001151\\
-			$Bias(q^{km}_n(0.25)) $  & -0.006024 & -0.001416 & 0.000264\\
+			%			$\sigma_n^{se}$ & 0.191866 & 0.218288 & 0.229699\\
+			%			$\sigma_n^{km}$ & 0.180889 & 0.213888 & 0.223222\\
+			%			$\sigma_n^{cl}$ & 0.219298 & 0.232127 & 0.241302\\
+			%			\hline
+			$Bias(\sigma_n^{se})$ & -0.058134 & -0.031712 & -0.020301\\
+			$Bias(\sigma_n^{km})$ & -0.069111 & -0.036112 & -0.026778\\
+			$Bias(\sigma_n^{cl})$ & -0.030702 & -0.017873 & -0.008698\\
 			\hline
-			$Bias(q^{se}_n(0.5)) $  & -0.014168 & -0.002367 & 0.000564\\
-			$Bias(q^{km}_n(0.5))$  & -0.012675 & -0.000372 & 0.002214\\
+			$Var(\sigma_n^{se})$ & 0.005358 & 0.002032 & 0.001306\\
+			$Var(\sigma_n^{km})$ & 0.009067 & 0.002828 & 0.001783\\
+			$Var(\sigma_n^{cl})$ & 0.007999 & 0.002731 & 0.001645\\
 			\hline
-			$Bias(q^{se}_n(0.75))$  & -0.028701 & -0.004343 & 0.004808\\
-			$Bias(q^{km}_n(0.75))$  & -0.044761 & -0.007439 & 0.004497\\
+			$MSE(\sigma_n^{se})$ & 0.008737 & 0.003038 & 0.001719\\
+			$MSE(\sigma_n^{km})$  & 0.013843 & 0.004132 & 0.0025\\
+			$MSE(\sigma_n^{cl})$ & 0.008942 & 0.003051 & 0.001721\\
 			\hline
 			\hline
-			$MSE(q^{se}_n(0.25))$  & 0.000868 & 0.000144 & 0.00005\\
-			$MSE(q^{km}_n(0.25))$  & 0.000809 & 0.000182 & 0.000064\\
+			$\bar c$  &0.6646 & 0.66456 & 0.66831\\
 			\hline
-			$MSE(q^{se}_n(0.5))$  & 0.002608 & 0.000424 & 0.000204\\
-			$MSE(q^{km}_n(0.5))$  & 0.002806 & 0.000469 & 0.000258\\
+		\end{tabular}
+	\end{center}
+	\caption{Results for Simulation 1.}
+	\label{tab:res_expexp1}
+\end{table}\\
+%
+Table \ref{tab:res_expexp1} shows, that bias, variance and MSE are decreasing to zero for all three estimators. $\sigma_n^{se}$ and $\sigma_n^{cl}$ are performing clearly better than $\sigma_n^{km}$ under this setup, while $\sigma_n^{se}$ and $\sigma_n^{cl}$ show roughly the same behavior, as we expected in the beginning of this section. 
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=0.75\textwidth]{./figures/expexp_mse2}
+	\end{center}
+	\caption{Results for Simulation 1. left: bias, variance and MSE for $\sigma_n^{se}$ and $\sigma_n^{km}$. right: MSE for $q_n^{se}$ and $q_n^{km}$.}
+	\label{fig:mse_expexp}
+\end{figure}
+%
+\clearpage
+%
+Figure \ref{fig:mse_expexp} indicates that the gain in efficiency of $\sigma_n^{se}$ and $\sigma_n^{cl}$ versus $\sigma_n^{km}$ is greater for smaller sample sizes. Moreover we can see that the gain in efficiency for $\sigma_{n}^{se}$ and $\sigma_n^{cl}$ is more related to the variance, than to the bias.\\
+\\
+The Quantiles are estimated quite well under this setup, though they are mainly underestimated by a small amount. 
+%
+\begin{table}[h!]
+	\begin{center}
+		%run(n = c(500,1000,5000), theta1 = c(2,1), theta2 = c(1,1))
+		\begin{tabular}{| l || c | c | c || c | c | c |}
 			\hline
-			$MSE(q^{se}_n(0.75))$  & 0.009388 & 0.002047 & 0.000695\\
-			$MSE(q^{km}_n(0.75))$  & 0.010156 & 0.0021 & 0.000823\\
+			&       $n=100$   &    $n=500$    &    $n=1000$ &       $n=100$   &    $n=500$    &    $n=1000$\\
+			\cline{2-7}
+			& \multicolumn{3}{c||}{$Bias$} &\multicolumn{3}{c|}{$MSE$}\\
+			\hline
+			\hline
+			$q^{se}_n(0.25) $  & -0.010451 & -0.00343 & -0.003073  & 0.000733 & 0.000149 & 0.000079\\
+			$q^{km}_n(0.25) $  & -0.003812 & -0.001652 & -0.002311  & 0.000981 & 0.00018 & 0.000088\\
+			$q^{cl}_n(0.25) $  & -0.006674 & -0.00119 & -0.001907  & 0.000736 & 0.000137 & 0.000076\\
+			\hline
+			$q^{se}_n(0.5) $  & -0.010855 & -0.001042 & -0.003221  & 0.002899 & 0.000453 & 0.000283\\
+			$q^{km}_n(0.5)$  & -0.004584 & -0.000072 & -0.001659  & 0.003342 & 0.000572 & 0.000316\\
+			$q^{cl}_n(0.5)$  & -0.008816 & 0.000637 & -0.002438  & 0.002894 & 0.000465 & 0.000281\\
+			\hline
+			$q^{se}_n(0.75)$  & -0.012331 & 0.00739 & -0.003152  & 0.008363 & 0.001764 & 0.001012\\
+			$q^{km}_n(0.75)$  & -0.014291 & 0.007734 & -0.003026  & 0.010265 & 0.001963 & 0.001175\\
+			$q^{cl}_n(0.75)$  & -0.019053 & 0.003871 & -0.004781  & 0.008135 & 0.00166 & 0.001006\\
 			\hline
 		\end{tabular}
 	\end{center}
 	\caption{Results for estimated quantiles of Simulation 1.}
 	\label{tab:res_expexp2}
 \end{table}
-\\
-The Quantiles are estimated quite well under this setup. The MSE of both $q_{n}^{se}$ and $q_{n}^{km}$ are decreasing. Here $q_{n}^{se}$ is performing slightly better.
-\begin{figure}[h!]
-	\begin{center}
-		\includegraphics[width=0.9\textwidth]{./figures/expexp_mse2}
-	\end{center}
-	\caption{Results for Simulation 1. left: bias, variance and MSE for $\sigma_n^{se}$ and $\sigma_n^{km}$. right: MSE for $q_n^{se}$ and $q_n^{km}$.}
-	\label{fig:mse_expexp}
-\end{figure}
-\clearpage
+%
+%\clearpage
 %
 %
 %
 \section{Simulation 2} \label{sec:sim_weiwei}
+
 Let $X \sim Weibull(\alpha_1, \beta_1)$ and  $X \sim Weibull(\alpha_2, \beta_2)$.
 %$$f(z) = \alpha_1\beta_1 (\alpha_1 z)^{\beta_1-1}\exp\left(-(\alpha_1 z)^{\beta_1}\right)$$
 %$$g(z) = \alpha_2\beta_2 (\alpha_2 z)^{\beta_2-1}\exp\left(-(\alpha_2 z)^{\beta_2}\right)$$
@@ -134,17 +142,19 @@ Then we obtain for the censoring model
 $$m(z,\theta) = \frac{1}{1+\theta_1 z^{\theta_2}} \textrm{ with } \theta = \left(\frac{\alpha_2^{\beta_2}\beta_2}{\alpha_1^{\beta_1}\beta_1}, \beta_2 - \beta_1\right)$$
 %
 For the simulation below we chose $\alpha_1 = 2$, $\alpha_2 = 1$, $\beta_1 = 1.2$ and $\beta_2 = 1$. The target value was here
-$$Var(X) = 0.192843234\mdot$$
-Figure \ref{fig:dens_wei_wei} shows the pdf's $f$, $g$ and the censoring model $m$ for this setup.\\
+$$Var(X) = 0.192843\mdot$$
+Figure \ref{fig:dens_wei_wei} indicates that smaller values are censored rather than larger ones under this setup.  This is due to the increasing nature of the censoring model $m$.
+%
+\clearpage
+%
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{./figures/wei_wei_dens2}
+		\includegraphics[width=0.6\textwidth]{./figures/wei_wei_dens2}
 	\end{center}
 	\caption{Probability density functions $f$, $g$ and censoring model $m$ for Simulation 1.}
 	\label{fig:dens_wei_wei}
-\end{figure}\\
-The figure indicates that larger values are censored rather than smaller ones under this setup. Tables \ref{tab:res_weiwei1} and \ref{tab:res_weiwei2} show the results of the simulation. Figure \ref{fig:mse_weiwei} illustrates the results.\\
-\clearpage
+\end{figure}
+\noindent Table \ref{tab:res_weiwei1} shows that bias, variance and MSE are converging to zero for both estimators, as well under this setup. The semiparametric estimator is clearly more efficient than the Kaplan-Meier estimate \wrt\ the MSE. Here again, difference in variance is much larger than the difference in squared bias. 
 %
 \begin{table}[h!]
 	\begin{center}
@@ -167,56 +177,51 @@ The figure indicates that larger values are censored rather than smaller ones un
 			$MSE(\sigma_n^{km})$ & 0.003265 & 0.000925 & 0.000388\\
 			\hline
 			\hline
-			$\bar c$ & 0.3295 & 0.3322 & 0.33462\\
+			$\bar c$ & 0.6705 & 0.6678 & 0.66538\\
 			\hline
 		\end{tabular}
 	\end{center}
-	\caption{Results for simulation 2 with  $\alpha_1 = \alpha_2 = 1$, $\beta_1 = 2$ and $\beta_2 = 2$.}
+	\caption{Results for Simulation 2.}
 	\label{tab:res_weiwei1}
-\end{table}
-%
-As we can see, the Bias and MSE are decreasing nicely to zero for both estimators. The semiparametric estimator is clearly performing better than the Kaplan-Meier PLE \wrt\ the MSE. Here again, the gain in difference in bias is much larger than the difference in variance. Figure \ref{fig:mse_weiwei} indicates again, that the gain in efficiency is greater for smaller sample sizes $n$.
-\begin{table}[h!]
-	\begin{center}
-		%run(n = c(500,1000,5000), theta1 = c(2,1.2), theta2 = c(1,1))
-		\begin{tabular}{| l || c | c | c |}
-			\hline
-			&       $n=100$   &    $n=500$    &    $n=1000$\\
-			\hline
-			\hline
-			$Bias(q^{se}_n(0.25)) $ & -0.018255 & -0.011443 & -0.011854\\
-			$Bias(q^{km}_n(0.25)) $ & -0.007356 & -0.000332 & -0.000922\\
-			\hline
-			$Bias(q^{se}_n(0.5)) $ & -0.012298 & -0.011298 & -0.00798\\
-			$Bias(q^{km}_n(0.5))$ & -0.006786 & -0.00582 & -0.002101\\
-			\hline
-			$Bias(q^{se}_n(0.75))$ & -0.009176 & 0.000363 & 0.007358\\
-			$Bias(q^{km}_n(0.75))$ & -0.015825 & -0.010461 & -0.002481\\
-			\hline
-			\hline
-			$MSE(q^{se}_n(0.25))$ & 0.000873 & 0.000228 & 0.000206\\
-			$MSE(q^{km}_n(0.25))$ & 0.000666 & 0.000165 & 0.000079\\
-			\hline
-			$MSE(q^{se}_n(0.5))$ & 0.002225 & 0.000593 & 0.000263\\
-			$MSE(q^{km}_n(0.5))$ & 0.002391 & 0.000641 & 0.000215\\
-			\hline
-			$MSE(q^{se}_n(0.75))$ & 0.007562 & 0.001251 & 0.000744\\
-			$MSE(q^{km}_n(0.75))$ & 0.008823 & 0.001511 & 0.000705\\
-			\hline
-		\end{tabular}
-	\end{center}
-	\caption{Results for simulation 2 with  $\alpha_1 = \alpha_2 = 1$, $\beta_1 = 2$ and $\beta_2 = 2$.}
-	\label{tab:res_weiwei2}
 \end{table}\\
 %
-The Quantiles are estimated quite well under this setup. Figure \ref{fig:mse_weiwei} shows that the semiparametric estimator is performing slightly better here.
+Figure \ref{fig:mse_weiwei} shows, as before, that the gain in efficiency is greater for smaller sample sizes $n$. Again, the gain in efficiency is more severe for smaller $n$ in this simulation. We can also see that the variance is contributing more to the gain in efficiency.
+%
+\clearpage
+%
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[width=0.9\textwidth]{./figures/weiwei_mse2}
+		\includegraphics[width=0.8\textwidth]{./figures/weiwei_mse2}
 	\end{center}
 	\caption{Results for Simulation 2. left: bias, variance and MSE for $\sigma_n^{se}$ and $\sigma_n^{km}$. right: MSE for $q_n^{se}$ and $q_n^{km}$.}
 	\label{fig:mse_weiwei}
 \end{figure}
+%
+\noindent The Quantiles are estimated quite well under this setup, as we can see from Table \ref{tab:res_weiwei2}. As before, the quantiles are, for the most part, slightly underestimated by both estimators. Figure \ref{fig:mse_weiwei} shows that $q_n^{se}$ is performing slightly better $q_n^{km}$ here.
+\begin{table}[h!]
+	\begin{center}
+		%run(n = c(500,1000,5000), theta1 = c(2,1.2), theta2 = c(1,1))
+		\begin{tabular}{| l || c | c | c || c | c | c |}
+			\hline
+			&       $n=100$   &    $n=500$    &    $n=1000$ &       $n=100$   &    $n=500$    &    $n=1000$\\
+			\cline{2-7}
+			& \multicolumn{3}{c||}{$Bias$} &\multicolumn{3}{c|}{$MSE$}\\
+			\hline
+			\hline
+			$q^{se}_n(0.25)$ & -0.018255 & -0.011443 & -0.011854& 0.000873 & 0.000228 & 0.000206\\
+			$q^{km}_n(0.25)$ & -0.007356 & -0.000332 & -0.000922& 0.000666 & 0.000165 & 0.000079\\
+			\hline
+			$q^{se}_n(0.5)$ & -0.012298 & -0.011298 & -0.00798& 0.002225 & 0.000593 & 0.000263\\
+			$q^{km}_n(0.5)$ & -0.006786 & -0.00582 & -0.002101 & 0.002391 & 0.000641 & 0.000215\\
+			\hline
+			$q^{se}_n(0.75)$ & -0.009176 & 0.000363 & 0.007358& 0.007562 & 0.001251 & 0.000744\\
+			$q^{km}_n(0.75)$ & -0.015825 & -0.010461 & -0.002481 & 0.008823 & 0.001511 & 0.000705\\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{Results for estimated quantiles of Simulation 2.}
+	\label{tab:res_weiwei2}
+\end{table}
 %
 %
 %
@@ -225,19 +230,19 @@ Let $X \sim Exp(\alpha)$ and $Y \sim Par(\beta)$. For our model $m$ we obtain in
 $$m(z,\theta) = \frac{\alpha}{\alpha + \frac{\beta}{z}\I{z \geq \beta}}\mdot$$
 For the following simulation we chose $\alpha = 0.5$ and $\beta = 1.2$. The target value was here
 $$Var(X) = 4\mdot$$
-Figure \ref{fig:dens_exppar} shows the pdf's $f$, $g$ and the censoring model $m$ for this setup.
-\clearpage
+%
+%\clearpage
+%
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{./figures/exppar_dens}
+		\includegraphics[width=0.6\textwidth]{./figures/exppar_dens}
 	\end{center}
 	\caption{Probability density functions $f$, $g$ and censoring model $m$ for Simulation 3.}
 	\label{fig:dens_exppar}
 \end{figure}
 %
-Note that there are no uncensored observations on $[0,\beta]$. The plot indicates that censoring will especially occur for values in $[1,3]$.
-%
-The simulation results can be found in tables \ref{tab:res_exppar1} and \ref{tab:res_exppar2}. An illustration of these results is displayed in figure \ref{fig:mse_exppar}.
+Considering Figure \ref{fig:dens_exppar}, we can not expect any censored observations on $[0,\beta]$. Moreover the plot indicates that values in $[\beta,3]$ are more likely to be censored. On $[\beta,\infty)$, the censoring model is monotone increasing. This implies that smaller values are more likely to be censored than larger values.
+\clearpage
 \begin{table}[h!]
 	\begin{center}
 
@@ -260,53 +265,47 @@ The simulation results can be found in tables \ref{tab:res_exppar1} and \ref{tab
 		$MSE(\sigma_n^{km})$ & 4.195703 & 1.553865 & 0.66277\\
 		\hline
 		\hline
-		$\bar c$ & 0.3029 & 0.30296 & 0.30384\\
+		$\bar c$ & 0.6971 & 0.69704 & 0.69616\\
 		\hline
 	\end{tabular}
 	\end{center}
 	\caption{Results for simulation 3.}
 	\label{tab:res_exppar1}
-\end{table}\\
-The MSE for both, $\sigma_n^{se}$ and $\sigma_n^{km}$, are substantially higher than in the previous examples, especially for $n=100$. However, the MSE decreases substantially as $n$ increases. Again, we can see that the semiparametric approach is performing better than the Kaplan-Meier PLE.
-\begin{table}[h!]
-	\begin{center}
-		
-		%run(n = c(100,500,1000), m = 100, theta = c(0.5, 1.2))
-		\begin{tabular}{| l || c | c | c |}	
-			\hline
-			& $ n = 100 $ & $ n = 500 $ & $ n = 1000 $\\
-			\hline
-			\hline
-			$Bias(q^{se}_n(0.25)) $ & -0.946058 & -0.953076 & -0.948244\\
-			$Bias(q^{km}_n(0.25)) $ & -0.946058 & -0.953076 & -0.948244\\
-			\hline
-			$Bias(q^{se}_n(0.5)) $ & -0.761661 & -0.763693 & -0.751274\\
-			$Bias(q^{km}_n(0.5))$ & -0.756513 & -0.758938 & -0.748412\\
-			\hline
-			$Bias(q^{se}_n(0.75))$ & -1.144379 & -1.062969 & -1.04613\\
-			$Bias(q^{km}_n(0.75))$ & -1.164122 & -1.088963 & -1.0535\\
-			\hline
-			\hline
-			$MSE(q^{se}_n(0.25))$ & 0.906359 & 0.910549 & 0.900719\\
-			$MSE(q^{km}_n(0.25))$ & 0.906359 & 0.910549 & 0.900719\\
-			\hline
-			$MSE(q^{se}_n(0.5))$ & 0.615678 & 0.590391 & 0.568224\\
-			$MSE(q^{km}_n(0.5))$ & 0.610569 & 0.583492 & 0.564373\\
-			\hline
-			$MSE(q^{se}_n(0.75))$ & 1.400626 & 1.158716 & 1.109287\\
-			$MSE(q^{km}_n(0.75))$ & 1.506353 & 1.222739 & 1.130558\\
-			\hline
-		\end{tabular}
-	\end{center}
-	\caption{Results for simulation 3.}
-	\label{tab:res_exppar2}
-\end{table}\\
+\end{table}
 %
-The Quantiles are substantially underestimated by both estimators in this case. Perhaps that is the reason for the much higher MSE scores for $\sigma_n^{se}$ and $\sigma_n^{km}$.
+\noindent From Table \ref{tab:res_exppar1}, we see that the MSE's of $\sigma_n^{se}$ and $\sigma_n^{km}$ are substantially larger than in the previous examples, especially for $n=100$. However, the MSE decreases substantially as $n$ increases. Figure \ref{fig:mse_exppar}, shows that the semiparametric estimator is performing better than the Kaplan-Meier estimate again, with a larger gain in efficiency for small $n$ .
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=0.9\textwidth]{./figures/exppar_mse2}
+		\includegraphics[width=0.8\textwidth]{./figures/exppar_mse2}
 	\end{center}
 	\caption{Results for Simulation 3. left: bias, variance and MSE for $\sigma_n^{se}$ and $\sigma_n^{km}$. right: MSE for $q_n^{se}$ and $q_n^{km}$.}
 	\label{fig:mse_exppar}
 \end{figure}
+%
+\clearpage
+Table \ref{tab:res_exppar2} shows, that the quantiles are substantially underestimated by both estimators in this case. Perhaps this behavior is connected to the fact, that we are only observing uncensored values on $[0,\beta]$. The large MSE values for the quantile estimates are likely to cause the much higher MSE scores of $\sigma_n^{se}$ and $\sigma_n^{km}$ for this simulation.
+\begin{table}[h!]
+	\begin{center}
+		
+		%run(n = c(100,500,1000), m = 100, theta = c(0.5, 1.2))
+		\begin{tabular}{| l || c | c | c || c | c | c |}
+			\hline
+			&       $n=100$   &    $n=500$    &    $n=1000$ &       $n=100$   &    $n=500$    &    $n=1000$\\
+			\cline{2-7}
+			& \multicolumn{3}{c||}{$Bias$} &\multicolumn{3}{c|}{$MSE$}\\
+			\hline
+			\hline
+			$q^{se}_n(0.25)$ & -0.946058 & -0.953076 & -0.948244& 0.906359 & 0.910549 & 0.900719\\
+			$q^{km}_n(0.25)$ & -0.946058 & -0.953076 & -0.948244& 0.906359 & 0.910549 & 0.900719\\
+			\hline
+			$q^{se}_n(0.5)$ & -0.761661 & -0.763693 & -0.751274& 0.615678 & 0.590391 & 0.568224\\
+			$q^{km}_n(0.5)$ & -0.756513 & -0.758938 & -0.748412 & 0.610569 & 0.583492 & 0.564373\\
+			\hline
+			$q^{se}_n(0.75)$ & -1.144379 & -1.062969 & -1.04613 & 1.400626 & 1.158716 & 1.109287\\
+			$q^{km}_n(0.75)$ & -1.164122 & -1.088963 & -1.0535 & 1.506353 & 1.222739 & 1.130558\\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{Results for estimated quantiles of Simulation 3.}
+	\label{tab:res_exppar2}
+\end{table}

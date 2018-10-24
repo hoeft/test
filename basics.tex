@@ -4,7 +4,7 @@ Within this chapter we will establish basic properties of $\E[S_n|\F_{n+1}]$. In
 %
 %
 %
-\section{Basic results about $\E[\sn{n}|\F_{n+1}]$} \label{sec:representation}
+\section{Preliminary Considerations} \label{sec:representation}
 %
 We will first derive an explicit representation for $\E[\sn{n}|\F_{n+1}]$, which is similar to the one established in the proof of \cite{bose1999strong}, Lemma 1.
 \begin{lemma} \label{lem:qi}
@@ -415,7 +415,12 @@ Here $\pi_i$ is defined as in Lemma \ref{lem:qi}. Furthermore it was shown that 
 %
 So far we have seen, that we are not able to establish the supermartingale property for $S_n$ without further restrictions. The following Lemma will establish the supermartingale property for $S_n$ under an additional assumption on $q$. 
 \begin{lemma} \label{lem:sn_supermart}
-	Let $q$ be monotone increasing. Then $S_n(q)$ is a non-negative reverse supermartingale.
+	For some $0\leq T_q\leq \infty$ let $q$ be \st\ 
+	\begin{enumerate}[(i)]
+		\item $q(t) = c$ is constant for some $0\leq c \leq 1$ and for all $0\leq t< T_q$. 
+		\item $q(t)$ is non-decreasing for all $t\geq T_q$. 
+	\end{enumerate} 
+	Then $S_n(q)$ is a non-negative reverse supermartingale.
 	
 	\begin{proof}
 		First note that 
@@ -425,13 +430,17 @@ So far we have seen, that we are not able to establish the supermartingale prope
 		Now recall that we have 
 		\begin{align*}
 		Q_{i+1}^{n+1} - Q_{i}^{n+1} &= \frac{(q_i-q_{i+1})(n-i)(n-i+1)-q_{i+1}(1-q_i)(n-i+1-q_i) }{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\\
-		&\qquad\times \frac{\tilde{\pi}_i(n-i+2)^2}{n+1}\mdot
+		&\qquad\times \frac{\tilde{\pi}_i(n-i+2)^2}{n+1}\mdot \numberthis\label{eq:qip1_qi}
 		\end{align*}
 		according to Lemma \ref{lem:qi_increas}. 
 		%
-		Next consider that $q_i-q_{i+1} < 0$ and $q_{i+1}(1-q_i) \geq q_{i+1} - q_i > 0$, since $q$ is monotone increasing. Therefore we obtain
+		Next consider that we have 
+		$$q_i-q_{i+1} = 0 \quad\textrm{ and }\quad q_{i+1}(1-q_i) \geq q_{i+1} - q_i = 0\mcomma$$
+		since $q(t) = c$ if $0\leq t <T_q$, by condition \textit{(i)}. Moreover we have 
+		$$q_i-q_{i+1} < 0 \quad\textrm{ and }\quad q_{i+1}(1-q_i) \geq q_{i+1} - q_i > 0\mcomma$$ 
+		since $q(t)$ is non-decreasing if $t\geq T_q$, by condition \textit{(ii)}. Now combining the latter with equation \ref{eq:qip1_qi} yields
 		\begin{align*}
-		Q_{i+1}^{n+1} - Q_{i}^{n+1} < 0
+		Q_{i+1}^{n+1} - Q_{i}^{n+1} \leq 0 \quad\textrm{ for all } \quad t\in[0,\infty)\mdot
 		\numberthis\label{eq:Qi_diff_neg}
 		\end{align*}
 		%
@@ -450,10 +459,16 @@ So far we have seen, that we are not able to establish the supermartingale prope
 	\end{proof}
 \end{lemma}
 %
-The assumption, that $q$  is monotone increasing, is transfered to the censoring model $m$ by (A\ref{ass:m_increas}). This poses a restriction on the models $m$ which can be used. This will be discussed in more detail in Section \ref{sec:model}.
+\begin{remark}
+	Lemma \ref{lem:sn_supermart} implies that $S_n$ is a reverse supermartingale if $q$ is either constant or non-decreasing on its support, by setting $T_q = 0$ or $T_q = \infty$, respectively, in the assumption of Lemma \ref{lem:sn_supermart}.
+\end{remark}
+%
+The assumption about $q$  in Lemma \ref{lem:sn_supermart}, is transfered to the censoring model $m$ by (A\ref{ass:m_increas}). This poses a restriction on the models $m$ which can be used. This will be discussed in more detail in Chapter \ref{ch:model}.
+%
+%
 %
 \section{Existence of the limit} \label{sec:ex_limit}
-As we have seen in the preceding section, $(S_n, \F_n)_{n\geq 2}$ is not necessarily a supermartingale. However, we can show that if $q$ is monotone increasing, then $S_n(q)$ is indeed a supermartingale, as we have seen in Lemma \ref{lem:sn_supermart}. We will now show how this implies the almost sure existence of $S_\infty$, by a standard argument. 
+As we have seen in the preceding section, $(S_n, \F_n)_{n\geq 2}$ is not necessarily a supermartingale. However, we were able to show that, if $q$ satisfies certain monotonicity conditions, then $S_n(q)$ is indeed a supermartingale in Lemma \ref{lem:sn_supermart}. We will now show how this implies the almost sure existence of $S_\infty$, by a standard argument. 
 %
 The following result will be needed to prove the almost sure existence of $S$ in Theorem \ref{thm:ex_limit_sn}.
 \begin{lemma} \label{lem:hewitt_savage}
@@ -504,7 +519,12 @@ The following result will be needed to prove the almost sure existence of $S$ in
 \end{lemma}
 %
 \begin{thm}\label{thm:ex_limit_sn}
-	Let $q$ be monotone increasing. Then $S_\infty = \lim_{n\to\infty} S_n(q)$ exists almost surely and 
+	For some $0\leq T_q\leq \infty$ let $q$ be \st\ 
+	\begin{enumerate}[(i)]
+		\item $q(t) = c$ is constant for some $0\leq c \leq1$ and for all $0\leq t< T_q$. 
+		\item $q(t)$ is non-decreasing for all $t \geq T_q$. 
+	\end{enumerate} 
+	Then $S_\infty = \lim_{n\to\infty} S_n(q)$ exists almost surely and 
 	$$\lim\limits_{n\to\infty} S_n = \lim\limits_{n\to\infty} \E[S_n] = S$$
 	%
 	\begin{proof}

@@ -23,9 +23,11 @@ B_n(s,q) &:= \prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_{k
 C_n(s,q) &:= \sum_{i=1}^{n+1}\left[\frac{1-q(s)}{n-i+2}\right]\I{Z_{i-1:n} < s \leq Z_{i:n}}\\
 D_n(s,t,q) &:= \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I{Z_k<s}} \prod_{k=1}^{n}\left[1+\frac{1-q(Z_k)}{n-R_ {k,n}+1}\right]^{\I{s < Z_k < t}}\\
 \Delta_n(s,t,q) &:= \E\left[D_n(s,t,q) \right]\\
-\bar{\Delta}_n(s,t,q) &:= \E\left[C_n(s,q)D_n(s,t,q) \right]\mdot
+\bar{\Delta}_n(s,t,q) &:= \E\left[C_n(s,q)D_n(s,t,q) \right]
 \end{align*}
-We will write $B_n(s) \equiv B_n(s,q)$, $C_n(s) \equiv C_n(s,q)$, $D_n(s,t) \equiv D_n(s,t,q)$, $\Delta_n(s,t) \equiv \Delta_n(s,t,q)$ and $\bar\Delta_n(s,t) \equiv \bar\Delta_n(s,t,q)$. Next define
+and
+$$D(s,t,q) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right)\mdot$$
+We will write $B_n(s) \equiv B_n(s,q)$, $C_n(s) \equiv C_n(s,q)$, $D_n(s,t) \equiv D_n(s,t,q)$, $\Delta_n(s,t) \equiv \Delta_n(s,t,q)$, $\bar\Delta_n(s,t) \equiv \bar\Delta_n(s,t,q)$ and $D(s,t) \equiv D(s,t,q)$. Next define
 $$\bar{S}_n(q) := \doublesum\limits_{1\leq i < j \leq n} \phi(Z_{i:n},Z_{j:n}) \bar{W}_{i:n}(q) \bar{W}_{j:n}(q)$$
 where 
 $$\bar{W}_{i:n}(q) := \prod_{k=1}^{n}\left(1-\frac{q(Z_{k:n})}{n-k+1}\right)\mdot$$
@@ -42,19 +44,22 @@ and
 We will write $\sn{n} \equiv \sn{n}(q)$, $\wn{i}{n} \equiv \wn{i}{n}(q)$, $S\equiv S(q)$ and $\bar S\equiv \bar S(q)$ throughout this thesis.
 %
 \section{Assumptions}
-The following assumptions will be needed throughout this work, in order to prove the SLLN for $\sn{n}$.
+The following assumptions will be needed throughout this work, in order to prove the SLLN for $\snse{2}{n}$:
 \begin{enumerate}[({A}1)]
 	\item \label{ass:kernel_gen} The kernel $\phi: \R^2 \longrightarrow \R$ is measurable, non-negative and symmetric in its arguments. In effect $\phi(s,t) = \phi(t,s)$ for all $s,t \in \R_+$. 
 	\item \label{ass:H_nonneg} $H$ is continuous and concentrated on the non-negative real line.
 	\item \label{ass:intgral_phi_q} The following statement holds true
 	$$\int_{0}^{\tau_H} \int_{0}^{\tau_H} \frac{\phi(s,t)}{m(s, \theta_0)m(t,\theta_0)(1-H(s))^\epsilon(1-H(t))^{\epsilon}} F(dt)F(ds) < \infty$$
 	for some $0<\epsilon\leq 1$.
-	\item \label{ass:m_increas} $m(z,\theta_0)$ is increasing in $z$.
-	%\item \label{ass:sup_mprime} There exists $c_1 < \infty$ \st\ $\sup_{x} (m\circ H^{-1})'(x) \leq c_1$. 
-	%\item \label{ass:m_H_one} We have $m\circ H^{-1}(1) = 1$.
+	\item \label{ass:m_increas} Let $0\leq T_m \leq \infty$ and let $m(z,\theta_0)$ be \st\ 
+		\begin{itemize}
+		\item $m(t, \theta_0) = c$ is constant for some $0\leq c \leq 1$ and for all $0\leq t< T_m$. 
+		\item $m(t, \theta_0)$ is non-decreasing for $t\geq T_m$. 
+		\end{itemize} 
 \end{enumerate}
 %
-\vspace{1cm}
+%\vspace{1cm}
+\clearpage
 We will need the following assumptions about the Censoring Model $m$ and the Maximum Likelihood estimate $\hat\theta_n$:
 \begin{enumerate}[({M}1)]
 	\item \label{ass:m_consistency} $\hat{\theta}_n$ is measurable and tends to $\theta_0$
