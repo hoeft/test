@@ -1,41 +1,53 @@
-\chapter{Notation and assumptions}
+\chapter{Notation and assumptions} \label{ch:notation}
 In this chapter we will state the main definitions and assumptions used throughout this work. We will start by defining the estimator to be considered and introduce all necessary notation for the remaining chapters.\\
 \\
-Recall the following definition
+\section{Definitions and notation}
+Recall the following definitions for $n\geq2$
 $$\wnse{i}{n} = \frac{m(Z_{i:n}, \hat{\theta}_n)}{n-i+1} \prod\limits_{j=1}^{i-1}\left(1-\frac{m(Z_{j:n}, \hat{\theta}_n)}{n-j+1}\right)$$
 %
-Now we define for $n\geq2$
+and
 $$S_{2,n}^{se} = \doublesum\limits_{1\leq i<j\leq n}\phi(Z_{i:n}, Z_{j:n})W_{i:n}^{se}W_{j:n}^{se}$$
-This process will be called semiparametric U-Statistic of degree $2$ throughout this thesis.
 %
 Furthermore define
 $$W_{i:n}(q) = \frac{q(Z_{i:n})}{n-i+1}\prod_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n})}{n-k+1}\right]$$
 and 
 $$S_{n}(q) = \doublesum\limits_{1\leq i<j\leq n}\phi(Z_{i:n}, Z_{j:n})W_{i:n}(q)W_{j:n}(q)$$
+for some measurable function $q$ \st\ $q(t)\in[0,1]$ for all $t\in\R_+$.
 %
-\begin{example}
-	Let $q(Z_{i:n}) = \delta_{[i:n]}$ for $1\leq i\leq n$. Then $W_{i:n}(q) = \wnkm{i}{n}$ and therefore 
-	$$S_n(q) = \snkm{2}{n}$$
-\end{example}
-%
-\begin{example}
-	Let $q(t) = m(t, \hat\theta_n)$ for $t\in\R^+$. Then $W_{i:n}(q) = \wnse{i}{n}$ and therefore 
-	$$S_n(q) = \snse{2}{n}$$
-\end{example}
-%
-\noindent Moreover define
+Next define
 $$\F_n = \sigma\{Z_{1:n}, \dots, Z_{n:n}, Z_{n+1}, Z_{n+2}, \dots\}$$
 %
-Throughout this work we will write $\sn{n} := \sn{n}(q)$ and $\wn{i}{n} := \wn{i}{n}(q)$.
-for $1\leq i\leq n$.\\
-\\
+The following quantities will be needed in section \ref{sec:supermart}. Define for $n\geq 2$ and $s < t$
+\begin{align*}
+B_n(s,q) &:= \prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_{k} < s}}\\
+C_n(s,q) &:= \sum_{i=1}^{n+1}\left[\frac{1-q(s)}{n-i+2}\right]\I{Z_{i-1:n} < s \leq Z_{i:n}}\\
+D_n(s,t,q) &:= \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I{Z_k<s}} \prod_{k=1}^{n}\left[1+\frac{1-q(Z_k)}{n-R_ {k,n}+1}\right]^{\I{s < Z_k < t}}\\
+\Delta_n(s,t,q) &:= \E\left[D_n(s,t,q) \right]\\
+\bar{\Delta}_n(s,t,q) &:= \E\left[C_n(s,q)D_n(s,t,q) \right]\mdot
+\end{align*}
+We will write $B_n(s) \equiv B_n(s,q)$, $C_n(s) \equiv C_n(s,q)$, $D_n(s,t) \equiv D_n(s,t,q)$, $\Delta_n(s,t) \equiv \Delta_n(s,t,q)$ and $\bar\Delta_n(s,t) \equiv \bar\Delta_n(s,t,q)$. Next define
+$$\bar{S}_n(q) := \doublesum\limits_{1\leq i < j \leq n} \phi(Z_{i:n},Z_{j:n}) \bar{W}_{i:n}(q) \bar{W}_{j:n}(q)$$
+where 
+$$\bar{W}_{i:n}(q) := \prod_{k=1}^{n}\left(1-\frac{q(Z_{k:n})}{n-k+1}\right)\mdot$$
+Moreover let
+\begin{align*}
+S(q) &:= \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t) q(s)q(t) \exp\left(\int_{0}^{s} \frac{1-q(x)}{1-H(x)} H(dx)\right)\\
+&\qquad\qquad\qquad \times \exp\left(\int_{0}^{t} \frac{1-q(x)}{1-H(x)} H(dx) \right)H(ds)H(dt)
+\end{align*}
+and 
+\begin{align*}
+\bar{S}(q) &:= \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t)  \exp\left(\int_{0}^{s} \frac{1-q(x)}{1-H(x)} H(dx)\right)\\
+&\qquad\qquad\qquad \times \exp\left(\int_{0}^{t} \frac{1-q(x)}{1-H(x)} H(dx) \right)H(ds)H(dt)\mdot
+\end{align*}
+We will write $\sn{n} \equiv \sn{n}(q)$, $\wn{i}{n} \equiv \wn{i}{n}(q)$, $S\equiv S(q)$ and $\bar S\equiv \bar S(q)$ throughout this thesis.
 %
+\section{Assmuptions}
 The following assumptions will be needed throughout this work, in order to prove the SLLN for $\sn{n}$.
 \begin{enumerate}[({A}1)]
 	\item \label{ass:kernel_gen} The kernel $\phi: \R^2 \longrightarrow \R$ is measurable, non-negative and symmetric in its arguments. In effect $\phi(s,t) = \phi(t,s)$ for all $s,t \in \R_+$. 
 	\item \label{ass:H_nonneg} $H$ is continuous and concentrated on the non-negative real line.
-	\item \label{ass:intgral_phi_q} For $s,t\in \R_+$ the following statement holds true
-	$$\int_{0}^{s} \int_{0}^{t} \frac{\phi(s,t)}{m(s, \theta_0)m(t,\theta_0)(1-H(s))^\epsilon(1-H(t))^{\epsilon}} F(dt)F(ds) < \infty$$
+	\item \label{ass:intgral_phi_q} The following statement holds true
+	$$\int_{0}^{\tau_H} \int_{0}^{\tau_H} \frac{\phi(s,t)}{m(s, \theta_0)m(t,\theta_0)(1-H(s))^\epsilon(1-H(t))^{\epsilon}} F(dt)F(ds) < \infty$$
 	for some $0<\epsilon\leq 1$.
 	\item \label{ass:m_increas} $m(z,\theta_0)$ is increasing in $z$.
 	%\item \label{ass:sup_mprime} There exists $c_1 < \infty$ \st\ $\sup_{x} (m\circ H^{-1})'(x) \leq c_1$. 

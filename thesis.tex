@@ -130,10 +130,10 @@
 
 \newcommand{\fnkm}{F_n^{km}}
 \newcommand{\fnse}{F_n^{se}}
-\newcommand{\wn}[2]{W_{#1:#2}}
-\newcommand{\wnkm}[2]{W_{#1:#2}^{km}}
-\newcommand{\wnse}[2]{W_{#1:#2}^{se}}
-\newcommand{\wnseb}[2]{\bar{W}_{#1:#2}^{se}}
+\newcommand{\wn}[2]{W_{#1,#2}}
+\newcommand{\wnkm}[2]{W_{#1,#2}^{km}}
+\newcommand{\wnse}[2]{W_{#1,#2}^{se}}
+\newcommand{\wnseb}[2]{\bar{W}_{#1,#2}^{se}}
 \newcommand{\sn}[1]{S_{#1}}
 \newcommand{\snkm}[2]{S_{#1,#2}^{km}}
 \newcommand{\snse}[2]{S_{#1,#2}^{se}}
@@ -177,6 +177,7 @@
 
 % ----- my mathoperators -----
 \newcommand{\doublesum}{\mathop{\sum\sum}}
+\newcommand{\doubleint}{\mathop{\int\int}}
 \newcommand{\qeq}{\mathop{\stackrel{?}{=}}}
 \newcommand{\qleq}{\mathop{\stackrel{?}{\leq}}}
 \newcommand{\qgeq}{\mathop{\stackrel{?}{\geq}}}
@@ -218,14 +219,14 @@
 \renewcommand{\ThesisAuthor}{Jan Hoft}
 
 % If you are graduating in Spring, insert May.  If you are graduating in Fall, insert December.
-\renewcommand{\ThesisMonth}{May}
+\renewcommand{\ThesisMonth}{December}
 
 % Insert the year of your graduation here
 \renewcommand{\ThesisYear}{2018}
 
 % Your thesis title goes here.  It will automatically be formatted to use multiple lines
 % (if needed)
-\renewcommand{\ThesisTitle}{Large sample properties of U-Statistics under semiparametric Random Censorship}
+\renewcommand{\ThesisTitle}{The Strong Law of Large Numbers for U-Statistics under semiparametric Random Censorship}
 
 % Insert your advising professor's name here.  DO NOT include a prefix of "Prof." or "Dr."
 % here!  The prefix will be inserted automatically.
@@ -276,17 +277,9 @@
 	
 	% Begin typing the abstract here.  The thesis title and author will be included on this page.
 	\begin{ThesisAbstract}
-		\begin{center}\textbf{\large About this document} \end{center}
-		This is a \textbf{draft version} of my thesis. So far I was able to establish the SLLN for the the semiparametric U-Statistics of degree 2. The mathematics in here should be correct. But I still want to expand the introduction and I need to write the conclusion and the abstract. Also I want to include a simulation about the semiparametric U-Statistics of degree 2. Moreover I am not quite sure about the section titles yet, so I might change those.\\
-		\textbf{How to read this work}
-		\begin{itemize}
-			\item I put \\
-			\comment{comment} statements to mark problematic spots in this thesis and to share my thoughts about those.
-			\item All \todo{todo} statements are to mark parts of the text for myself, which I need to change later.
-		\end{itemize}
-
-		\todo{Summarize your paper here, including the basic methods used in the study.
-A signature line for your advisor will be included at the end of the abstract. NOTE: The abstract can have multiple pages, but is restricted to 400 words in length!}		
+		We introduce a semiparametric U-Statistics estimator for randomly right censored data. We will study the strong law of large numbers for this estimator under proper assumptions about the conditional expectation of the censoring indicator with respect to the observed life times. Moreover we will conduct a simulation study, where the semiparametric estimator is compared to a U-Statistics based on Kaplan-Meier in terms of bias, variance and mean squared error.
+%		\todo{Summarize your paper here, including the basic methods used in the study.
+%A signature line for your advisor will be included at the end of the abstract. NOTE: The abstract can have multiple pages, but is restricted to 400 words in length!}		
 		
 	\end{ThesisAbstract}
 	
@@ -309,8 +302,10 @@ A signature line for your advisor will be included at the end of the abstract. N
 		% Adding table of contents (REQUIRED!)
 		% The entries are created automatically, based on your use of "\chapter" and "\section".
 		\tableofcontents
+		\listoffigures
+		\listoftables
 		
-		\listofnotes
+		%\listofnotes
 		% Adding a list of figures (REQUIRED IF YOU USE FIGURES!)
 		% Each entry is created automatically when you add
 		% a "\figure" command.
@@ -402,6 +397,9 @@ A signature line for your advisor will be included at the end of the abstract. N
 	\input{identify_limit}
 	\cleardoublepage
 	
+	\input{model}
+	\cleardoublepage
+	
 	\input{simulation}
 	\cleardoublepage
 	
@@ -417,35 +415,14 @@ A signature line for your advisor will be included at the end of the abstract. N
 	% Formatting the bibliography pages
 	\backmatter 
 	
-	%-----------------------
-	
-	% Adding Bibliography entry to table of contents
-	\addcontentsline{toc}{chapter}{\ \quad \textbf{Bibliography}}
-	
-	%-----------------------
-	
-	% The "\bibliographystyle" argument refers to the file (in .bst format) containing a specific citation style file.  Templates can typically be obtained from publication websites, such as the American Geophysical Union (www.agu.org), the American Meteorological Society (www.ametsoc.org), or other publishers.
-	
-	% Please make sure that your citation style is appropriate for your field, and that it follows standard style guidelines.
-	
-	% The "\bibliography" argument refers to the file (in .bib format) where your BiBTeX citations are located.  Be sure to include the entire path to the file, to avoid errors.
-	
-	% UNCOMMENT THIS SECTION IF YOU WISH TO USE BiBTeX
-	% Change this argument to match your bibliography style file
-	\bibliographystyle{./ametsoc}
-	%\bibliographystyle{alphanum}
-	
-	% Generate the bibliography using entries from the following .BIB file
-	\bibliography{./thesis}
-	%-----------------------
 	
 	% BEGINNING OF APPENDIX SECTION.
 	% IF YOU DO NOT WISH TO HAVE AN APPENDIX, COMMENT THIS ENTIRE SECTION OUT!
 	\ThesisAppendix
 	
 	% Resetting the equation and table counters to zero.  DO NOT DELETE!
-	%\setcounter{equation}{0}
-	%\setcounter{table}{0}
+	\setcounter{equation}{0}
+	\setcounter{table}{0}
 	
 	% Adding an A in front of any equation numbers or table numbers in the appendix.  DO NOT DELETE!
 	\renewcommand{\theequation}{A\arabic{equation}}
@@ -453,65 +430,9 @@ A signature line for your advisor will be included at the end of the abstract. N
 	\renewcommand{\thethm}{A.\arabic{thm}}
 	
 	% Creating a new chapter (the asterisk tells LaTeX not to number the chapter)
-\chapter{Appendix: Supplementary Results}
-	\begin{lemma} \label{lem:bounds}
-		For $n\geq 2$ the following statements hold true
-		\begin{enumerate}[(i)]
-			\item \begin{equation}
-			\sum_{k=1}^{n-1} \frac{1}{k} \leq \ln(n-1) + 1
-			\label{eq:sum_ln}
-			\end{equation}
-			%
-			\item \begin{equation}
-			\frac{\ln(n-1)+1}{(n+1)^{\frac{1}{3}}} \leq 3
-			\label{eq:ln_over_n_upperb}
-			\end{equation}
-		\end{enumerate}
-		%	
-		\begin{proof}
-			We will start with the proof of part (i). Consider 
-			\begin{align*}
-			& \quad\sum_{k=1}^{n-1} \frac{1}{k} \quad \leq \quad  \ln(n-1) + 1 \\
-			\Leftrightarrow & \quad \sum_{k=1}^{n-1} \frac{1}{k} - 1 \quad \leq \quad  \ln(n-1)\\
-			\Leftrightarrow & \quad \sum_{k=2}^{n-1} \frac{1}{k} \quad \leq \quad  \ln(n-1)
-			\numberthis\label{eq:prodexp}
-			\end{align*}
-			%
-			Moreover we have
-			\begin{align*}
-			\sum_{k=2}^{n-1} \frac{1}{k} &= \sum_{k=2}^{n-1} \int_{k-1}^{k}\frac{1}{k} dx\\
-			&\leq \sum_{k=2}^{n-1} \int_{k-1}^{k}\frac{1}{x} dx\\
-			&\leq \sum_{k=2}^{n-1} \ln(k) - \ln(k-1)\\
-			&\leq \ln(n-1) - \ln(1)\\
-			&= \ln(n-1)
-			\end{align*}
-			Thus proving part (i). 
-			%
-			We will continue with the proof of part (ii). Note that \eqref{eq:ln_over_n_upperb} is equivalent to showing 
-			\begin{equation*}
-			\ln(n-1)+1 \leq 3(n+1)^{\frac{1}{3}}
-			\end{equation*}
-			%
-			Since $\ln(n-1)\leq \ln(n+1)$, this will be implied by the following
-			\begin{equation}
-			\ln(n+1)+1 \leq 3(n+1)^{\frac{1}{3}}
-			\label{eq:ln_root}
-			\end{equation}
-			It is easy to check that inequality \eqref{eq:ln_root} holds for $n=2$. Now consider that 
-			$$\frac{d}{dn}(\ln(n+1)+1) = \frac{1}{n+1}$$
-			and
-			$$\frac{d}{dn} 3(n+1)^\frac{1}{3} = \frac{1}{(n+1)^\frac{2}{3}}$$
-			to get
-			\begin{equation}
-			\frac{d}{dn}(\ln(n+1)+1) \leq \frac{d}{dn} 3(n+1)^\frac{1}{3}
-			\label{eq:derivs}
-			\end{equation}	
-			for all $n\geq 2$. Now the result in (ii) follows directly from \eqref{eq:ln_root} and \eqref{eq:derivs} .
-		\end{proof}
-	\end{lemma}
-%
-\chapter{Appendix: On finding weaker assumptions}
-During this section we will generalize Doob's Upcrossing Theorem to our framework. To get closer to the situation of Doob's Upcrossing Theorem, we define the following quantities. Let $N<\infty$ and define for $1\leq n\leq N$ 
+\addcontentsline{toc}{chapter}{\ \quad \textbf{Appendix: Thoughts on finding weaker assumptions}}
+\chapter*{Appendix: Thoughts on finding weaker assumptions}
+In Section \ref{sec:not_supermart}, we were able to show that $S_n(q)$ is a reverse supermartingale under the assumption that $q$ is monotone increasing. To establish the almost sure existence of limits of supermartingale processes, one considers the number of upcrossings of an interval $[a,b]$ by the process. This was done in the famous Upcrossing Theorem by Doob. During this section we will generalize Doob's Upcrossing Theorem to our framework in order to explore ways to establish weaker assumptions. To get closer to the situation of Doob's Upcrossing Theorem, we define the following quantities. Let $N<\infty$ and define for $1\leq n\leq N$ 
 \begin{equation*}
 \StN{n} := \sn{N-n+1} \textrm{, } \FtN{n} := \F_{N-n+1} \textrm{ \ and \ } \xitN{n} := \xi_{N-n+1}\mdot
 \end{equation*}
@@ -541,9 +462,9 @@ Below we will define everything needed, in order to generalize Doob's Upcrossing
 	\end{cases}\mdot
 	\end{align*}
 	%
-	Now we can define the number of upcrossings of $[a, b]$ by $\StN{1}, ..., \StN{n}$ as follows:
+	Now we can define the number of upcrossings of $[a, b]$ by $\StN{1}, ..., \StN{N}$ as follows:
 	\[
-	\UNab{n} :=\begin{cases}  
+	\UNab{N} :=\begin{cases}  
 	\max\{1\leq m \leq N | T_{2m} < N\} & \textrm{ if } \{1\leq m \leq N | T_{2m} < N\}\neq \emptyset\\
 	0 &  \textrm{ if } \{1\leq m \leq N | T_{2m} < N\} = \emptyset
 	\end{cases}
@@ -563,9 +484,7 @@ Below we will define everything needed, in order to generalize Doob's Upcrossing
 	for $1\leq n\leq N$. 	
 \end{defn}
 %
-The following lemma shows that the expected number of upcrossings of $[a,b]$ is bounded above by the expected value of $Y_n^N$. Thus afterwards it will remain to show that the limit $\E[Y_N^N]$ has a finite limit, which will be done in Section \ref{sec:dn}.
-
-Let's first define the set of all $\omega$ for which $S_n$ does not converge as
+Let's now explore how $\lim_{N\to\infty}\UNab{N}<\infty$ implies that $S$ must exist almost surely. Suppose for now, that $\lim_{N\to\infty}\UNab{N}<\infty$ and define the set of all $\omega$ for which $S_n$ does not converge as
 $$\Lambda := \{\omega | S_n(\omega) \textrm{ does not converge}\}\mdot$$
 %
 Consider that can write
@@ -592,10 +511,7 @@ Consequently we get that
 \label{eq:lambda_u}
 \end{equation}
 %
-But, according to Theorem \ref{thm:upcrossing}, we have
-$$\lim\limits_{N\to\infty}\E[\UNab{N}]<\infty\mdot$$
-%
-Clearly $\UNab{N}$ is non-decreasing in $N$. Hence we get by virtue of the Monotone Convergence Theorem 
+Note that $\UNab{N}$ is clearly non-decreasing in $N$. Now if $\lim_{N\to\infty}\E[\UNab{N}]<\infty$, we can apply the Monotone Convergence Theorem  to obtain
 $$\lim\limits_{N\to\infty}\E[\UNab{N}] = \E[U_\infty[a,b]] <\infty$$	
 %	
 and hence that
@@ -608,6 +524,7 @@ Now the latter together with \eqref{eq:lambda_u} implies that $\P(\Lambda_{a,b})
 %
 %
 %
+The following Lemmas show how Doob's Upcrossing Theorem can be adapted to our framework. We will show that $\E[\UNab{n}]$ is bounded above by $\E[Y_n^N]/(b-a)$.
 \begin{lemma}
 	For $1\leq n\leq N$ we have
 	$$\E[\UNab{n}]\leq \frac{\E[\YN{n}]}{b-a}\mdot$$
@@ -626,7 +543,7 @@ Now the latter together with \eqref{eq:lambda_u} implies that $\P(\Lambda_{a,b})
 	From here the assertion follows directly.
 \end{proof}
 %
-The following lemma provides a representation for the expectation of the process $Y_N^N$.
+The following lemma provides a representation for the expectation of the process $Y_N^n$.
 \begin{lemma}
 	\label{lem:optional_skipping}
 	For $1\leq n\leq N$ let
@@ -683,7 +600,7 @@ The following lemma provides a representation for the expectation of the process
 	Note that we have $\YN{1}=\StN{1}$, as the sum in the definition above is in this case empty and hence treated as zero. Moreover note that we have $\YN{n+1} = \StN{n+1}$ if $\epsilon_k=1$ for all $1\leq k \leq n$. 
 \end{remark}
 %
-The Lemma below establishes an upper bound for $\E[Y_N^N]$. 
+The Lemma below establishes an upper bound for $\E[Y_N^N]$ in terms of $Q_{ij}^{N-k+1}$, as defined in Lemma \ref{lem:qi}. 
 \begin{lemma} \label{lem:cs}
 	We have for $N\geq 2$
 	\begin{align*}
@@ -691,13 +608,12 @@ The Lemma below establishes an upper bound for $\E[Y_N^N]$.
 	\end{align*}
 	where
 	\begin{align*}
-	\alpha_{N-k+1} &:= \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi^2(Z_{i:N-k+1}, Z_{j:N-k+1}) W^2_{i:N-k+1} W^2_{j:N-k+1}\right]^{\frac{1}{2}}\\
-	&\qquad\qquad\qquad\qquad \times \E\left[(Q_{i,j}^{N-k+1} - 1)^2\right]^{\frac{1}{2}}\mdot
+	\alpha_{N-k+1} &:= \doublesum\limits_{1\leq i<j\leq N-k+1}\E\left[\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) W_{i:N-k+1} W_{j:N-k+1}(Q_{i,j}^{N-k+1} - 1)\right]\mdot
 	\end{align*}
 	%
 	\begin{proof}
 		Combining Lemmas \ref{lem:optional_skipping} and \ref{lem:upcrossings_yn} yields the following for $n\leq N$
-		$$(b-a) \E[U_n[a,b]] \leq \E[Y_n^N] \leq \E[\StN{n}] - \sum_{k=1}^{n-1} \E[(1-\epsilon_k) \left(\E[\StN{k+1} | \F_k^N] - \StN{k}\right)]\mdot$$
+		$$(b-a) \E[U_n[a,b]] \leq \E[Y_n^N] = \E[\StN{n}] - \sum_{k=1}^{n-1} \E[(1-\epsilon_k) \left(\E[\StN{k+1} | \F_k^N] - \StN{k}\right)]\mdot$$
 		%
 		Moreover we get from Lemma \ref{lem:qi}
 		\begin{align*}
@@ -707,7 +623,7 @@ The Lemma below establishes an upper bound for $\E[Y_N^N]$.
 		%
 		Therefore we obtain
 		\begin{align*}
-		\E[Y_N^N] &\leq \E[\StN{N}] - \sum_{k=1}^{N-1} \E[(1-\epsilon_k) \E[\StN{k+1} | \F_k^N] - \StN{k} ]\\
+		\E[Y_N^N] &= \E[\StN{N}] - \sum_{k=1}^{N-1} \E[(1-\epsilon_k) \E[\StN{k+1} | \F_k^N] - \StN{k} ]\\
 		&=  \E[\StN{N}] - \sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1} \E\left[(1-\epsilon_k)\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right. \\
 		&\qquad\qquad\qquad\qquad\qquad\qquad \times \left. W_{i:N-k+1} W_{j:N-k+1}(Q_{i,j}^{N-k+1} - 1) \right]\\
 		&\leq  \E[\StN{N}] + \left|\sum_{k=1}^{N-1} \doublesum\limits_{1\leq i<j\leq N-k+1} \E\left[(1-\epsilon_k)\phi(Z_{i:N-k+1}, Z_{j:N-k+1}) \right.\right. \\
@@ -728,7 +644,9 @@ The Lemma below establishes an upper bound for $\E[Y_N^N]$.
 	\end{proof}
 \end{lemma}
 %
-The following lemma is similar to \cite{neveu1975discrete}, Proposition 5-3-11, and it will be essential to identify the limit of $S_n$.
+In addition to the almost sure existence of $S(q)$ we need the following statement 
+$$S = \lim\limits_{n\to\infty} S_n = \lim\limits_{n\to\infty}\E[S_n]$$
+in order to identify $S(q)$ in Lemma \ref{lem:sn_limit}. This could be established by the following Lemma.
 \begin{lemma}
 	The following statement holds true:
 	$$S_\infty = \lim\limits_{n\to\infty} \E[S_n| \F_\infty] = \lim\limits_{n\to\infty}\E[S_n]$$
@@ -764,69 +682,31 @@ The following lemma is similar to \cite{neveu1975discrete}, Proposition 5-3-11, 
 %
 %
 %
-	%Now we will apply theorem \ref{thm:upcrossing} in order to prove the existence of the limit
-	%$$S_\infty = \lim\limits_{N\to\infty} S_N\.$$
-	
-	
-	
-	%
-	%%%%%%% TODO %%%%%%%%%%%%%
-	%\todo{Redefine $Y_n$ to start at $S_2$}
-	%\todo{Conditions on q within lemmas.}
-	%\todo{	Prove $$\left[\frac{1}{n+2} + \frac{n+1}{n+2}\left(1+\frac{x}{n+2}\right)^{2}\right] \leq \left(1+\frac{x}{n+3}\right)^{2}$$}
-	%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	\chapter*{Appendix - Old stuff, delete on release}
-%	\begin{figure}[h!]
-%		\begin{tikzpicture}[
-%		grow = right,
-%		% Label style
-%		label distance=3mm,
-%		every label/.style={blue},
-%		mainevent/.style={rectangle, rounded corners, draw, double=black, double distance =1pt, fill=yellow!20,text width=2.2cm,
-%			text centered,font=\sffamily,anchor=west},
-%		% Event style
-%		event/.style={rectangle,thick, rounded corners, draw, fill=yellow!20,text width=2.2cm,
-%			text centered,font=\sffamily,anchor=west},
-%		% Children and edges style
-%		edge from parent/.style={very thick,draw=black!70},
-%		edge from parent path={(\tikzparentnode.east) -| (0,0) |- (\tikzchildnode.west)},
-%		level 1/.style={sibling distance=3cm,level distance=0.3cm,
-%			growth parent anchor=east,nodes=event},
-%		level 2/.style={sibling distance=2.5cm, level distance=0.3cm},
-%		level 3/.style={sibling distance=1cm, level distance=0.3cm},
-%		level 4/.style={sibling distance=0.7cm, level distance=0.3cm}
-%		%%  For compatability with PGF CVS add the absolute option:
-%		%   absolute
-%		]
-%		%% Draw events and edges
-%		\node(thm_ex_limit)[mainevent]{Theorem \ref{thm:existence_limit}}
-%		child{node(thm_upcrossing)[event]{Theorem \ref{thm:upcrossing}}  
-%			child{node(lem_upcrossing_yn){Lemma \ref{lem:upcrossings_yn}}} 
-%			child{node(lem_cs){Lemma \ref{lem:cs}}
-%				child {node(lem_optional_skipping){Lemma \ref{lem:optional_skipping}}}
-%				child {node(lem_qi){Lemma \ref{lem:qi}}}
-%			}
-%			child {node(lem_qisquare_upper_bound){Lemma \ref{lem:qisquare_upper_bound}}
-%				child {node(lem_q_spacings){Lemma \ref{lem:qi_increas}}}
-%				child {node(lem_q_spacings){Lemma \ref{lem:q_spacings}}}
-%				child {node(lem_bounds){Lemma \ref{lem:bounds}}}
-%			}
-%			child {node(lem_expectation_sq){Lemma \ref{lem:expectation_sq}}
-%				child {node(lem_representation_bn){Lemma \ref{lem:representation_bn}}}
-%				child {node(lem_neveu){Lemma \ref{lem:neveu}}
-%					child {node(lem_dn_limit){Lemma \ref{lem:dn_limit}}}
-%					child {node(lem_dn_supermart){Lemma \ref{lem:dn_supermart}}}
-%					child {node(lem_hewitt_savage){Lemma \ref{lem:hewitt_savage}}}
-%				}
-%			}
-%		};
-%		\end{tikzpicture}
-%		\caption{Interdependence Structure of the lemmas and theorems within this chapter.}
-%		\label{fig:structure_ex}
-%	\end{figure}
 	% END OF APPENDIX SECTION.
 	
 	%-----------------------
+	%-----------------------
+	
+	%-----------------------
+
+	% Adding Bibliography entry to table of contents
+	\addcontentsline{toc}{chapter}{\ \quad \textbf{Bibliography}}
+	
+	%-----------------------
+	
+	% The "\bibliographystyle" argument refers to the file (in .bst format) containing a specific citation style file.  Templates can typically be obtained from publication websites, such as the American Geophysical Union (www.agu.org), the American Meteorological Society (www.ametsoc.org), or other publishers.
+	
+	% Please make sure that your citation style is appropriate for your field, and that it follows standard style guidelines.
+	
+	% The "\bibliography" argument refers to the file (in .bib format) where your BiBTeX citations are located.  Be sure to include the entire path to the file, to avoid errors.
+	
+	% UNCOMMENT THIS SECTION IF YOU WISH TO USE BiBTeX
+	% Change this argument to match your bibliography style file
+	\bibliographystyle{./ametsoc}
+	%\bibliographystyle{alphanum}
+	
+	% Generate the bibliography using entries from the following .BIB file
+	\bibliography{./thesis}
 	%-----------------------
 	
 	% Uncomment this section for Ph.D. dissertations ONLY.
@@ -862,8 +742,8 @@ The following lemma is similar to \cite{neveu1975discrete}, Proposition 5-3-11, 
 		\\
 		\begin{tabularx}{0.9\textwidth}{l X}
 			\hphantom{September 2006 - May 2009} & \textbf{Thesis title:} U-Statistics under the semiparametric Random Censorship Model\\
-			Expected: May 2018 & Ph.D. in Mathematics, University of Wisconsin - Milwaukee\\
-			&\textbf{Dissertation title:} Large Sample properties of U-Statistics under semiparametric Random Censorship
+			Expected: November 2018 & Ph.D. in Mathematics, University of Wisconsin - Milwaukee\\
+			&\textbf{Dissertation title:} The Strong Law of Large Numbers for U-Statistics under semiparametric Random Censorship
 		\end{tabularx}
 		\\\\\\
 		%\clearpage

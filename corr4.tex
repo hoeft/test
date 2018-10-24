@@ -1,0 +1,336 @@
+Recall the following quantities
+$$H^1(x) = \int_{0}^{x} m(z,\theta_0) H(dz)$$
+and 
+$$H^1_n(x) = \int_{0}^{x} m(z,\theta_0) H_n(dz) = \frac{1}{n}\sum_{i=1}^{n}\I{Z_{i:n} \leq x} m(Z_{i:n}, \theta_0)\mcomma$$
+\cf\ \cite{dikta1998semiparametric}, Lemma 3.12.
+%
+\section{New results}
+The following lemma contains an integration by parts result, which will be useful in order to prove Lemma \ref{lem:uniform_s_t}.
+\begin{lemma} \label{lem:int_by_parts}
+	For any $0\leq s<t\leq T$ we have
+	\begin{align*}
+	&\int_s^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_s^{t} \frac{1}{1-H(z)} H(dz)\\
+	&= \frac{H_n(t) - H(t)}{1-H(t)} - \frac{H_n(s-) - H(s)}{1-H(s)} - \int_s^{t} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz) - \gamma_n(t) \numberthis\label{eq:int_by_parts_1}
+	\end{align*}
+	and 
+	\begin{align*}
+	&\int_s^{t-} \frac{1}{1-H(z)} H_n^1(dz) - \int_s^{t} \frac{1}{1-H(z)} H^1(dz)\\
+	&= \frac{H^1_n(t) - H^1(t)}{1-H(t)} - \frac{H^1_n(s-) - H^1(s)}{1-H(s)} - \int_s^{t} \frac{H^1_n(z-) - H^1(z)}{(1-H(z))^2} H(dz) - \gamma^1_n(t) \numberthis\label{eq:int_by_parts_2}
+	\end{align*}
+	where
+	$$\gamma_n(t) = \frac{H_n(t)-H_n(t-)}{1-H(t)} \quad\textrm{ and }\quad \gamma_n^1(t) = \frac{H^1_n(t)-H^1_n(t-)}{1-H(t)}\mdot$$	
+	\begin{proof}
+		First consider that we can write 
+		\begin{align*}
+		\int_{s}^{t} \frac{1}{1-H(z)} H_n(dz) = \int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) + \gamma_n(s)\mdot
+		\end{align*}
+		Thus we have 
+		\begin{align*}
+		\int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) &=\int_{s}^{t} \frac{1}{1-H(z)} H_n(dz) - \gamma_n(s)\\
+		&=\int_{s}^{t} \left(\frac{1}{1-H(z)} - 1\right) H_n(dz) + \int_{s}^{t} 1 H_n(dz) - \gamma_n(s)\\
+		&= \int_{s}^{t} \frac{H(z)}{1-H(z)} H_n(dz) + H_n(t) - H_n(s-) - \gamma_n(s)
+		\end{align*}
+		since we have
+		$$\int_{s}^{t}1 H_n(dz) = \int_{0}^{t}1 H_n(dz) - \int_{0}^{s-}1 H_n(dz) = H_n(t) - H_n(s-) \mdot$$
+		%
+		We will now use a version of integration by parts (see \cite{cohn2013measure}, p. 164) to show % p. 189
+		\begin{align*}
+		&\int_{s}^{t} \frac{H(z)}{1-H(z)} H_n(dz) + H_n(t) - H_n(s-)\\
+		&=\frac{H_n(t)}{1-H(t)} - \frac{H_n(s-)}{1-H(s)} - \int_{s}^{t} \frac{H_n(z)}{(1-H(z))^2} H(dz)
+		\end{align*}
+		First let's define $\tilde{G}(x):=H_n(x)$ and
+		$$\tilde{F}(x) := \frac{H(x)}{1-H(x)}$$
+		%
+		Moreover denote $\mu_{\tilde F}$ and $\mu_{\tilde G}$ the measures induced by $\tilde F$ and $\tilde G$ respectively. Note that we have
+		\begin{equation*}
+		\mu_{\tilde F}(]s,t]) =\tilde  F(t) - \tilde F(s)  \numberthis\label{eq:mu_F}
+		\end{equation*}
+		%
+		Next consider that we can write
+		$$\tilde F(x) = \int_{0}^{x} \frac{1}{(1-H(z))^2} H(dz)$$ 
+		since we have
+		\begin{align*}
+		\int_{0}^{x} \frac{1}{(1-H(z))^2} H(dz) &= \int_{0}^{H(x)} \frac{1}{(1-u)^2} du\\
+		&= \int_{0}^{H(x)} \frac{1}{(1-u)^2} du\\
+		&= \frac{1}{1-H(x)} - 1\\
+		&= \frac{H(x)}{1-H(x)}\mdot
+		\end{align*}
+		%
+		Now combining the above with \eqref{eq:mu_F} yields
+		\begin{align*}
+		\mu_{\tilde F}(]s,t]) = \tilde  F(t) - \tilde F(s)  = \int_{s}^{t} \frac{1}{(1-H(z))^2} H(dz)\mdot
+		\end{align*}	
+		%
+		Therefore the Radon Nikodym derivative of $\mu_{\tilde F}$ \wrt\ $H$ is given by
+		\begin{equation*}
+		\frac{\mu_{\tilde F}(dx)}{H(dx)} = \frac{1}{(1-H(x))^2} \numberthis\label{eq:RN}\mdot
+		\end{equation*}
+		%
+		Note that $\tilde{F}$ and $\tilde{G}$ are bounded, right-continuous and vanish at $-\infty$. Thus we can apply \cite{cohn2013measure}, p. 164, to obtain
+		\begin{align*}
+		\int_{s}^{t} \tilde{F}(z) \mu_{\tilde G}(dz) &=\tilde F(t) \tilde G(t) - \tilde F(s-) \tilde G(s-) - \int_{s}^{t} \tilde G(z-) \mu_{\tilde F}(dz)\mdot
+		\end{align*}
+		%
+		Now we get by \eqref{eq:RN} and by definition of $\tilde F$ and $\tilde G$ that
+		\begin{align*}
+		\int_{0}^{s} \frac{H(z)}{1-H(z)} H_n(dz) &=\frac{H_n(t)H(t)}{1-H(t)} - \frac{H_n(s-)H(s)}{1-H(s)} - \int_{s}^{t} H_n(z-) \mu_{\tilde F}(dz)\\
+		&=\frac{H_n(t)H(t)}{1-H(t)} - \frac{H_n(s-)H(s)}{1-H(s)} - \int_{s}^{t} \frac{H_n(z-)}{(1-H(z))^2} H(dz)\mdot
+		\end{align*}	 
+		%
+		Therefore we have
+		\begin{align*}
+		\int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) &= \int_{s}^{t} \frac{H(z)}{1-H(z)} H_n(dz) + H_n(t) - H_n(s-) - \gamma_n(s)\\ 
+		&=\frac{H_n(t)H(t)}{1-H(t)} - \frac{H_n(s-)H(s)}{1-H(s)} - \int_{0}^{s} \frac{H_n(z-)}{(1-H(z))^2} H(dz)\\
+		&\qquad + H_n(t) - H_n(s-) - \gamma_n(s)\\
+		&=\frac{H_n(t)}{1-H(t)} - \frac{H_n(s-)}{1-H(s)} - \int_{0}^{s} \frac{H_n(z-)}{(1-H(z))^2} H(dz)\\
+		&\qquad - \gamma_n(s)\mdot
+		\numberthis\label{eq:int_hn_ab}
+		\end{align*}
+		The latter equality holds, since 
+		\begin{align*}
+		\frac{H_n(t)H(t)}{1-H(t)} + H_n(t) =\frac{H_n(t)}{1-H(t)}
+		\end{align*}
+		and 
+		\begin{align*}
+		\frac{H_n(s-)H(s)}{1-H(s)} + H_n(s-) = \frac{H_n(s-)}{1-H(s)}\mdot
+		\end{align*}
+		%
+		Now consider the following
+		\begin{align*}
+		\int_{s}^{t} \frac{1}{1-H(z)} H(dz) &=\int_{s}^{t} \frac{H(z)}{1-H(z)} H(dz) + H(t) - H(s)
+		\end{align*}
+		Define $\bar{G}(x):=H(x)$ and note that $\bar{G}(x)$ is bounded, right-continuous and vanishes at $-\infty$. Therefore applying \cite{cohn2013measure}, p. 164, to $\tilde{F}$ and $\bar G$ yields
+		\begin{align*}
+		\int_{s}^{t} \frac{H(z)}{1-H(z)} H(dz) =\frac{H^2(t)}{1-H(t)} - \frac{H^2(s)}{1-H(s)} - \int_{s}^{t} \frac{H(z)}{(1-H(z))^2} H(dz)\mdot
+		\end{align*}
+		Hence we have
+		\begin{align*}
+		\int_{s}^{t} \frac{1}{1-H(z)} H(dz) &= \frac{H^2(t)}{1-H(t)} - \frac{H^2(s)}{1-H(s)} - \int_{s}^{t} \frac{H(z)}{(1-H(z))^2} H(dz)\\
+		&\qquad + H(t) - H(s)\\
+		&= \frac{H(t)}{1-H(t)} - \frac{H(s)}{1-H(s)} - \int_{s}^{t} \frac{H(z)}{(1-H(z))^2} H(dz)\numberthis\label{eq:int_h_ab}\mdot
+		\end{align*}
+		%
+		Combining \eqref{eq:int_hn_ab} and \eqref{eq:int_h_ab} yields
+		\begin{align*}
+		&\int_s^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_s^{t} \frac{1}{1-H(z)} H(dz)\\
+		&= \frac{H_n(t) - H(t)}{1-H(t)} - \frac{H_n(s-) - H(s)}{1-H(s)} - \int_s^{t} \frac{H_n(z-) - H(z)}{1-H(z)} H(dz) - \gamma_n(t)\mdot
+		\end{align*}
+		Thus equation \eqref{eq:int_by_parts_1} from the statement of the lemma has been established. Next define $\tilde{G}^1(x):=H^1_n(x)$ and apply \cite{cohn2013measure}, p. 164, to $\tilde{F}$ and $\tilde G^1$ to obtain
+		\begin{align*}
+		\int_{s}^{t} \frac{H(z)}{1-H(z)} H_n^1(dz) =\frac{H^1_n(t)H(t)}{1-H(t)} - \frac{H^1_n(s-)H(s)}{1-H(s)} - \int_{s}^{t} \frac{H^1_n(z)}{(1-H(z))^2} H(dz)\numberthis\label{eq:int_hn1_ab}
+		\end{align*}
+		Next define $\bar{G}^1(x):=H^1(x)$ and apply \cite{cohn2013measure}, p. 164, to $\tilde{F}$ and $\bar G^1$ to obtain
+		\begin{align*}
+		\int_{s}^{t} \frac{H(z)}{1-H(z)} H^1(dz) =\frac{H^1(t)H(t)}{1-H(t)} - \frac{H^1(s-)H(s)}{1-H(s)} - \int_{s}^{t} \frac{H^1(z)}{(1-H(z))^2} H(dz)\numberthis\label{eq:int_h1_ab}
+		\end{align*}
+		Finally consider the following
+		\begin{align*}
+		&\int_s^{t-} \frac{1}{1-H(z)} H^1_n(dz) - \int_s^{t} \frac{1}{1-H(z)} H^1(dz)\\
+		&= \int_s^{t} \frac{1}{1-H(z)} H^1_n(dz) - \int_s^{t} \frac{1}{1-H(z)} H^1(dz) - \gamma_n^1(t)\\
+		&= \int_s^{t} \frac{H(z)}{1-H(z)} H^1_n(dz) + H_n^1(t) - H_n^1(s-)\\
+		&\qquad - \int_s^{t} \frac{1}{1-H(z)} H(dz) + H^1(t) - H^1(s-) - \gamma_n^1(t)\mdot
+		\end{align*}
+		Now combining the above with equations \eqref{eq:int_hn1_ab} and \eqref{eq:int_h1_ab} yields the second part of the lemma.
+	\end{proof}
+\end{lemma}
+%
+The lemma below contains a statement about uniform convergence of processes considered in the proof of Lemma \ref{lem:dn_limit}. It will be used to establish Corollary \ref{cor:indep_s_t}. 
+\begin{lemma} \label{lem:uniform_s_t}
+	The following holds for any $T<\tau_H$.
+	\begin{align*}
+	\sup\limits_{0\leq s<t\leq T}\left|\int_{s}^{t-} \frac{1-m(z,\theta_0)}{1-H(z)} H_n(dz) - \int_{s}^{t} \frac{1-m(z,\theta_0)}{1-H(z)} H(dz)\right|\to 0
+	\end{align*}
+	almost surely as $n\to\infty$.
+	% 
+	\begin{proof}
+		First consider the following
+		\begin{align*}
+		&\sup\limits_{0\leq s<t\leq T}\left|\int_{s}^{t-} \frac{1-m(z,\theta_0)}{1-H(z)} H_n(dz) - \int_{s}^{t} \frac{1-m(z,\theta_0)}{1-H(z)} H(dz)\right|\\
+		&= \sup\limits_{0\leq s<t\leq T}\left|\int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H(dz)\right.\\
+		&\qquad\qquad + \left.\int_{s}^{t-} \frac{m(z,\theta_0)}{1-H(z)} H(dz) - \int_{s}^{t-} \frac{m(z,\theta_0)}{1-H(z)} H_n(dz)\right|\\
+		&= \sup\limits_{0\leq s<t\leq T}\left|\int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H(dz)\right.\\
+		&\qquad\qquad + \left. \int_{s}^{t-} \frac{1}{1-H(z)} H^1(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H_n^1(dz)\right|\\
+		&\leq \sup\limits_{0\leq s<t\leq T}\left| \int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H(dz)\right|\\
+		&\qquad +  \sup\limits_{0\leq s<t\leq T}\left| \int_{s}^{t-} \frac{1}{1-H(z)} H^1(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H_n^1(dz)\right| \mdot\numberthis\label{eq:hn_h}\mdot
+		\end{align*}
+		Applying Lemma \ref{lem:int_by_parts} equation \eqref{eq:int_by_parts_1} to the first term above yields
+		\begin{align*}
+		&\sup\limits_{0\leq s<t\leq T}\left| \int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H(dz)\right|\\
+		&= \sup\limits_{0\leq s<t\leq T}\left| \frac{H_n(t) - H(t)}{1-H(t)} - \frac{H_n(s-) - H(s)}{1-H(s)} \right.\\
+		&\qquad\qquad\qquad \left. - \int_s^{t} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz) - \frac{H_n(t-) - H_n(t)}{1-H(t)}\right|\\
+		&\leq \sup\limits_{0\leq s<t\leq T}\left| \frac{H_n(t) - H(t)}{1-H(t)}\right| + \sup\limits_{0\leq s<t\leq T}\left| \frac{H_n(s-) - H(s)}{1-H(s)}\right|\\
+		&\qquad + \sup\limits_{0\leq s<t\leq T}\left|\int_s^{t} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz)\right| + \sup\limits_{0\leq s<t\leq T}\left|\frac{H_n(t-) - H_n(t)}{1-H(t)}\right|\mdot
+		\end{align*}
+		Next consider that we have
+		$$\sup\limits_{0\leq s<t\leq T}\left| \frac{H_n(t) - H(t)}{1-H(t)}\right| \leq \frac{\sup\limits_{x\leq T}\left| H_n(x) - H(x)\right|}{1-H(T)}$$
+		and
+		$$\sup\limits_{0\leq s<t\leq T}\left| \frac{H_n(s-) - H(s)}{1-H(s)}\right| \leq \frac{\sup\limits_{x\leq T}\left| H_n(x) - H(x)\right| + \frac{1}{n}}{1-H(T)}\mdot$$
+		Furthermore consider
+		\begin{align*}
+			\sup\limits_{0\leq s<t\leq T}\left|\int_s^{t} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz)\right| &\leq \sup\limits_{0\leq s<t\leq T}\left|\int_0^{t} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz)\right|\\
+			&\qquad + \sup\limits_{0\leq s<t\leq T}\left|\int_0^{s} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz)\right|\\
+			&\leq 2\cdot \frac{\sup\limits_{x\leq T}\left|H_n(x) - H(x)\right| + \frac{1}{n}}{(1-H(T))^2}\mcomma
+		\end{align*}
+		since we have for $t\leq T$
+		$$\left|\int_0^{t} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz)\right| \leq \int_0^{t} \frac{\left|H_n(z-) - H(z)\right|}{(1-H(T))^2} H(dz)\leq \frac{\sup\limits_{x\leq T}\left|H_n(x) - H(x)\right| + \frac{1}{n}}{(1-H(T))^2}$$
+		using Jensen's inequality. Moreover note that	$H_n(s-) - H_n(s) \leq n^{-1}$ for any $0\leq s \leq T$ and hence
+		$$\sup\limits_{0\leq s<t\leq T}\left|\frac{H_n(s-) - H_n(s)}{1-H(s)}\right| \leq \frac{1}{n(1-H(T))}\mdot $$
+		Therefore we obtain
+		\begin{align*}
+		&\sup\limits_{0\leq s<t\leq T}\left| \int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H(dz)\right|\\
+		&\leq \frac{\sup\limits_{x\leq T}\left| H_n(x) - H(x)\right|}{1-H(T)} + \frac{\sup\limits_{x\leq T}\left| H_n(x) - H(x)\right| + \frac{1}{n}}{1-H(T)} \\
+		&\qquad + 2\cdot\frac{\sup\limits_{x\leq T}\left|H_n(x) - H(x)\right| + \frac{1}{n}}{(1-H(T))^2} + \frac{1}{n(1-H(T))}\\
+		&\to 0
+		\end{align*}
+		almost surely as $n\to\infty$ by the Glivenko-Cantelli Theorem and since $H(T)<1$.
+		%
+		Now let's consider the latter term in \eqref{eq:hn_h}. Applying Lemma \ref{lem:int_by_parts} equation \eqref{eq:int_by_parts_2} yields
+		\begin{align*}
+		&\sup\limits_{0\leq s<t\leq T}\left| \int_{s}^{t-} \frac{1}{1-H(z)} H^1_n(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H^1(dz)\right|\\
+		&= \sup\limits_{0\leq s<t\leq T}\left| \frac{H^1_n(t) - H^1(t)}{1-H(t)} -  \frac{H^1_n(s-) - H^1(s)}{1-H(s)}\right.\\
+		&\qquad\qquad\qquad \left. - \int_s^{t} \frac{H^1_n(z-) - H^1(z)}{(1-H(z))^2} H(dz) - \frac{H^1_n(t-) - H^1_n(t)}{1-H(t)}\right|\\
+		&\leq \sup\limits_{0\leq s<t\leq T}\left| \frac{H^1_n(t) - H^1(t)}{1-H(t)}\right| + \sup\limits_{0\leq s<t\leq T}\left| \frac{H^1_n(s-) - H^1(s)}{1-H(s)}\right|\\
+		&\qquad  + \sup\limits_{0\leq s<t\leq T}\left|\int_s^{t} \frac{H^1_n(z-) - H^1(z)}{(1-H(z))^2} H(dz)\right| + \sup\limits_{0\leq s<t\leq T}\left|\frac{H^1_n(t-) - H^1_n(t)}{1-H(t)}\right|\\
+		&\leq \frac{\sup\limits_{x\leq T}\left| H^1_n(x) - H^1(x)\right|}{1-H(T)} + \frac{\sup\limits_{x\leq T}\left| H^1_n(x) - H^1(x)\right| + \frac{1}{n}}{1-H(T)}\\ 
+		&\qquad + 2\cdot\frac{\sup\limits_{x\leq T}\left|H^1_n(x) - H^1(x)\right| + \frac{1}{n}}{(1-H(T))^2} + \frac{1}{n(1-H(T))}\\
+		&\to 0
+		\end{align*}
+		almost surely as $n\to\infty$ by the Glivenko Cantelli Theorem and since $H(T)<1$.
+		%	In Lemma \ref{lem:dn_limit} we have seen that
+		%	\begin{align*}
+		%		\tilde\Lambda_n(s) := \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)+\frac{2}{n}} H_n(dz) \to \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) =: \tilde\Lambda(s)
+		%	\end{align*}
+		%	almost surely as $n\to\infty$ by Glivenko-Cantelli and the SLLN. Moreover note that $\tilde{\Lambda}_n(s)$ and $\tilde{\Lambda}(s)$ are increasing in $s$. Hence we get
+		%	$$\sup\limits_{s\leq T} \left| \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)+\frac{2}{n}} H_n(dz) - \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) \right| \to 0$$
+		%	almost surely, according to \cite{shorack2009empirical}, p. 304f. 
+	\end{proof}
+\end{lemma}
+%
+The following Corollary is important for the proof of Theorem \ref{thm:snmn_limit}.
+\begin{cor} \label{cor:indep_s_t}
+	The measure zero sets $\{\omega| C_n(s,m;\omega) \nrightarrow C(s,m) \textrm{ as } n\to\infty\}$ and $\{\omega| D_n(s,t,m;\omega) \nrightarrow D(s,t,m) \textrm{ as } n\to\infty\}$ are independent of $s$ and $t$.
+	\begin{proof}
+		In Lemma \ref{lem:dn_limit} we have seen that $D_n(s,t,q)$ converges almost surely to $D(s,t,q)$ by Glivenko Cantelli and the SLLN. In order to show the statement of the corollary we need to show that this convergence is uniform in $s$ and $t$. Let $q\equiv m(\cdot, \theta_0)$ and recall from the proof of Lemma \ref{lem:dn_limit} that we have 
+		\begin{align*}
+		& \left|\int_{0}^{s-} \frac{(1-q(z))(H_n(z)-H(z)-\frac{2}{n})}{(1-H_n(z)+\frac{2}{n})(1-H(z))} H_n(dz)\right|\\
+		&\leq \frac{\sup_{z\leq T}\abs{H_n(z)- H(z) -\frac{2}{n}}}{1-H(T)} \int_{0}^{T-}\frac{1}{1-H_n(z)} H_n(dz) \longrightarrow 0 
+		\end{align*}
+		almost surely as $n\to\infty$. Note that the right hand side above converges to zero independent of $s$ and $t$. Next recall that
+		\begin{align*}
+		\int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) \longrightarrow \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) \numberthis\label{eq:slln_dn1}
+		\end{align*}		
+		by the SLLN. Note that this means pointwise convergence. But according to Lemma \ref{lem:uniform_s_t} we also have
+		\begin{align*}
+		\sup\limits_{0\leq s\leq T}\left|\int_{0}^{s-} \frac{1-m(z,\theta_0)}{1-H(z)} H_n(dz) - \int_{0}^{s} \frac{1-m(z,\theta_0)}{1-H(z)} H(dz)\right|\to 0
+		\end{align*}
+		almost surely as $n\to\infty$. Thus we can show that the convergence in \eqref{eq:slln_dn1} is indeed uniform in $s$ and $t$. For the last part of the proof, we need  
+		\begin{align*}
+		\sup\limits_{0\leq s<t\leq T}\left|\int_{s}^{t-} \frac{1-m(z,\theta_0)}{1-H(z)} H_n(dz) - \int_{s}^{t} \frac{1-m(z,\theta_0)}{1-H(z)} H(dz)\right|\to 0
+		\end{align*}
+		almost surely as $n\to\infty$, which is provided by Lemma \ref{lem:uniform_s_t} as well. Hence $D_n(s,t,m) \to D(s,t,m)$ almost surely, uniformly in $s$ and $t$ as $n\to\infty$. By similar arguments we get that $C_n(s,m) \to C(s,m)$ almost surely, uniformly in $s$ and $t$ as $n\to\infty$, considering the proof of Lemma \ref{lem:Cn_bounds_and_limit}.
+	\end{proof}
+\end{cor}
+
+\section{Unchanged from my thesis}
+Recall the following  definition from the beginning of this chapter:
+$$D_n(s,t) := \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I{Z_k<s}} \prod_{k=1}^{n}\left[1+\frac{1-q(Z_k)}{n-R_ {k,n}+1}\right]^{\I{s < Z_k < t}}\\$$
+The next lemma identifies the almost sure limit of $D_n$ for $n\to\infty$. Define for $s<t$
+$$D(s,t) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right)$$
+\begin{lemma} \label{lem:dn_limit}
+	For any $s < t \leq T$ \st\ $H(T)<1$, we have
+	$$\lim\limits_{n\to\infty}D_n(s,t) = D(s,t)\mdot$$
+	%	
+	\begin{proof}
+		First recall the following definition
+		\begin{align*}
+		D_n(s,t) &:= \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I{Z_k<s}} \prod_{k=1}^{n}\left[1+\frac{1-q(Z_k)}{n-R_ {k,n}+1}\right]^{\I{s < Z_k < t}} \mdot
+		\end{align*}
+		%
+		Next let 
+		\begin{align*}
+		x_k &:= \frac{1-q(Z_k)}{n(1- H_n(Z_k) + 2/n)}\\
+		y_k &:= \frac{1-q(Z_k)}{n(1- H_n(Z_k) + 1/n)}\\
+		s_k &:= \I{Z_k < s} \\
+		t_k &:= \I{s < Z_k < t}
+		\end{align*}
+		for $s<t$ and $k=1,\dots,n$.
+		%
+		Now consider 
+		\begin{align*}
+		D_n(s,t) &= \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n(1- H_n(Z_k) + 2/n)}\I{Z_k<s}\right]^{2}\\ 
+		&\qquad \times \prod_{k=1}^{n}\left[1+\frac{1-q(Z_k)}{n(1-H_n(Z_k)+1/n)}\I{s < Z_k < t}\right]\\
+		&= \prod_{k=1}^{n} \left[1+x_k s_k\right]^{2} \prod_{k=1}^{n}\left[1+y_k t_k\right]\\
+		&= \exp\left(2\sum_{k=1}^{n}\ln\left[1+x_k s_k\right] + \sum_{k=1}^{n}\ln\left[1+y_k t_k\right]\right)\mdot
+		\end{align*}
+		%
+		Note that $0 \leq x_k s_k \leq 1$ and $0 \leq y_k t_k \leq 1$. Consider that the following inequality holds  
+		$$-\frac{x^2}{2} \leq \ln(1+x) - x \leq 0$$ 
+		for any $x \geq 0$ (cf.  \cite{stute1993strong}, p. 1603). This implies 
+		$$-\frac{1}{2}\sum_{k=1}^{n}x_k^2 s_k \leq \sum_{k=1}^{n}\ln(1+x_k s_k) - \sum_{k=1}^{n}x_k s_k \leq 0\mdot$$ 
+		But now 
+		\begin{align*}
+		\sum_{k=1}^{n} x_k^2 s_k &= \frac{1}{n^2} \sum_{k=1}^{n} \left(\frac{1-q(Z_k)}{1-H_n(Z_k)+\frac{2}{n}}\right)^2\I{Z_k<s}\\
+		&\leq \frac{1}{n^2} \sum_{k=1}^{n} \left(\frac{1}{1-H_n(s)+\frac{1}{n}}\right)^2\\
+		&= \frac{1}{n(1-H_n(s)+n^{-1})^2} \longrightarrow 0
+		\end{align*}
+		almost surely as $n\to\infty$, since $H(s)<H(t)<1$ (\cf\ \cite{stute1993strong}, p. 1603). Therefore we have
+		$$\abs{\sum_{k=1}^{n}\ln(1+x_k s_k) - \sum_{k=1}^{n}x_k s_k} \longrightarrow 0$$
+		with probability 1 as $n\to\infty$. 
+		%
+		Similarly we obtain
+		$$\abs{\sum_{k=1}^{n}\ln(1+y_k t_k) - \sum_{k=1}^{n}y_k t_k} \longrightarrow 0$$
+		with probability 1 as $n\to\infty$. Hence 
+		$$\lim\limits_{n\to\infty} D_n(s,t) = \lim\limits_{n\to\infty} \exp\left(2\sum_{k=1}^{n} x_k s_k + \sum_{k=1}^{n}y_k t_k\right)\mdot$$
+		%
+		Now consider 
+		\begin{align*}
+		\sum_{k=1}^{n} x_k s_k &= \frac{1}{n}\sum_{k=1}^{n} \frac{1-q(Z_k)}{1-H_n(Z_k)+\frac{2}{n}}\I{Z_k<s}\\
+		&= \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)+\frac{2}{n}} H_n(dz)\\
+		&= \int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) + \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)+\frac{2}{n}} - \frac{1-q(z)}{1-H(z)} H_n(dz)\\
+		&= \int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) + \int_{0}^{s-} \frac{(1-q(z))(H_n(z)-H(z)-\frac{2}{n})}{(1-H_n(z)+\frac{2}{n})(1-H(z))} H_n(dz)\mdot \numberthis \label{eq:xksk_int}
+		\end{align*}
+		%
+		Note that the second term on the right hand side of the latter equation above tends to zero for  $n\to\infty$, because
+		\begin{align*}
+		& \left|\int_{0}^{s-} \frac{(1-q(z))(H_n(z)-H(z)-\frac{2}{n})}{(1-H_n(z)+\frac{2}{n})(1-H(z))} H_n(dz)\right|\\
+		&\leq \frac{\sup_{z\leq T}\abs{H_n(z)- H(z) -\frac{2}{n}}}{1-H(T)} \int_{0}^{T-}\frac{1}{1-H_n(z)} H_n(dz) \longrightarrow 0 \numberthis\label{eq:gc}
+		\end{align*}
+		%
+		almost surely as $n\to\infty$, by the Glivenko-Cantelli Theorem and since $H(T)<1$. Moreover we have
+		\begin{align*}
+		\int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) \longrightarrow \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz)
+		\end{align*}		
+		by the SLLN. Therefore we obtain 
+		$$\lim\limits_{n\to\infty} \sum_{k=1}^{n} x_k s_k = \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz)\mdot$$
+		By the same arguments, we can show that 
+		$$\lim\limits_{n\to\infty} \sum_{k=1}^{n} y_k t_k = \int_{s}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\mdot$$
+		Thus we finally conclude
+		$$\lim\limits_{n\to\infty} D_n(s,t) = \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right)$$
+		almost surely.
+	\end{proof}
+\end{lemma}
+%
+\begin{lemma}
+	For continuous $H$ and $t\leq T<\tau_H$, we have $C_n(t) \to 0$ as $n \to \infty$ \wpo, and $C_n(t) \in [0,1]$ for all $n\geq 1$ and $t\geq 0$.
+	\label{lem:Cn_bounds_and_limit}
+	%
+	\begin{proof}
+		It is easy to see that $0\leq C_n(t) \leq 1$ for any $t\geq 0$ and $n\geq 2$, since $0\leq q(t)\leq 1$ and $\I{Z_{i-1:n} < t \leq Z_{i:n}} = 1$ for exactly one $i \in \{1,\dots,n+1\}$. Let's now consider 
+		\begin{align*}
+		C_n(t) &= \sum_{i=1}^{n+1} \frac{1-q(t)}{n-i+2} [\I{Z_{i-1:n}<t} - \I{Z_{i:n}<t}]\\
+		&= \sum_{i=1}^{n+1} \frac{1-q(t)}{n-i+2} \I{Z_{i-1:n}<t} - \sum_{i=1}^{n+1} \frac{1-q(t)}{n-i+2} \I{Z_{i:n}<t}\\
+		&= \sum_{i=0}^{n} \frac{1-q(t)}{n-i+1} \I{Z_{i:n}<t} - \sum_{i=1}^{n} \frac{1-q(t)}{n-i+2} \I{Z_{i:n}<t}\\
+		&= \sum_{i=1}^{n} \frac{1-q(t)}{n-i+1} \I{Z_{i:n}<t} + \frac{(1-q(t))}{n+1}  - \sum_{i=1}^{n} \frac{1-q(t)}{n-i+2} \I{Z_{i:n}<t}\\
+		&= (1-q(t))\left\{\frac{1}{n+1} + \sum_{i=1}^{n} \left[\frac{1}{n-i+1} - \frac{1}{n-i+2}\right]\I{Z_{i:n}<t}\right\}\\
+		&= (1-q(t))\sum_{i=1}^{n} \left[\frac{1}{n-nH_n(Z_{i:n})+1} \frac{1}{n-nH_n(Z_{i:n})+2}\right]\I{Z_{i:n}<t}\\
+		&\qquad + \frac{1-q(t)}{n+1}\\
+		&= (1-q(t))\int_{0}^{t} \left[\frac{1}{1-H_n(x)+\frac{1}{n}} - \frac{1}{1-H_n(x)+\frac{2}{n}}\right]H_n(dx)\\
+		&\qquad + \frac{1-q(t)}{n+1}\mdot \numberthis \label{eq:cn}
+		\end{align*}
+		In Lemma \ref{lem:dn_limit} we have seen that
+		$$\int_{0}^{t} \frac{1}{1-H_n(x)+\frac{2}{n}} H_n(dx) \to \int_{0}^{t} \frac{1}{1-H(x)} H(dx)\mdot$$
+		By the same arguments we obtain 
+		$$\int_{0}^{t} \frac{1}{1-H_n(x)+\frac{1}{n}}H_n(dx) \to \int_{0}^{t} \frac{1}{1-H(x)} H(dx)\mdot$$
+		Therefore the right hand side of \eqref{eq:cn} converges to zero. 
+	\end{proof}
+\end{lemma}

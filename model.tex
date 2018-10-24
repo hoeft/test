@@ -1,0 +1,154 @@
+\chapter{On the censoring model $m$} \label{ch:model}
+%
+Let's define the cumulative hazard rate $\Lambda_F$ of a \rv\ $\xi$ with some \df\ $F$ as 
+$$\Lambda_F(t) := \int_{0}^{t} \frac{1}{1-F(x)} F(dx) = \int_{0}^{t} \lambda_F(x) dx$$
+with 
+$$\lambda_F(x) = \frac{f(x)}{1-F(x)}\mdot$$
+We will denote $\lambda_F$ the hazard rate of $\xi$.\\
+\\
+Now recall from the RCM (see Chapter \ref{ch:introduction}) that we have $X\sim F$, $Y\sim G$ and $Z \sim H$ where $Z=\min(X,Y)$. We observe $(Z_i,\delta_i)_{i\leq n}$. Consider that we have 
+$$m(z,\theta)=\P(\delta=1|Z\leq z) = \E(\I{\delta=1}|Z\leq z)$$ 
+%
+Consider now the cumulative hazard rate corresponding to $F$
+\begin{align*}
+	\Lambda_F(t)=\int_0^t\frac{1}{1-F(x)}F(dx)\mdot \numberthis\label{eq:Lambda_1}
+\end{align*}
+%
+Moreover consider that we have 
+\begin{align*}
+	H_1(z) = P(\delta=1,Z\leq z)&=\E(I(X\leq Y)I(X\leq z))\\
+	&=\E(I(X\leq z)\E(I(X\leq Y)|X))
+\end{align*}
+%
+Hence we obtain
+\begin{align*}
+	H_1(z)&=\int_0^z \E(I(X\leq Y)|X=t) F(dt)\\
+	&=\int_0^z \E(I(Y>t)) F(dt)\\
+	&=\int_0^z \P(Y>t) F(dt)\\
+	&=\int_0^z 1-G(t) F(dt)\mdot
+\end{align*}
+Thus $dH_1 = (1-G)dF$.  Moreover we have $dH_1 = m\cdot dH$. Therefore we can rewrite $\Lambda_F$ as
+\begin{align*}
+	\Lambda_F(t)&=\int_0^t\frac{1-G(x)}{(1-F(x))(1-G(x))}F(dx)\\
+	&=\int_0^t\frac{1}{(1-F(x))(1-G(x))}H_1(dx)\\
+	&=\int_0^t\frac{1}{1-H(x)}H_1(dx)\\
+	&=\int_0^t\frac{m(x,\theta)}{1-H(x)}H(dx) \numberthis\label{eq:Lambda_2}
+\end{align*}
+%
+Note that combining \eqref{eq:Lambda_1} and \eqref{eq:Lambda_2} yields
+$$\int_0^t\lambda_F(x)dx = \int_0^t\frac{f(x)}{1-F(x)}dx = \int_0^t\frac{m(x,\theta)h(x)}{1-H(x)}dx = \int_0^tm(x,\theta)\lambda_H(x)dx $$
+Now this implies 
+\begin{equation*}
+	m(z,\theta_0) = \frac{\lambda_F(z)}{\lambda_H(z)} = \frac{\lambda_F(z)}{\lambda_F(z)+\lambda_G(z)} \numberthis\label{eq:m_lambda}
+\end{equation*}
+%
+Parametric models for $m$ can be found in \cite{cox1970binary} and \cite{collett2014modelling}.\\
+\\
+We will now consider censoring models in different settings and how condition (A\ref{ass:m_increas}) restricts their application in practice. Consider the following examples.
+%
+\begin{example}\label{ex:intro_phm}
+	Suppose that $F$ and $G$ satisfy 
+	$$1-G(t) = (1-F(t))^\beta \quad \textrm{ for some }\quad \beta > 0\mcomma$$
+	in addition to the assumptions of semiparametric RCM. This model is called proportional hazards model. In this case the censoring model $m(\cdot, \theta)$ is independent of $Z$. Hence we have
+	\begin{equation*}
+		m(t,\theta) = \E[\delta] = \theta \numberthis\label{eq:model_phm}
+	\end{equation*}
+	is constant and therefore obviously non-decreasing. \\
+	\\
+	The proportional hazards model was discussed in detail by \cite{koziol1976cramer}. For integrals \wrt\ measurable functions and the estimator the SLLN was established by \cite{stute1992strong}. Asymptotic normality was shown by \cite{dikta1995asymptotic}.\\
+	One obvious approach for a non-parametric estimate of $m$ is given by
+	$$m^{cl}_n = \frac{1}{n} \sum_{i=1}^{n} \delta_i$$
+	The corresponding estimator is then of the form
+	$$1-F^{cl}_n(t) = \prod_{i:Z_i\leq t}\left( \frac{n-R_{i,n}}{n-R_{i,n}+1} \right)^{m^{cl}_n}$$
+	The estimator above was introduced by \cite{cheng1987mle}. In section \ref{sec:sim_expexp} we will see a simulation study under the proportional hazards model in the semiparametric framework.%\todo{Asymptotic results? CL besser KM.}\\
+\end{example}
+%
+\begin{example}
+	Let $X \sim Weibull(\alpha_1, \beta_1)$ and $Y \sim Weibull(\alpha_2, \beta_2)$. Then their respective hazard rates are given by 
+	$$\lambda_F = \alpha_1^{\beta_1}\beta_1 x^{\beta_1-1} \textrm{ and } \lambda_G = \alpha_2^{\beta_2}\beta_2 x^{\beta_2 -1}\mdot$$
+	According to \eqref{eq:m_lambda}, we can now write our censoring model $m$ as 
+	\begin{align*}
+		m(x,\theta) = \frac{1}{1+\lambda_G(x)/\lambda_F(x)} =\left(1+\frac{\alpha_2^{\beta_2}\beta_2 }{\alpha_1^{\beta_1}\beta_1} x^{\beta_2-\beta_1}\right)^{-1} = \frac{1}{1+\theta_1 x^{\theta_2}}
+	\end{align*}
+	with
+	$$\theta=(\theta_1,\theta_2)=\left(\frac{\alpha_2^{\beta_2}\beta_2 }{\alpha_1^{\beta_1}\beta_1},\beta_2-\beta_1\right)\textrm{.}$$
+	We will call this model the \textit{weibull model}. Note that condition (A\ref{ass:m_increas}) poses a restriction on this model, since we need $\beta_2 < \beta_1$ \st\ $\theta_2 < 0$ and hence $m(z,\theta_0)$ is increasing in $z$. In section \ref{sec:sim_weiwei}, a simulation study of the setup above is shown.
+\end{example}
+%
+Let's introduce the Pareto distribution $Par(\beta)$ for the next example. If  $X\sim Par(\beta)$, we have
+$$\lambda_F(x) = \frac{\beta}{x} \I{x\geq \beta}$$
+\begin{example}
+	Suppose $X\sim Exp(\alpha)$ and $Y\sim Par(\beta)$. Then the censoring model is given by
+	$$m(z, \theta) =\frac{\alpha}{\alpha + \frac{\beta}{z} \I{z \geq \beta}}\mdot$$
+	Note that $m(z,\theta)$ is increasing in $z$ for $\beta>0$. A simulation study for this setup can be found in section \ref{sec:sim_exppar}.
+	%
+\end{example}
+%
+The following example will involve the Gompertz distribution. If $X$ follows a Gompertz distribution with parameters $\alpha$ and $\beta$ we will write $X\sim Gom(\alpha,\beta)$. In this case the hazard rate is given by
+$$\lambda_F(x) = \exp(\alpha + \beta x)$$
+Consider the following example
+\begin{example}
+	Suppose $X\sim Gom(\alpha, \beta)$ and $Y\sim Exp(\gamma)$. Then the censoring model is given by
+	$$m(z, \theta) =\frac{1}{1 + \gamma\exp(-\alpha - \beta x)}\mdot$$
+	for $\beta > 0$. Note that $m(z,\theta)$ is increasing in $z$ for $\beta>0$. 
+	%
+\end{example}
+%
+\begin{example}
+	Suppose $\lambda_F$ is known and $m$ is defined as follows
+	$$m(x,\theta) = \frac{\exp(\theta x)}{1+\exp(\theta x)} = \frac{1}{1+\exp(-\theta x)}$$
+	for $\theta < 0$. We will call the model above \textit{logit model}. Consider that equation \eqref{eq:m_lambda} implies  
+	$$\lambda_G(x) = \lambda_F(x)\exp(-\theta x)\textrm{.}$$
+	%
+	%Suppose furthermore that $X\sim Weibull(\alpha, \beta)$. Then $\lambda_F(x)=\alpha^\beta \beta x^{\beta-1}$ and we have 
+	%$$\lambda_G(x) = 2\alpha^2 x \exp(-\theta x)\textrm{.}$$
+	%and the corresponding cumulative hazard rate
+	The cumulative hazard function of $G$ now has the form
+	\begin{align*}
+		\Lambda_G(t) &= \int\limits_0^t \lambda_F(x)\exp(-\theta x)dt
+		%&=& \frac{2\alpha^2}{\theta^2}(1-(\theta x+1) \exp(-\theta x))
+	\end{align*}
+	%
+	%Next consider \todo{argumentation why we need $\theta<0$ anyways}
+	%$$\lim_{x\to \infty}\Lambda_g(x) = \lim_{x\to \infty}\frac{2\alpha^2 (1-(\theta x+1)\exp(-\theta x))}{\theta^2}$$
+	Suppose e.\,g. $\lambda_F$ is bounded above, \ie\  $\lambda_F(x) \leq c$ for all $x\in \R_+$. Then
+	\begin{align*}
+		\Lambda_G(t) \leq c\cdot \int\limits_0^t \exp(-\theta x)dt  \leq c\cdot \exp(-\theta t) \cdot t  
+	\end{align*}	
+	But the above converges to zero as $t\to\infty$, if $\theta>0$. But this means 
+	$$1-G(x) = \exp(-\Lambda_G(x))$$
+	$G$ is not a proper distribution function. Hence we must have $\theta < 0$, \st\ $\Lambda_G(t) \to \infty$ as $t\to\infty$. Next consider that $m(t,\theta_0)$ is here increasing, whenever $\theta > 0$. Thus we can not use the logit model in this setup. 
+\end{example}
+%
+\begin{example}
+	Suppose the censoring model is given by
+	$$m(z, \theta) = 1 - \exp(-\exp(\theta z))\mdot$$
+	This model will be called \textit{complementary log-log model}. Now condition (A\ref{ass:m_increas}) restricts $m(\cdot,\theta)$, since we need $\theta > 0$ \st\ $m(z,\theta)$ is increasing in $t$.
+	%
+\end{example}
+%
+\begin{remark}
+	Let $m(x,\theta)= 1 - \exp(-\exp(\theta z))$ and let $\lambda_F$ be known. Now consider
+	\begin{align*}
+		\Lambda_G(x) &= \int\limits_0^x\frac{\lambda_F(t)\exp(-\exp(\theta t)}{1-\exp(-\exp(\theta t))}dt
+	\end{align*}
+	Now suppose $\lambda_F$ is either non-increasing or bounded above. Then we need $\theta < 0$ to obtain
+	$$\lim_{x\to \infty} \Lambda(x) = \infty \mdot$$
+	On the other $m(\cdot,\theta)$ is non-decreasing whenever $\theta\geq 0$. Thus in both cases the model is not applicable.
+\end{remark}
+%
+%\begin{remark}
+%	Let $m$ be such that $m(x,\theta) \geq \epsilon$ for some $\epsilon >0$. Then
+%	\begin{align*}
+%	\Lambda_G(x) &= \int\limits_0^\infty \lambda_G(t) dt \\
+%	&= \int\limits_0^\infty \frac{ (1-m(t,\theta))\lambda_F(t)}{m(t,\theta)} dt\textrm{.}
+%	\end{align*}
+%	since 
+%	$$m(t, \theta) = \frac{\lambda_F(t)}{\lambda_F(t) + \lambda_G(t)}$$
+%	Now note that 
+%	$$\frac{ (1-m(t,\theta))}{m(t,\theta)} = \frac{1}{m(t,\theta)} - 1$$
+%	is increasing, whenever $m(t,\theta)$ is decreasing. Thus we need  $m(t,\theta)$ is decreasing, to obtain
+%	$$\lim_{x\to \infty} \Lambda(x) = \infty \mdot$$
+%\end{remark}
+
+

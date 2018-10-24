@@ -1,6 +1,6 @@
-\chapter{Existence of the almost sure limit}
+\chapter{Existence of the limit}
 
-\todo{Rewrite:} Within this chapter we will establish basic properties of $\E[S_n]$. In Section \ref{sec:representation} a representation is derived for $\E[S_n|\F_{n+1}]$, which is similar to the result established in \cite{bose1999strong}, Lemma 1. Later on in this section we will derive properties of the process above based on this representation. In \cite{bose1999strong} and \cite{dikta1998semiparametric}, the proof of existence of the limit of the considered estimator was based on a reverse supermartingale argument. We will not be able to establish the reverse supermartingale property for $\snse{2}{n}$. This will be discussed in more detail within Section \ref{sec:not_supermart}. Consequently, we will derive a generalized version of Doob's Upcrossing Theorem within Chapter \ref{ch:ex_limit} in order to show that the limit of $\snse{2}{n}$ exists with probability one.
+Within this chapter we will establish basic properties of $\E[S_n|\F_{n+1}]$. In Section \ref{sec:representation} a representation is derived for $\E[S_n|\F_{n+1}]$, which is similar to the result established in \cite{bose1999strong}, Lemma 1. Later on in this section we will derive properties of the process above based on this representation. In \cite{stute1993strong} the proof of existence of the limit of the considered estimator was based on a reverse supermartingale argument. Later in \cite{dikta2000strong} and in \cite{bose1999strong} the same type of argument was used for the estimators they considered. We will not be able to establish the reverse supermartingale property for $\snse{2}{n}$ in general. But we will be able to state a condition on $q$, \st\ $S_n(q)$ is indeed a supermartingale. This will be discussed in more detail within Section \ref{sec:not_supermart}. In Section \ref{sec:ex_limit} we will show how this implies the almost sure existence by the same argument as in \cite{stute1993strong}.
 %
 %
 %
@@ -204,7 +204,7 @@ T_3 &= \sum\limits_{r=j+1}^{n+1} \frac{(n+1)^2\pi_i\pi_j}{(n-i+1)(n-j+1)}\wn{i}{
 %
 Therefore
 \[T_3 = \begin{cases} 
-      \wn{i}{n+1}\wn{j}{n+1}\pi_i\pi_j\left[\frac{(n+1)^2}{(n-i+1)(n-j+1)}\right]\sum\limits_{i=j+1}^{n+1}\I{A_{rn}} & j\leq n \\
+      \wn{i}{n+1}\wn{j}{n+1}\pi_i\pi_j\left[\frac{(n+1)^2}{(n-i+1)(n-j+1)}\right]\sum\limits_{r=j+1}^{n+1}\I{A_{rn}} & j\leq n \\
 			0 & j=n+1
    \end{cases}
 \]
@@ -261,7 +261,7 @@ Now using \eqref{eq:Ai} again yields
 	&= \wn{i}{n+1}W_{n+1:n+1}(n+1) \left\{\frac{Q_i^{n+1}}{n+1} - \frac{\pi_i\pi_{i+1}}{n-i+1}\right.\\
 	& \qquad \left. + \frac{\pi_i}{n-i+1}\left[  \pi_{i+1} - \pi_{n+1} \right] \right\}\mdot
 \end{align*}
-Note that for $1\leq i\leq n$ we have
+Note that for $1\leq i< n$ we have
 $$\pi_{i+1} = \frac{\pi_i (1-q(Z_{i:n+1}))}{2-q(Z_{i:n+1})}\mdot$$
 Thus we obtain
 \begin{align*}
@@ -273,8 +273,8 @@ Thus we obtain
 \end{align*}
 \end{proof}
 %
-The following lemma contains a result on the increases of $Q_i^{n+1}$. It is especially useful, since we can express $Q_i^{n}$, since 
-$$Q_i^{n} = Q_1^{n} + \sum_{k=1}^{n}Q_{k+1}^{n+1} - Q_{k}^{n+1}\mcomma$$
+The following lemma contains a result on the increases of $Q_i^{n+1}$ \wrt\ $i$. It is especially useful, since we can express $Q_i^{n+1}$, since 
+$$Q_i^{n+1} = Q_1^{n+1} + \sum_{k=1}^{n}Q_{k+1}^{n+1} - Q_{k}^{n+1}\mcomma$$
 which will be used in Lemma \ref{lem:sn_limit}.
 %
 \begin{lemma}
@@ -371,7 +371,7 @@ which will be used in Lemma \ref{lem:sn_limit}.
 %
 %
 \section{$S_n$ is not a reverse supermartingale in general} \label{sec:not_supermart}
-As discussed in Chapter \ref{ch:introduction}, the Strong Law of Large Numbers for Kaplan-Meier U-Statistics of degree $2$ was established by \cite{bose1999strong}. Recall definition of said estimator: 
+As discussed in Chapter \ref{ch:introduction}, the Strong Law of Large Numbers for Kaplan-Meier U-Statistics of degree $2$ was established by \cite{bose1999strong}. Recall the definition of the estimator they considered: 
 \begin{equation*}
 	S_n^{km} = \doublesum\limits_{1\leq i<j\leq n} \phi(Z_{i:n}, Z_{j:n}) W_{i:n}^{km} W_{j:n}^{km}
 \end{equation*}
@@ -379,7 +379,7 @@ with
 \begin{equation*}
 	W_{i:n}^{km} = \frac{\delta_{[i:n]}}{n-i+1}\prod\limits_{k=1}^{i-1}\left[1-\frac{\delta_{[k:n]}}{n-k+1}\right]\mdot
 \end{equation*}
-The prove of existence of the limit $S = \lim_{n\to\infty} S_n^{km}$ was here essentially based on a supermartingale argument together with \cite{neveu1975discrete}, proposition 5-3-11. In Lemma 1 of \cite{bose1999strong} a representation for $\E[S_n^{km}| \F_{n+1}]$ was derived, which is similar to our lemma \ref{lem:qi}. It was shown that for $1\leq i<j\leq n$
+The proof of existence of the limit $S = \lim_{n\to\infty} S_n^{km}$ was here essentially based upon a supermartingale argument together with \cite{neveu1975discrete}, proposition V-3-11. In Lemma 1 of \cite{bose1999strong} a representation for $\E[S_n^{km}| \F_{n+1}]$ was derived, which is similar to our lemma \ref{lem:qi}. It was shown that for $1\leq i<j\leq n$
 $$\E[S_n^{km}|\F_{n+1}] = \doublesum\limits_{1\leq i<j \leq n+1} \phi(Z_{i:n+1},Z_{j:n+1}) W_{i:n+1}^{km}W_{j:n+1}^{km}Q_{ij}^{km}$$
 where 
 \[Q_{ij}^{km} = \begin{cases} 
@@ -411,60 +411,61 @@ The proof of existence of the limit $S^{se} = \lim\limits_{n\to\infty} S_n^{se}$
 $$\E[\mu_n\{Z_{i:n+1}\} | \F_{n+1}] = W_{i:n}^{se}Q_i^{se}\mcomma$$
 where $\mu_n$ is the measure assigning mass $W_{i:n}$ to  $Z_{i:n}$ and
 $$Q_i^{se} = \pi_i + \sum_{k=1}^{i-1} \frac{\pi_k}{n-k+2-q(Z_{k:n+2})}\mdot$$
-Here $\pi_i$ is defined as in Lemma \ref{lem:qi}. Furthermore it was shown that $Q_i^{se} = Q_{i+1}^{se} = 1$ for all $2\leq i\leq n$, which, among other arguments, implies the reverse supermartingale property for $S_n^{se}$.\\
-\\
-\todo{Replace} Within the framework of this thesis, we were neither able to show $Q_i = Q_{i+1} = 1$, nor to show that $Q_i \leq 1$ for all $1\leq i\leq n$. Therefore it is not clear, if $\{\snse{2}{n}, \F_{n+1}\}$ is a reverse supermartingale. However, in Lemma \ref{lem:qi_increas} we derived a representation for the increases $Q_{i+1} - Q_i$, which we will use in Chapter 4 in order to  generalize Doob's Upcrossing Theorem to our framework. Afterwards we will derive conditions under which the expected number of upcrossings is finite in Chapter 4. This will then imply the almost sure existence of the limit of $\snse{2}{n}$.
-
-\section{Existence of the Limit $S_\infty(q)$}
-As we have seen in the preceding section, $(S_n, D_n)_{n\geq 2}$ is not necessarily a supermartingale. However, we can show that if $q$ is monotone increasing, then $S_n(q)$ is indeed a supermartingale. This will be done in Lemma \ref{lem:sn_supermart}. Afterwards we will see how this implies the almost sure existence of $S_\infty$, by a standard argument. 
-
+Here $\pi_i$ is defined as in Lemma \ref{lem:qi}. Furthermore it was shown that $Q_i^{se} = Q_{i+1}^{se} = 1$ for all $2\leq i\leq n$, which, among other arguments, implies the reverse supermartingale property for $S_n^{se}$.
+%
+So far we have seen, that we are not able to establish the supermartingale property for $S_n$ without further restrictions. The following Lemma will establish the supermartingale property for $S_n$ under an additional assumption on $q$. 
 \begin{lemma} \label{lem:sn_supermart}
 	Let $q$ be monotone increasing. Then $S_n(q)$ is a non-negative reverse supermartingale.
 	
 	\begin{proof}
 		First note that 
 		\begin{align*}
-			Q_1^{n+1} = (n+1)\frac{\pi_1\pi_2}{n} = \frac{(n+1)(n-q_{k})}{n(n+1-q_k)} = \frac{n(n+1)-q_{k}(n+1)}{n(n+1)-q_k n}\leq 1 \numberthis\label{eq:Qi_lt_one}
+		Q_1^{n+1} = (n+1)\frac{\pi_1\pi_2}{n} = \frac{(n+1)(n-q_{1})}{n(n+1-q_1)} = \frac{n(n+1)-q_{1}(n+1)}{n(n+1)-q_1 n}\leq 1 \numberthis\label{eq:Qi_lt_one}
 		\end{align*}
 		Now recall that we have 
 		\begin{align*}
-			Q_{i+1}^{n+1} - Q_{i}^{n+1} &= \frac{(q_i-q_{i+1})(n-i)(n-i+1)-q_{i+1}(1-q_i)(n-i+1-q_i) }{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\\
+		Q_{i+1}^{n+1} - Q_{i}^{n+1} &= \frac{(q_i-q_{i+1})(n-i)(n-i+1)-q_{i+1}(1-q_i)(n-i+1-q_i) }{(n-i)(n-i+1)(n-i+2-q_i)^2(n-i+1-q_{i+1})}\\
 		&\qquad\times \frac{\tilde{\pi}_i(n-i+2)^2}{n+1}\mdot
 		\end{align*}
 		according to Lemma \ref{lem:qi_increas}. 
 		%
 		Next consider that $q_i-q_{i+1} < 0$ and $q_{i+1}(1-q_i) \geq q_{i+1} - q_i > 0$, since $q$ is monotone increasing. Therefore we obtain
 		\begin{align*}
-			Q_{i+1}^{n+1} - Q_{i}^{n+1} < 0
+		Q_{i+1}^{n+1} - Q_{i}^{n+1} < 0
 		\numberthis\label{eq:Qi_diff_neg}
 		\end{align*}
 		%
 		Consider that we can write $Q_i^{n+1}$ as
 		\begin{align*}
-			Q_i^{n+1} &= Q_1^{n+1} + \sum_{k=1}^{n}\left(Q_{k+1}^{n+1} - Q_i^{n+1}\right)
+		Q_i^{n+1} &= Q_1^{n+1} + \sum_{k=1}^{n}\left(Q_{k+1}^{n+1} - Q_i^{n+1}\right)
 		\end{align*}
 		%
 		Applying inequalities \eqref{eq:Qi_lt_one} and \eqref{eq:Qi_diff_neg} to the latter equation yields $Q_i^{n+1}\leq 1$ for all $i \leq n+1$. Recall from Lemma \ref{lem:qi} that 
 		\[Q_{ij}^{n+1} = \begin{cases} 
-			Q_i^{n+1} & j\leq n \\
-			Q_i^{n+1} - \frac{(n+1)\pi_i \pi_n (1-q(Z_{n:n+1}))}{(n-i+1)(2-q(Z_{n:n+1}))} & j=n+1
+		Q_i^{n+1} & j\leq n \\
+		Q_i^{n+1} - \frac{(n+1)\pi_i \pi_n (1-q(Z_{n:n+1}))}{(n-i+1)(2-q(Z_{n:n+1}))} & j=n+1
 		\end{cases}
 		\]
 		Thus $Q_{ij}^{n+1}\leq Q_i^{n+1} \leq 1$ for all $1\leq i<j\leq n+1$. Now the latter together with Lemma \ref{lem:qi} imply the statement of the Lemma .		
 	\end{proof}
 \end{lemma}
 %
+The assumption, that $q$  is monotone increasing, is transfered to the censoring model $m$ by (A\ref{ass:m_increas}). This poses a restriction on the models $m$ which can be used. This will be discussed in more detail in Section \ref{sec:model}.
+%
+\section{Existence of the limit} \label{sec:ex_limit}
+As we have seen in the preceding section, $(S_n, \F_n)_{n\geq 2}$ is not necessarily a supermartingale. However, we can show that if $q$ is monotone increasing, then $S_n(q)$ is indeed a supermartingale, as we have seen in Lemma \ref{lem:sn_supermart}. We will now show how this implies the almost sure existence of $S_\infty$, by a standard argument. 
+%
 The following result will be needed to prove the almost sure existence of $S$ in Theorem \ref{thm:ex_limit_sn}.
 \begin{lemma} \label{lem:hewitt_savage}
 	Let $\F_\infty = \bigcap_{n\geq 2} \F_n$. Then we have for each $A\in \F_\infty$ that $\P(A)\in \{0,1\}$.
 	%
 	\begin{proof}
-		Denote $\tilde{Z}:=(Z_1, Z_2,\dots)\in\R^\infty$ and let $1\leq n<\infty$ fixed but arbitrary. We will use the Hewitt-Savage zero-one law to prove the statement of this lemma. Let $\pi$  be a map
+		Denote $\tilde{Z}:=(Z_1, Z_2,\dots)\in\R^\infty$ and let $1\leq n<\infty$ be fixed but arbitrary. We will use the Hewitt-Savage zero-one law to prove the statement of this lemma. Let $\pi$  be a map
 		\begin{align*}
 		\pi: (\R^\infty, \mathcal{B}(\R^\infty)) &\longrightarrow (\R^\infty, \mathcal{B}(\R^\infty))\\
 		(Z_1, Z_2,\dots,Z_n, Z_{n+1}, \dots) &\longmapsto (Z_{\tilde\pi(1)}, Z_{\tilde\pi(2)},\dots,Z_{\tilde\pi(n)}, Z_{n+1}, \dots)\mdot
 		\end{align*}
-		where $\tilde{\pi}$ is some permutation of $\{1,\dots,n\}$. Denote $\Pi_n$ the set of all $n!$ of such maps. 
+		where $\tilde{\pi}$ is some permutation of $\{1,\dots,n\}$. Denote by $\Pi_n$ the set of all $n!$ of such maps. 
 		We need to show that for all $A\in\F_\infty$ and for all $\pi_0\in\Pi$ there exists $B\in\mathcal{B}(\R^\infty)$ \st\ 
 		\begin{equation}
 		A = \{\omega| \tilde{Z}(\omega) \in B\} = \{\omega| \pi_0(\tilde{Z}(\omega)) \in B\} \mdot
@@ -507,7 +508,7 @@ The following result will be needed to prove the almost sure existence of $S$ in
 	$$\lim\limits_{n\to\infty} S_n = \lim\limits_{n\to\infty} \E[S_n] = S$$
 	%
 	\begin{proof}
-		According to Lemma \ref{lem:sn_supermart} $(S_n,D_n)_{n\geq 2}$ is a non-negative supermartingale. Hence $S_n$ converges almost surely to a limit $S$, according to \cite{neveu1975discrete}, Lemma V-3-11. Furthermore we have $\E[S_n|F_\infty] \nearrow S$. Now the latter and Lemma \ref{lem:hewitt_savage} imply
+		According to Lemma \ref{lem:sn_supermart} $(S_n,\F_n)_{n\geq 2}$ is a non-negative supermartingale. Hence $S_n$ converges almost surely to a limit $S$, according to \cite{neveu1975discrete}, Lemma V-3-11. Furthermore we have $\E[S_n|F_\infty] \nearrow S$. Now the latter and Lemma \ref{lem:hewitt_savage} imply
 		$$\lim\limits_{n\to\infty}\E[S_n] = \lim\limits_{n\to\infty}\E[S_n|F_\infty] = S = \lim\limits_{n\to\infty}S_n$$		
 	\end{proof}
 \end{thm}

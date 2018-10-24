@@ -1,9 +1,5 @@
 \chapter{Discussion}
 %
-\begin{itemize}
-	\item Summarize the SLLN for semiparametric U-Statistics
-	\item Discussion of main assumptions and examples of kernels $\phi$ and censoring models $m$
-	\item Future (or perhaps in this thesis): Transfer that property to Prof. Dikta's new estimator using stochastic equivalence
-	\item Future: CLT based on \cite{bose2002asymptotic}
-\end{itemize}
-%
+The SLLN has been established during this thesis under proper condition, stated in Chapter \ref{ch:notation}. Here condition (A\ref{ass:kernel_gen}) is a the standard assumption for U-Statistics (\cf\ \cite{lee1990u}). Assumptions (A\ref{ass:H_nonneg}), (M\ref{ass:m_consistency}) and (M\ref{ass:m_nbhd}) are the same as the ones made by \cite{dikta2000strong}. (A\ref{ass:intgral_phi_q}) is here similar to the condition in Theorem 1.1 of \cite{dikta2000strong}. Condition (A\ref{ass:m_increas}) is a further restriction in our case. However we could show in Chapter \ref{ch:model}, that within the framework of survival analysis, there are plenty of situations, in which (A\ref{ass:m_increas}) is satisfied. These examples include, among others, the proportional hazards model (\cf\ \cite{koziol1976cramer}). The simulation studies in Chapter \ref{ch:simulation} show that the semiparametric estimator outperforms the Kaplan-Meier estimator in all setups, which was expected because of \cite{dikta2005central} and \cite{dikta2014efficient}. The gain in efficiency is especially large for smaller sample sizes.\\
+\\
+There are some obvious options to extend the results from this thesis in the future. Firstly one could try to show the SLLN for the semiparametric estimator under weaker assumptions. In the appendix section, the interested reader may find thoughts on how to work around condition (A\ref{ass:m_increas}) by modifying Doob's Upcrossing Theorem. Furthermore a CLT statement for the the semiparametric estimator could possibly derived from \cite{dikta2005central} and \cite{bose2002asymptotic}. 

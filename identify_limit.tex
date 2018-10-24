@@ -4,7 +4,7 @@
 In the previous chapter we established the existence of the limit \\
 $$\lim\limits_{n\to\infty} S_n = S_\infty\mdot$$
 %
-We will now continue to identify the limit $S(m(\cdot,\hat{\theta}_n))$ throughout this chapter. The interdependence structure of the proofs within this chapter in figure \ref{fig:structure_identify} below.\\
+We will now continue to identify the limit $S(m(\cdot,\hat{\theta}_n))$ throughout this chapter. The interdependence structure of the proofs within this chapter is shown in figure \ref{fig:structure_identify} below.\\
 \begin{figure}[h!]
 	\begin{center}
 		\fbox{\begin{forest}
@@ -49,8 +49,8 @@ We will now continue to identify the limit $S(m(\cdot,\hat{\theta}_n))$ througho
 	\label{fig:structure_identify}
 \end{figure}
 %
-\\
-Let's first define the following quantities for $n\geq 1$ and $s < t$:
+\section{The reverse supermartingale $D_n$}\label{sec:supermart}
+First recall the following quantities from chapter \ref{ch:notation}. We have
 \begin{align*}
 B_n(s) &:= \prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_{k} < s}}\\
 C_n(s) &:= \sum_{i=1}^{n+1}\left[\frac{1-q(s)}{n-i+2}\right]\I{Z_{i-1:n} < s \leq Z_{i:n}}\\
@@ -58,21 +58,21 @@ D_n(s,t) &:= \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I{Z
 \Delta_n(s,t) &:= \E\left[D_n(s,t) \right]\\
 \bar{\Delta}_n(s,t) &:= \E\left[C_n(s)D_n(s,t) \right]\mdot
 \end{align*}
-Here $Z_{0:n} := -\infty$ and $Z_{n+1:n} := \infty$.\\
+for $n\geq 2$ and $s < t$. Here $Z_{0:n} := 0$ and $Z_{n+1:n} := \infty$.\\
 \\
 During this section, we will derive a representation of $\E[S_n]$ which involves the process $D_n$. This will be done in Lemma \ref{lem:zizone} and Lemma \ref{lem:representation_bn}. We will then show that $\{D_n,\F_n\}$ is a reverse supermartingale in Lemma \ref{lem:dn_supermart} and identify the limit of $D_n$ in Lemma \ref{lem:dn_limit}. Moreover Lemmas \ref{lem:zizone}, \ref{lem:representation_bn} and \ref{lem:neveu} will play a central role in identifying the limit $S$ in Chapter \ref{ch:identify_limit}.\\
 \\
 The lemma below contains a basic result needed to prove Lemma \ref{lem:representation_bn}.
 \begin{lemma}
 	\label{lem:bnbn_change_order}
-	Let $s\neq t$. Then the conditional expectation 
+	Let $i\neq j$. Then the conditional expectation 
 	$$\E[B_n(s)B_n(t) | Z_i=s, Z_j=t]$$ 
 	is independent of $i,j$ and hence
 	$$\E[B_n(s)B_n(t) | Z_i=s, Z_j=t] = \E[B_n(s)B_n(t) | Z_1=s, Z_2=t]$$
 	holds almost surely.
 	%
 	\begin{proof}
-		For the sake of notational simplicity denote for $s<t$ $s_k^n := \I{Z_{k:n} < s}$ and $t_k^n := \I{s\leq Z_{k:n} < t}$. Consider on $\{s<t\}$ 
+		For the sake of notational simplicity denote for $s<t$ $s_k^n := \I{Z_{k:n} < s}$ and $t_k^n := \I{s\leq Z_{k:n} < t}$. Note that $i\neq j$ implies $s\neq t$, since the $(Z_i)_{i\leq n}$ are pairwise distinct. Now consider on $\{s<t\}$ 
 		\begin{align*}
 		&\E\left[B_n(s)B_n(t)|Z_i=s, Z_j=t\right]\\
 		&= \E\left[\prod_{k=1}^{n}\left(1+\frac{1-q(Z_{k:n})}{n-k}\right)^{2s_k^n + t_k^n} | Z_i=s, Z_j=t\right]\\
@@ -137,23 +137,15 @@ The lemma below contains a basic result needed to prove Lemma \ref{lem:represent
 	\begin{proof}
 		Consider that $\{Z_i=Z_j\}$ is a measure zero set, since $H$ is continuous. Therefore the following holds for $1\leq i,j \leq n$ 
 		\begin{align*}
-		& \E\left[\tilde{\phi}(Z_{i},Z_{j}) \E\left[B_n(Z_{i}) B_n(Z_{j})| Z_i,Z_j\right]\right]\\
-		&= \E\left[\I{Z_i<Z_j}\tilde{\phi}(Z_{i},Z_{j}) \E\left[B_n(Z_{i}) B_n(Z_{j})| Z_i,Z_j\right]\right]\\
-		&\qquad + \E\left[\I{Z_i>Z_j}\tilde{\phi}(Z_{i},Z_{j}) \E\left[B_n(Z_{i}) B_n(Z_{j})| Z_i,Z_j\right]\right]\\
-		&= \int_{0}^{\infty}\int_{0}^{\infty}\I{s<t}\tilde{\phi}(s,t) \E\left[B_n(s) B_n(t)| Z_i=s,Z_j=t\right]H(ds)H(dt)\\
-		&\qquad + \int_{0}^{\infty}\int_{0}^{\infty}\I{s>t}\tilde{\phi}(s,t) \E\left[B_n(s) B_n(t)| Z_i=s,Z_j=t\right]H(ds)H(dt)\\
-		&=: \int_{0}^{\infty}\int_{0}^{\infty}\tilde{\phi}(s,t) I_1(s,t) H(ds)H(dt) + \int_{0}^{\infty}\int_{0}^{\infty}\tilde{\phi}(s,t) I_2(s,t)H(ds)H(dt)\mdot \numberthis\label{eq:ioneitwo}
+		& \E\left[\tilde{\phi}(Z_{i},Z_{j}) B_n(Z_{i}) B_n(Z_{j})\right]\\
+		&= \E\left[\I{Z_i\neq Z_j}\tilde{\phi}(Z_{i},Z_{j}) \E\left[B_n(Z_{i}) B_n(Z_{j})| Z_i,Z_j\right]\right]\\
+		&= \E\left[\I{i\neq j}\tilde{\phi}(Z_{i},Z_{j}) \E\left[B_n(Z_{i}) B_n(Z_{j})| Z_i,Z_j\right]\right]\\
+		&= \int_{0}^{\infty}\int_{0}^{\infty}\I{i\neq j}\tilde{\phi}(s,t) \E\left[B_n(s) B_n(t)| Z_i=s,Z_j=t\right]H(ds)H(dt)\mdot \numberthis\label{eq:ioneitwo}
 		\end{align*}
 		%
-		Now let's consider $I_1$ above. Using Lemma \ref{lem:bnbn_change_order} we obtain for $1\leq i,j\leq n$
+		According to Lemma \ref{lem:bnbn_change_order} we have for $1\leq i\neq j\leq n$
 		\begin{align*}
-		I_1(s,t) &= \I{s<t} \E[B_n(s)B_n(t)|Z_i=s, Z_j=t]\\
-		&= \I{s<t} \E[B_n(s)B_n(t)|Z_1=s, Z_2=t]
-		\end{align*}
-		and 
-		\begin{align*}
-		I_2(s,t) &= \I{s>t} \E[B_n(s)B_n(t)|Z_i=s, Z_j=t]\\
-		&= \I{s>t} \E[B_n(s)B_n(t)|Z_1=s, Z_2=t]\mdot
+		\E[B_n(s)B_n(t)|Z_i=s, Z_j=t] = \E[B_n(s)B_n(t)|Z_1=s, Z_2=t]
 		\end{align*}
 		%
 		Therefore we obtain, according to \eqref{eq:ioneitwo}, that 
@@ -172,7 +164,7 @@ The lemma below contains a basic result needed to prove Lemma \ref{lem:represent
 	\end{align*}
 	%
 	\begin{proof}
-		Consider the following
+		Note that w.l.o.g. we can assume that the $(Z_i)_{i\leq n}$ are pairwise distinct, since $H$ is continuous. Consider the following
 		\begin{align*}
 		B_n(Z_1)B_n(Z_2) &= \prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_{k} < Z_1}+\I{Z_{k} < Z_2}}\\
 		&= \left[1+\frac{1-q(Z_{1})}{n-R_{1,n}}\right]^{\I{Z_{1} < Z_2}} \left[1+\frac{1-q(Z_{2})}{n-R_{2,n}}\right]^{\I{Z_{2} < Z_1}}\\
@@ -213,7 +205,7 @@ The lemma below contains a basic result needed to prove Lemma \ref{lem:represent
 		\left[1+\frac{1-q(Z_{1})}{n-R_{1,n}}\right] = \sum_{i=1}^{n-1}\left[1+\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < Z_1 \leq Z_{i:n-2}}\mdot
 		\end{align*}
 		%
-		Note that $Z_{k:n-2}$ is independent of $Z_1$ and $Z_2$ for $k=1,\dots,n-2$. Therefore we obtain the following, by conditioning \eqref{eq:bnbn_rank} on $Z_1,Z_2$:
+		Recall that we set $Z_{0:n}=0$ and $Z_{n-1:n-2}=\infty$. Now note that $Z_{k:n-2}$ is independent of $Z_1$ and $Z_2$ for $k=1,\dots,n-2$. Therefore we obtain the following, by conditioning \eqref{eq:bnbn_rank} on $Z_1,Z_2$:
 		\begin{align*}
 		&\E[B_n(Z_1)B_n(Z_2)|Z_1 = s, Z_2 = t]\\
 		&= \I{s<t}\E\left[\left(\sum_{i=1}^{n-1}\left[1+\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}}\right)\right.\\
@@ -237,8 +229,8 @@ The lemma below contains a basic result needed to prove Lemma \ref{lem:represent
 		\end{align*}		
 		%
 		Consider that we have
-		$$\E[\alpha(Z_1,Z_2)] = \E[\alpha(Z_2,Z_1)]$$
-		under (A\ref{ass:kernel_gen}), because $Z_1$ and $Z_2$ are \iid\ and 
+		$$\E[\alpha(Z_1,Z_2)] = \E[\alpha(Z_2,Z_1)]\mcomma$$
+		because $Z_1$ and $Z_2$ are \iid\ and $\alpha$ is symmetric in its arguments. Moreover
 		$$\E[\beta(Z_1,Z_2)] = 0$$
 		since $H$ is continuous. Therefore we get 
 		\begin{align*}
@@ -246,26 +238,29 @@ The lemma below contains a basic result needed to prove Lemma \ref{lem:represent
 		&= \E[\tilde{\phi}(Z_1,Z_2)(\alpha(Z_1,Z_2) + \alpha(Z_2,Z_1) + \beta(Z_1,Z_2))]\\
 		&= \E[2\tilde{\phi}(Z_1,Z_2)\alpha(Z_1,Z_2)]\mdot \numberthis\label{eq:expectationalpha}
 		\end{align*}
+		under (A\ref{ass:kernel_gen}). 
 		%
 		Next consider that 
 		\begin{align*}
-		\alpha(s,t) &=\I{s<t}\E\left[(1+C_n(s)) D_{n-2}(s,t) \right]\\
+		\alpha(s,t) &=\I{s<t}\E\left[(1+C_{n-2}(s)) D_{n-2}(s,t) \right]\\
 		&= \I{s<t}(\Delta_{n-2}(s,t) + \bar{\Delta}_{n-2}(s,t))\mdot
 		\end{align*}
 		The latter equality holds, since
 		\begin{align*}
 		&\sum_{i=1}^{n-1}\left[1+\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}}\\
 		&=\sum_{i=1}^{n-1}\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}} + \sum_{i=1}^{n-1}\left[\frac{1-q(s)}{n-i}\right]\I{Z_{i-1:n-2} < s \leq Z_{i:n-2}}\\
-		&= 1 + C_n(s)\mdot
+		&= 1 + C_{n-2}(s)\mdot
 		\end{align*}
 		Now the statement of the lemma follows directly from \eqref{eq:expectationalpha}.
 	\end{proof}
 \end{lemma}
 %
+Recall the following  definition from chapter \ref{ch:notation}:
+$$D_n(s,t) := \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I{Z_k<s}} \prod_{k=1}^{n}\left[1+\frac{1-q(Z_k)}{n-R_ {k,n}+1}\right]^{\I{s < Z_k < t}}\\$$
 The next lemma identifies the almost sure limit of $D_n$ for $n\to\infty$. Define for $s<t$
 $$D(s,t) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right)$$
 \begin{lemma} \label{lem:dn_limit}
-	For any $s < t$ \st\ $H(t)<1$, we have
+	For any $s < t \leq T$ \st\ $H(T)<1$, we have
 	$$\lim\limits_{n\to\infty}D_n(s,t) = D(s,t)\mdot$$
 	%	
 	\begin{proof}
@@ -308,25 +303,25 @@ $$D(s,t) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \
 		Similarly we obtain
 		$$\abs{\sum_{k=1}^{n}\ln(1+y_k t_k) - \sum_{k=1}^{n}y_k t_k} \longrightarrow 0$$
 		with probability 1 as $n\to\infty$. Hence 
-		$$\lim\limits_{n\to\infty} D_n(s) = \lim\limits_{n\to\infty} \exp\left(2\sum_{k=1}^{n} x_k s_k + \sum_{k=1}^{n}y_k t_k\right)\mdot$$
+		$$\lim\limits_{n\to\infty} D_n(s,t) = \lim\limits_{n\to\infty} \exp\left(2\sum_{k=1}^{n} x_k s_k + \sum_{k=1}^{n}y_k t_k\right)\mdot$$
 		%
 		Now consider 
 		\begin{align*}
-		\sum_{k=1}^{n} x_k s_k &= \frac{1}{n}\sum_{k=1}^{n} \frac{1-q(Z_k)}{1-H_n(Z_k)+\frac{2}{n}}\I{Z_k<s}\\
-		&= \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)+\frac{2}{n}} H_n(dz)\\
-		&= \int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) + \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)+\frac{2}{n}} - \frac{1-q(z)}{1-H(z)} H_n(dz)\\
-		&= \int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) + \int_{0}^{s-} \frac{(1-q(z))(H_n(z)-H(z)-\frac{2}{n})}{(1-H_n(z)+\frac{2}{n})(1-H(z))} H_n(dz)\mdot \numberthis \label{eq:xksk_int}
+			\sum_{k=1}^{n} x_k s_k &= \frac{1}{n}\sum_{k=1}^{n} \frac{1-q(Z_k)}{1-H_n(Z_k)+\frac{2}{n}}\I{Z_k<s}\\
+			&= \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)+\frac{2}{n}} H_n(dz)\\
+			&= \int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) + \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)+\frac{2}{n}} - \frac{1-q(z)}{1-H(z)} H_n(dz)\\
+			&= \int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) + \int_{0}^{s-} \frac{(1-q(z))(H_n(z)-H(z)-\frac{2}{n})}{(1-H_n(z)+\frac{2}{n})(1-H(z))} H_n(dz)\mdot \numberthis \label{eq:xksk_int}
 		\end{align*}
 		%
 		Note that the second term on the right hand side of the latter equation above tends to zero for  $n\to\infty$, because
 		\begin{align*}
-		& \int_{0}^{s-} \frac{(1-q(z))(H_n(z)-H(z)-\frac{2}{n})}{(1-H_n(z)+\frac{2}{n})(1-H(z))} H_n(dz)\\
-		&\leq \frac{\sup_{z}|H_n(z)- H(z) -\frac{2}{n}|}{1-H(s)} \int_{0}^{s-}\frac{1}{1-H_n(z)} H_n(dz) \longrightarrow 0
+			& \left|\int_{0}^{s-} \frac{(1-q(z))(H_n(z)-H(z)-\frac{2}{n})}{(1-H_n(z)+\frac{2}{n})(1-H(z))} H_n(dz)\right|\\
+			&\leq \frac{\sup_{z\leq T}\abs{H_n(z)- H(z) -\frac{2}{n}}}{1-H(T)} \int_{0}^{T-}\frac{1}{1-H_n(z)} H_n(dz) \longrightarrow 0 \numberthis\label{eq:gc}
 		\end{align*}
 		%
-		almost surely as $n\to\infty$, by the Glivenko-Cantelli Theorem and since $H(s)<1$. Moreover we have
+		almost surely as $n\to\infty$, by the Glivenko-Cantelli Theorem and since $H(T)<1$. Moreover we have
 		\begin{align*}
-		\int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) \longrightarrow \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz)
+			\int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) \longrightarrow \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz)
 		\end{align*}		
 		by the SLLN. Therefore we obtain 
 		$$\lim\limits_{n\to\infty} \sum_{k=1}^{n} x_k s_k = \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz)\mdot$$
@@ -359,7 +354,7 @@ $$D(s,t) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \
 		%
 		Now each product within the conditional expectation is measurable \wrt\ $\F_{n+1}$. Moreover we have for $i=1,\dots,n$ 
 		\begin{align*}
-		\E[\I{Z_{n+1}=Z_{i:n+1}}|\F_n+1] &= \P(Z_{n+1}=Z_{i:n+1}|\F_{n+1})\\
+		\E[\I{Z_{n+1}=Z_{i:n+1}}|\F_{n+1}] &= \P(Z_{n+1}=Z_{i:n+1}|\F_{n+1})\\
 		&= \P(R_{n+1,n+1} = i)\\
 		&= \frac{1}{n+1}\mdot
 		\end{align*}
@@ -487,21 +482,22 @@ $$D(s,t) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \
 	\end{proof}
 \end{lemma}
 %
-We will now proceed to find an explicit representation for $\E[S_n]$ in terms of the reverse supermartingale $D_n$ (see Section \ref{sec:dn}) to identify the limit $S = S(q)$. Consider the following lemma.
+We will now proceed to find an explicit representation for $\E[S_n]$ in terms of the reverse supermartingale $D_n$ to identify the limit $S = S(q)$. Consider the following lemma.
 \begin{lemma}
 	For continuous $H(\cdot)$, we have
 	$$\E[S_n(q)] = \frac{n-1}{n} \E[\phi(Z_1,Z_2)q(Z_1)q(Z_2)\{\Delta_{n-2}(Z_1, Z_2) + \bar\Delta_{n-2}(Z_1, Z_2)\} \I{Z_1<Z_2}]\mdot$$
 	\label{lem:Sn_Delta}
 	
 	\begin{proof}
-		The proof of the lemma above is similar to the proof of Lemma \ref{lem:expectation_sq}. Consider
+		Consider the following
 		\begin{align*}
 			\E[S_n(q)] &= \doublesum\limits_{1\leq i<j\leq n}\E\left[\phi(Z_{i:n}, Z_{j:n}) \frac{q(Z_{i:n})}{n-i+1)}\prod_{k=1}^{i-1}\left[1-\frac{q(Z_{k:n})}{n-k+1}\right]\right.\\
 			&\qquad\qquad\qquad \times \left. \frac{q(Z_{j:n})}{n-j+1}\prod_{l=1}^{j-1}\left[1-\frac{q(Z_{l:n})}{n-l+1}\right]\right]\\
 			&= \frac{1}{n^2}\doublesum\limits_{1\leq i<j\leq n}\E\left[\phi(Z_{i:n}, Z_{j:n}) q(Z_{i:n})\prod_{k=1}^{i-1}\left[1+\frac{1-q(Z_{k:n})}{n-k+1}\right]\right.\\
 			&\qquad\qquad\qquad \times \left. q(Z_{j:n})\prod_{l=1}^{j-1}\left[1+\frac{1-q(Z_{l:n})}{n-l+1}\right]\right]\\
 			&= \frac{1}{n^2}\doublesum\limits_{1\leq i<j\leq n}\E\left[\phi(Z_{i:n}, Z_{j:n}) q(Z_{i:n})q(Z_{j:n})B_n(Z_{i:n})B_n(Z_{j:n})\right]\\
-			&= \frac{1}{n^2}\sum_{i=1}^{n}\sum_{j=1}^{n}\I{R_{i,n} < R_{j,n}}\E\left[\phi(Z_{i}, Z_{j}) q(Z_{i})q(Z_{j})B_n(Z_{i})B_n(Z_{j})\right]\mdot
+			&= \frac{1}{2n^2}\sum_{i=1}^{n} \sum_{j=1}^{n} \E\left[\I{i \neq j}\phi(Z_{i:n}, Z_{j:n}) q(Z_{i:n})q(Z_{j:n})B_n(Z_{i:n})B_n(Z_{j:n})\right]\\
+			&= \frac{1}{2n^2}\sum_{i=1}^{n}\sum_{j=1}^{n}\E\left[\I{i\neq j}\phi(Z_{i}, Z_{j}) q(Z_{i})q(Z_{j})B_n(Z_{i})B_n(Z_{j})\right]\mdot
 			\numberthis\label{eq:E_n}
 		\end{align*}
 		%
@@ -515,11 +511,11 @@ We will now proceed to find an explicit representation for $\E[S_n]$ in terms of
 %
 The following result is necessary for the proof of Lemma \ref{lem:sn_limit}.
 \begin{lemma}
-	For continuous $H(\cdot)$ and $t<s$, we have $C_n(t) \to 0$ as $n \to \infty$ \wpo, and $C_n(t) \in [0,1]$ for all $n\geq 1$ and $t\geq 0$.
+	For continuous $H$ and $t\leq T<\tau_H$, we have $C_n(t) \to 0$ as $n \to \infty$ \wpo, and $C_n(t) \in [0,1]$ for all $n\geq 1$ and $t\geq 0$.
 	\label{lem:Cn_bounds_and_limit}
 	%
 	\begin{proof}
-		It is easy to see that $0\leq C_n(t) \leq 1$ for any $t\geq 0$ and $n\geq 2$, since $0\leq q(t)\leq 1$ and $\I{Z_{i-1:n} < t \leq Z_{i:n}} = 1$ for exactly one $i \in \{1,\dots,n\}$. Let's now consider 
+		It is easy to see that $0\leq C_n(t) \leq 1$ for any $t\geq 0$ and $n\geq 2$, since $0\leq q(t)\leq 1$ and $\I{Z_{i-1:n} < t \leq Z_{i:n}} = 1$ for exactly one $i \in \{1,\dots,n+1\}$. Let's now consider 
 		\begin{align*}
 		C_n(t) &= \sum_{i=1}^{n+1} \frac{1-q(t)}{n-i+2} [\I{Z_{i-1:n}<t} - \I{Z_{i:n}<t}]\\
 		&= \sum_{i=1}^{n+1} \frac{1-q(t)}{n-i+2} \I{Z_{i-1:n}<t} - \sum_{i=1}^{n+1} \frac{1-q(t)}{n-i+2} \I{Z_{i:n}<t}\\
@@ -539,11 +535,244 @@ The following result is necessary for the proof of Lemma \ref{lem:sn_limit}.
 	\end{proof}
 \end{lemma}
 %
-We will now identify the almost sure limits of $S_n(q)$ and $\bar{S}_n(q)$ in Lemma \ref{lem:sn_limit}. Define for $n\geq 2$
+Recall the following quantities from chapter \ref{ch:notation}:
+$$H^1(x) = \int_{0}^{x} m(z,\theta_0) H(dz)$$
+and 
+$$H^1_n(x) = \int_{0}^{x} m(z,\theta_0) H_n(dz) = \frac{1}{n}\sum_{i=1}^{n}\I{Z_{i:n} \leq x} m(Z_{i:n}, \theta_0)\mcomma$$
+\cf\ \cite{dikta1998semiparametric}, Lemma 3.12.
+%
+The following lemma contains an integration by parts result, which will be useful in order to prove Lemma \ref{lem:uniform_s_t}.
+\begin{lemma} \label{lem:int_by_parts}
+	For any $0\leq s<t\leq T$ we have
+	\begin{align*}
+	&\int_s^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_s^{t} \frac{1}{1-H(z)} H(dz)\\
+	&= \frac{H_n(t) - H(t)}{1-H(t)} - \frac{H_n(s-) - H(s)}{1-H(s)} - \int_s^{t} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz) - \gamma_n(t) \numberthis\label{eq:int_by_parts_1}
+	\end{align*}
+	and 
+	\begin{align*}
+	&\int_s^{t-} \frac{1}{1-H(z)} H_n^1(dz) - \int_s^{t} \frac{1}{1-H(z)} H^1(dz)\\
+	&= \frac{H^1_n(t) - H^1(t)}{1-H(t)} - \frac{H^1_n(s-) - H^1(s)}{1-H(s)} - \int_s^{t} \frac{H^1_n(z-) - H^1(z)}{(1-H(z))^2} H(dz) - \gamma^1_n(t) \numberthis\label{eq:int_by_parts_2}
+	\end{align*}
+	where
+	$$\gamma_n(t) = \frac{H_n(t)-H_n(t-)}{1-H(t)} \quad\textrm{ and }\quad \gamma_n^1(t) = \frac{H^1_n(t)-H^1_n(t-)}{1-H(t)}\mdot$$	
+	\begin{proof}
+		First consider that we can write 
+		\begin{align*}
+		\int_{s}^{t} \frac{1}{1-H(z)} H_n(dz) = \int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) + \gamma_n(s)\mdot
+		\end{align*}
+		Thus we have 
+		\begin{align*}
+		\int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) &=\int_{s}^{t} \frac{1}{1-H(z)} H_n(dz) - \gamma_n(s)\\
+		&=\int_{s}^{t} \left(\frac{1}{1-H(z)} - 1\right) H_n(dz) + \int_{s}^{t} 1 H_n(dz) - \gamma_n(s)\\
+		&= \int_{s}^{t} \frac{H(z)}{1-H(z)} H_n(dz) + H_n(t) - H_n(s-) - \gamma_n(s)
+		\end{align*}
+		since we have
+		$$\int_{s}^{t}1 H_n(dz) = \int_{0}^{t}1 H_n(dz) - \int_{0}^{s-}1 H_n(dz) = H_n(t) - H_n(s-) \mdot$$
+		%
+		We will now use a version of integration by parts (see \cite{cohn2013measure}, p. 164) to show % p. 189
+		\begin{align*}
+		&\int_{s}^{t} \frac{H(z)}{1-H(z)} H_n(dz) + H_n(t) - H_n(s-)\\
+		&=\frac{H_n(t)}{1-H(t)} - \frac{H_n(s-)}{1-H(s)} - \int_{s}^{t} \frac{H_n(z)}{(1-H(z))^2} H(dz)
+		\end{align*}
+		First let's define $\tilde{G}(x):=H_n(x)$ and
+		$$\tilde{F}(x) := \frac{H(x)}{1-H(x)}$$
+		%
+		Moreover denote $\mu_{\tilde F}$ and $\mu_{\tilde G}$ the measures induced by $\tilde F$ and $\tilde G$ respectively. Note that we have
+		\begin{equation*}
+		\mu_{\tilde F}(]s,t]) =\tilde  F(t) - \tilde F(s)  \numberthis\label{eq:mu_F}
+		\end{equation*}
+		%
+		Next consider that we can write
+		$$\tilde F(x) = \int_{0}^{x} \frac{1}{(1-H(z))^2} H(dz)$$ 
+		since we have
+		\begin{align*}
+		\int_{0}^{x} \frac{1}{(1-H(z))^2} H(dz) &= \int_{0}^{H(x)} \frac{1}{(1-u)^2} du\\
+		&= \int_{0}^{H(x)} \frac{1}{(1-u)^2} du\\
+		&= \frac{1}{1-H(x)} - 1\\
+		&= \frac{H(x)}{1-H(x)}\mdot
+		\end{align*}
+		%
+		Now combining the above with \eqref{eq:mu_F} yields
+		\begin{align*}
+		\mu_{\tilde F}(]s,t]) = \tilde  F(t) - \tilde F(s)  = \int_{s}^{t} \frac{1}{(1-H(z))^2} H(dz)\mdot
+		\end{align*}	
+		%
+		Therefore the Radon Nikodym derivative of $\mu_{\tilde F}$ \wrt\ $H$ is given by
+		\begin{equation*}
+		\frac{\mu_{\tilde F}(dx)}{H(dx)} = \frac{1}{(1-H(x))^2} \numberthis\label{eq:RN}\mdot
+		\end{equation*}
+		%
+		Note that $\tilde{F}$ and $\tilde{G}$ are bounded, right-continuous and vanish at $-\infty$. Thus we can apply \cite{cohn2013measure}, p. 164, to obtain
+		\begin{align*}
+		\int_{s}^{t} \tilde{F}(z) \mu_{\tilde G}(dz) &=\tilde F(t) \tilde G(t) - \tilde F(s-) \tilde G(s-) - \int_{s}^{t} \tilde G(z-) \mu_{\tilde F}(dz)\mdot
+		\end{align*}
+		%
+		Now we get by \eqref{eq:RN} and by definition of $\tilde F$ and $\tilde G$ that
+		\begin{align*}
+		\int_{0}^{s} \frac{H(z)}{1-H(z)} H_n(dz) &=\frac{H_n(t)H(t)}{1-H(t)} - \frac{H_n(s-)H(s)}{1-H(s)} - \int_{s}^{t} H_n(z-) \mu_{\tilde F}(dz)\\
+		&=\frac{H_n(t)H(t)}{1-H(t)} - \frac{H_n(s-)H(s)}{1-H(s)} - \int_{s}^{t} \frac{H_n(z-)}{(1-H(z))^2} H(dz)\mdot
+		\end{align*}	 
+		%
+		Therefore we have
+		\begin{align*}
+		\int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) &= \int_{s}^{t} \frac{H(z)}{1-H(z)} H_n(dz) + H_n(t) - H_n(s-) - \gamma_n(s)\\ 
+		&=\frac{H_n(t)H(t)}{1-H(t)} - \frac{H_n(s-)H(s)}{1-H(s)} - \int_{0}^{s} \frac{H_n(z-)}{(1-H(z))^2} H(dz)\\
+		&\qquad + H_n(t) - H_n(s-) - \gamma_n(s)\\
+		&=\frac{H_n(t)}{1-H(t)} - \frac{H_n(s-)}{1-H(s)} - \int_{0}^{s} \frac{H_n(z-)}{(1-H(z))^2} H(dz)\\
+		&\qquad - \gamma_n(s)\mdot
+		\numberthis\label{eq:int_hn_ab}
+		\end{align*}
+		The latter equality holds, since 
+		\begin{align*}
+		\frac{H_n(t)H(t)}{1-H(t)} + H_n(t) =\frac{H_n(t)}{1-H(t)}
+		\end{align*}
+		and 
+		\begin{align*}
+		\frac{H_n(s-)H(s)}{1-H(s)} + H_n(s-) = \frac{H_n(s-)}{1-H(s)}\mdot
+		\end{align*}
+		%
+		Now consider the following
+		\begin{align*}
+		\int_{s}^{t} \frac{1}{1-H(z)} H(dz) &=\int_{s}^{t} \frac{H(z)}{1-H(z)} H(dz) + H(t) - H(s)
+		\end{align*}
+		Define $\bar{G}(x):=H(x)$ and note that $\bar{G}(x)$ is bounded, right-continuous and vanishes at $-\infty$. Therefore applying \cite{cohn2013measure}, p. 164, to $\tilde{F}$ and $\bar G$ yields
+		\begin{align*}
+		\int_{s}^{t} \frac{H(z)}{1-H(z)} H(dz) =\frac{H^2(t)}{1-H(t)} - \frac{H^2(s)}{1-H(s)} - \int_{s}^{t} \frac{H(z)}{(1-H(z))^2} H(dz)\mdot
+		\end{align*}
+		Hence we have
+		\begin{align*}
+		\int_{s}^{t} \frac{1}{1-H(z)} H(dz) &= \frac{H^2(t)}{1-H(t)} - \frac{H^2(s)}{1-H(s)} - \int_{s}^{t} \frac{H(z)}{(1-H(z))^2} H(dz)\\
+		&\qquad + H(t) - H(s)\\
+		&= \frac{H(t)}{1-H(t)} - \frac{H(s)}{1-H(s)} - \int_{s}^{t} \frac{H(z)}{(1-H(z))^2} H(dz)\numberthis\label{eq:int_h_ab}\mdot
+		\end{align*}
+		%
+		Combining \eqref{eq:int_hn_ab} and \eqref{eq:int_h_ab} yields
+		\begin{align*}
+		&\int_s^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_s^{t} \frac{1}{1-H(z)} H(dz)\\
+		&= \frac{H_n(t) - H(t)}{1-H(t)} - \frac{H_n(s-) - H(s)}{1-H(s)} - \int_s^{t} \frac{H_n(z-) - H(z)}{1-H(z)} H(dz) - \gamma_n(t)\mdot
+		\end{align*}
+		Thus equation \eqref{eq:int_by_parts_1} from the statement of the lemma has been established. Next define $\tilde{G}^1(x):=H^1_n(x)$ and apply \cite{cohn2013measure}, p. 164, to $\tilde{F}$ and $\tilde G^1$ to obtain
+		\begin{align*}
+		\int_{s}^{t} \frac{H(z)}{1-H(z)} H_n^1(dz) =\frac{H^1_n(t)H(t)}{1-H(t)} - \frac{H^1_n(s-)H(s)}{1-H(s)} - \int_{s}^{t} \frac{H^1_n(z)}{(1-H(z))^2} H(dz)\numberthis\label{eq:int_hn1_ab}
+		\end{align*}
+		Next define $\bar{G}^1(x):=H^1(x)$ and apply \cite{cohn2013measure}, p. 164, to $\tilde{F}$ and $\bar G^1$ to obtain
+		\begin{align*}
+		\int_{s}^{t} \frac{H(z)}{1-H(z)} H^1(dz) =\frac{H^1(t)H(t)}{1-H(t)} - \frac{H^1(s-)H(s)}{1-H(s)} - \int_{s}^{t} \frac{H^1(z)}{(1-H(z))^2} H(dz)\numberthis\label{eq:int_h1_ab}
+		\end{align*}
+		Finally consider the following
+		\begin{align*}
+		&\int_s^{t-} \frac{1}{1-H(z)} H^1_n(dz) - \int_s^{t} \frac{1}{1-H(z)} H^1(dz)\\
+		&= \int_s^{t} \frac{1}{1-H(z)} H^1_n(dz) - \int_s^{t} \frac{1}{1-H(z)} H^1(dz) - \gamma_n^1(t)\\
+		&= \int_s^{t} \frac{H(z)}{1-H(z)} H^1_n(dz) + H_n^1(t) - H_n^1(s-)\\
+		&\qquad - \int_s^{t} \frac{1}{1-H(z)} H(dz) + H^1(t) - H^1(s-) - \gamma_n^1(t)\mdot
+		\end{align*}
+		Now combining the above with equations \eqref{eq:int_hn1_ab} and \eqref{eq:int_h1_ab} yields the second part of the lemma.
+	\end{proof}
+\end{lemma}
+%
+The lemma below contains a statement about uniform convergence of processes considered in the proof of Lemma \ref{lem:dn_limit}. It will be used to establish Corollary \ref{cor:indep_s_t}. 
+\begin{lemma} \label{lem:uniform_s_t}
+	The following holds for any $T<\tau_H$.
+	\begin{align*}
+	\sup\limits_{0\leq s<t\leq T}\left|\int_{s}^{t-} \frac{1-m(z,\theta_0)}{1-H(z)} H_n(dz) - \int_{s}^{t} \frac{1-m(z,\theta_0)}{1-H(z)} H(dz)\right|\to 0
+	\end{align*}
+	almost surely as $n\to\infty$.
+	% 
+	\begin{proof}
+		First consider the following
+		\begin{align*}
+		&\sup\limits_{0\leq s<t\leq T}\left|\int_{s}^{t-} \frac{1-m(z,\theta_0)}{1-H(z)} H_n(dz) - \int_{s}^{t} \frac{1-m(z,\theta_0)}{1-H(z)} H(dz)\right|\\
+		&= \sup\limits_{0\leq s<t\leq T}\left|\int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H(dz)\right.\\
+		&\qquad\qquad + \left.\int_{s}^{t-} \frac{m(z,\theta_0)}{1-H(z)} H(dz) - \int_{s}^{t-} \frac{m(z,\theta_0)}{1-H(z)} H_n(dz)\right|\\
+		&= \sup\limits_{0\leq s<t\leq T}\left|\int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H(dz)\right.\\
+		&\qquad\qquad + \left. \int_{s}^{t-} \frac{1}{1-H(z)} H^1(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H_n^1(dz)\right|\\
+		&\leq \sup\limits_{0\leq s<t\leq T}\left| \int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H(dz)\right|\\
+		&\qquad +  \sup\limits_{0\leq s<t\leq T}\left| \int_{s}^{t-} \frac{1}{1-H(z)} H^1(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H_n^1(dz)\right| \mdot\numberthis\label{eq:hn_h}\mdot
+		\end{align*}
+		Applying Lemma \ref{lem:int_by_parts} equation \eqref{eq:int_by_parts_1} to the first term above yields
+		\begin{align*}
+		&\sup\limits_{0\leq s<t\leq T}\left| \int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H(dz)\right|\\
+		&= \sup\limits_{0\leq s<t\leq T}\left| \frac{H_n(t) - H(t)}{1-H(t)} - \frac{H_n(s-) - H(s)}{1-H(s)} \right.\\
+		&\qquad\qquad\qquad \left. - \int_s^{t} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz) - \frac{H_n(t-) - H_n(t)}{1-H(t)}\right|\\
+		&\leq \sup\limits_{0\leq s<t\leq T}\left| \frac{H_n(t) - H(t)}{1-H(t)}\right| + \sup\limits_{0\leq s<t\leq T}\left| \frac{H_n(s-) - H(s)}{1-H(s)}\right|\\
+		&\qquad + \sup\limits_{0\leq s<t\leq T}\left|\int_s^{t} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz)\right| + \sup\limits_{0\leq s<t\leq T}\left|\frac{H_n(t-) - H_n(t)}{1-H(t)}\right|\mdot
+		\end{align*}
+		Next consider that we have
+		$$\sup\limits_{0\leq s<t\leq T}\left| \frac{H_n(t) - H(t)}{1-H(t)}\right| \leq \frac{\sup\limits_{x\leq T}\left| H_n(x) - H(x)\right|}{1-H(T)}$$
+		and
+		$$\sup\limits_{0\leq s<t\leq T}\left| \frac{H_n(s-) - H(s)}{1-H(s)}\right| \leq \frac{\sup\limits_{x\leq T}\left| H_n(x) - H(x)\right| + \frac{1}{n}}{1-H(T)}\mdot$$
+		Furthermore consider
+		\begin{align*}
+			\sup\limits_{0\leq s<t\leq T}\left|\int_s^{t} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz)\right| &\leq \sup\limits_{0\leq s<t\leq T}\left|\int_0^{t} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz)\right|\\
+			&\qquad + \sup\limits_{0\leq s<t\leq T}\left|\int_0^{s} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz)\right|\\
+			&\leq 2\cdot \frac{\sup\limits_{x\leq T}\left|H_n(x) - H(x)\right| + \frac{1}{n}}{(1-H(T))^2}\mcomma
+		\end{align*}
+		since we have for $t\leq T$
+		$$\left|\int_0^{t} \frac{H_n(z-) - H(z)}{(1-H(z))^2} H(dz)\right| \leq \int_0^{t} \frac{\left|H_n(z-) - H(z)\right|}{(1-H(T))^2} H(dz)\leq \frac{\sup\limits_{x\leq T}\left|H_n(x) - H(x)\right| + \frac{1}{n}}{(1-H(T))^2}$$
+		using Jensen's inequality. Moreover note that	$H_n(s) - H_n(s-) \leq n^{-1}$ for any $0\leq s \leq T$ and hence
+		$$\sup\limits_{0\leq s<t\leq T}\left|\frac{H_n(s-) - H_n(s)}{1-H(s)}\right| \leq \frac{1}{n(1-H(T))}\mdot $$
+		Therefore we obtain
+		\begin{align*}
+		&\sup\limits_{0\leq s<t\leq T}\left| \int_{s}^{t-} \frac{1}{1-H(z)} H_n(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H(dz)\right|\\
+		&\leq \frac{\sup\limits_{x\leq T}\left| H_n(x) - H(x)\right|}{1-H(T)} + \frac{\sup\limits_{x\leq T}\left| H_n(x) - H(x)\right| + \frac{1}{n}}{1-H(T)} \\
+		&\qquad + 2\cdot\frac{\sup\limits_{x\leq T}\left|H_n(x) - H(x)\right| + \frac{1}{n}}{(1-H(T))^2} + \frac{1}{n(1-H(T))}\\
+		&\to 0
+		\end{align*}
+		almost surely as $n\to\infty$ by the Glivenko-Cantelli Theorem and since $H(T)<1$.
+		%
+		Now let's consider the latter term in \eqref{eq:hn_h}. Applying Lemma \ref{lem:int_by_parts} equation \eqref{eq:int_by_parts_2} yields
+		\begin{align*}
+		&\sup\limits_{0\leq s<t\leq T}\left| \int_{s}^{t-} \frac{1}{1-H(z)} H^1_n(dz) - \int_{s}^{t-} \frac{1}{1-H(z)} H^1(dz)\right|\\
+		&= \sup\limits_{0\leq s<t\leq T}\left| \frac{H^1_n(t) - H^1(t)}{1-H(t)} -  \frac{H^1_n(s-) - H^1(s)}{1-H(s)}\right.\\
+		&\qquad\qquad\qquad \left. - \int_s^{t} \frac{H^1_n(z-) - H^1(z)}{(1-H(z))^2} H(dz) - \frac{H^1_n(t-) - H^1_n(t)}{1-H(t)}\right|\\
+		&\leq \sup\limits_{0\leq s<t\leq T}\left| \frac{H^1_n(t) - H^1(t)}{1-H(t)}\right| + \sup\limits_{0\leq s<t\leq T}\left| \frac{H^1_n(s-) - H^1(s)}{1-H(s)}\right|\\
+		&\qquad  + \sup\limits_{0\leq s<t\leq T}\left|\int_s^{t} \frac{H^1_n(z-) - H^1(z)}{(1-H(z))^2} H(dz)\right| + \sup\limits_{0\leq s<t\leq T}\left|\frac{H^1_n(t-) - H^1_n(t)}{1-H(t)}\right|\\
+		&\leq \frac{\sup\limits_{x\leq T}\left| H^1_n(x) - H^1(x)\right|}{1-H(T)} + \frac{\sup\limits_{x\leq T}\left| H^1_n(x) - H^1(x)\right| + \frac{1}{n}}{1-H(T)}\\ 
+		&\qquad + 2\cdot\frac{\sup\limits_{x\leq T}\left|H^1_n(x) - H^1(x)\right| + \frac{1}{n}}{(1-H(T))^2} + \frac{1}{n(1-H(T))}\\
+		&\to 0
+		\end{align*}
+		almost surely as $n\to\infty$ by the Glivenko Cantelli Theorem and since $H(T)<1$.
+		%	In Lemma \ref{lem:dn_limit} we have seen that
+		%	\begin{align*}
+		%		\tilde\Lambda_n(s) := \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)+\frac{2}{n}} H_n(dz) \to \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) =: \tilde\Lambda(s)
+		%	\end{align*}
+		%	almost surely as $n\to\infty$ by Glivenko-Cantelli and the SLLN. Moreover note that $\tilde{\Lambda}_n(s)$ and $\tilde{\Lambda}(s)$ are increasing in $s$. Hence we get
+		%	$$\sup\limits_{s\leq T} \left| \int_{0}^{s-} \frac{1-q(z)}{1-H_n(z)+\frac{2}{n}} H_n(dz) - \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) \right| \to 0$$
+		%	almost surely, according to \cite{shorack2009empirical}, p. 304f. 
+	\end{proof}
+\end{lemma}
+%
+The following Corollary is important for the proof of Theorem \ref{thm:snmn_limit}.
+\begin{cor} \label{cor:indep_s_t}
+	The measure zero sets $\{\omega| C_n(s,m;\omega) \nrightarrow C(s,m) \textrm{ as } n\to\infty\}$ and $\{\omega| D_n(s,t,m;\omega) \nrightarrow D(s,t,m) \textrm{ as } n\to\infty\}$ are independent of $s$ and $t$.
+	\begin{proof}
+		In Lemma \ref{lem:dn_limit} we have seen that $D_n(s,t,q)$ converges almost surely to $D(s,t,q)$ by Glivenko Cantelli and the SLLN. In order to show the statement of the corollary we need to show that this convergence is uniform in $s$ and $t$. Let $q\equiv m(\cdot, \theta_0)$ and recall from the proof of Lemma \ref{lem:dn_limit} that we have 
+		\begin{align*}
+		& \left|\int_{0}^{s-} \frac{(1-q(z))(H_n(z)-H(z)-\frac{2}{n})}{(1-H_n(z)+\frac{2}{n})(1-H(z))} H_n(dz)\right|\\
+		&\leq \frac{\sup_{z\leq T}\abs{H_n(z)- H(z) -\frac{2}{n}}}{1-H(T)} \int_{0}^{T-}\frac{1}{1-H_n(z)} H_n(dz) \longrightarrow 0 
+		\end{align*}
+		almost surely as $n\to\infty$. Note that the right hand side above converges to zero independent of $s$ and $t$. Next recall that
+		\begin{align*}
+		\int_{0}^{s-} \frac{1-q(z)}{1-H(z)} H_n(dz) \longrightarrow \int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) \numberthis\label{eq:slln_dn1}
+		\end{align*}		
+		by the SLLN. Note that this means pointwise convergence. But according to Lemma \ref{lem:uniform_s_t} we also have
+		\begin{align*}
+		\sup\limits_{0\leq s\leq T}\left|\int_{0}^{s-} \frac{1-m(z,\theta_0)}{1-H(z)} H_n(dz) - \int_{0}^{s} \frac{1-m(z,\theta_0)}{1-H(z)} H(dz)\right|\to 0
+		\end{align*}
+		almost surely as $n\to\infty$. Thus we can show that the convergence in \eqref{eq:slln_dn1} is indeed uniform in $s$ and $t$. For the last part of the proof, we need  
+		\begin{align*}
+		\sup\limits_{0\leq s<t\leq T}\left|\int_{s}^{t-} \frac{1-m(z,\theta_0)}{1-H(z)} H_n(dz) - \int_{s}^{t} \frac{1-m(z,\theta_0)}{1-H(z)} H(dz)\right|\to 0
+		\end{align*}
+		almost surely as $n\to\infty$, which is provided by Lemma \ref{lem:uniform_s_t} as well. Hence $D_n(s,t,m) \to D(s,t,m)$ almost surely, uniformly in $s$ and $t$ as $n\to\infty$. By similar arguments we get that $C_n(s,m) \to C(s,m)$ almost surely, uniformly in $s$ and $t$ as $n\to\infty$, considering the proof of Lemma \ref{lem:Cn_bounds_and_limit}.
+	\end{proof}
+\end{cor}
+%
+%
+We will now identify the almost sure limits of $S_n(q)$ and $\bar{S}_n(q)$ in Lemma \ref{lem:sn_limit}. Recall the following definitions from Chapter \ref{ch:notation}
 $$\bar{S}_n(q) := \doublesum\limits_{1\leq i < j \leq n} \phi(Z_{i:n},Z_{j:n}) \bar{W}_{i:n}(q) \bar{W}_{j:n}(q)$$
 where 
 $$\bar{W}_{i:n}(q) := \prod_{k=1}^{n}\left(1-\frac{q(Z_{k:n})}{n-k+1}\right)\mdot$$
-Moreover let
+Furthermore recall that we set
 \begin{align*}
 	S(q) &:= \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t) q(s)q(t) \exp\left(\int_{0}^{s} \frac{1-q(x)}{1-H(x)} H(dx)\right)\\
 	&\qquad\qquad\qquad \times \exp\left(\int_{0}^{t} \frac{1-q(x)}{1-H(x)} H(dx) \right)H(ds)H(dt)
@@ -555,35 +784,52 @@ and
 \end{align*}
 
 \begin{lemma}
-	For continuous $H$ the following statements hold
+	Let $H$ be continuous and $q$ be increasing. Then the following statements hold true:
 	$$\lim\limits_{n\to\infty} S_n(q) = S(q)$$
 	and 
 	$$\lim\limits_{n\to\infty} \bar{S}_n(q) = \bar{S}(q)$$
-	with probability one, if the limits above exist.
+	with probability one, if the limit on the right hand side exists.
 	\label{lem:sn_limit}
 	%
 	\begin{proof}
-		Suppose $H$ is continuous. First consider that we have
+		Suppose $H$ is continuous and $q$ is increasing. First consider that $S$ exists almost surely and we have
+		$$\lim\limits_{n\to\infty} S_n = \lim\limits_{n\to\infty} \E[S_n] = S$$
+		according to Theorem \ref{thm:ex_limit_sn}. Next consider
 		\begin{align*}
 			\E[S_n(q)] &= \frac{n-1}{n} \E[\phi(Z_1,Z_2)q(Z_1)q(Z_2)\{\Delta_{n-2}(Z_1, Z_2) + \bar\Delta_{n-2}(Z_1, Z_2)\} \I{Z_1<Z_2}]	\\
 			&= \frac{n-1}{n} \E[\phi(Z_1,Z_2)q(Z_1)q(Z_2)\Delta_{n-2}(Z_1, Z_2)\I{Z_1<Z_2}]\\
-			&\qquad + \frac{n-1}{n} \E[\phi(Z_1,Z_2)q(Z_1)q(Z_2) \bar\Delta_{n-2}(Z_1, Z_2) \I{Z_1<Z_2}]
+			&\qquad + \frac{n-1}{n} \E[\phi(Z_1,Z_2)q(Z_1)q(Z_2) \bar\Delta_{n-2}(Z_1, Z_2) \I{Z_1<Z_2}]\numberthis \label{eq:delta_deltabar}
 		\end{align*}
-		by Lemma \ref{lem:Sn_Delta}. 
-		%
-		Next note that we get from Lemma \ref{lem:dn_limit} that $D_n(s,t) \to D(s,t)$ \wpo, and according to Lemma \ref{lem:Cn_bounds_and_limit} $C_n(s) \to 0$ \wpo. Thus $\bar{\Delta}_n(s,t) \to 0$ as $n\to\infty$ for each $s<t$.
-		%
-		Moreover, the fact that $0\leq C_n(s)\leq 1$ and Lemma \ref{lem:neveu} imply that $\bar{\Delta}_n(s,t) \leq \Delta_n(s,t) \leq D(s,t)$ for all $n\geq 2$. Now note that $D(s,t)$ is integrable, since on $\{Z_1<Z_2\}$ we have
+		by Lemma \ref{lem:Sn_Delta}. We will first focus on the second term above. Consider that for $s<t$
 		\begin{align*}
-			\E[D(Z_1,Z_2)] &= \E\left[\int_{0}^{s} \frac{1-q(x)}{1-H(x)} H(dx) + \int_{0}^{t} \frac{1-q(x)}{1-H(x)} H(dx)\right]\\
-			&\leq \E\left[\int_{0}^{Z_{n:n}} \frac{1}{1-H(x)} H(dx) + \int_{0}^{Z_{n:n}} \frac{1}{1-H(x)} H(dx)\right]\\
-			&\leq \E\left[-2\ln(1-H(Z_{n:n}))\right]\\
-			& < \infty\mdot
+			\lim\limits_{n\to\infty}C_n(s)D_n(s,t) \leq \lim\limits_{n\to\infty}C_n(s)D(s,t) = 0
 		\end{align*}
-		Therefore applying the Dominated Convergence Theorem yields
-		$$\lim\limits_{n\to\infty}\E[2\phi(Z_1,Z_2)q(Z_1)q(Z_2) \bar\Delta_{n-2}(Z_1, Z_2) \I{Z_1<Z_2}] = 0\mdot$$
+		almost surely as $n\to\infty$, since $0\leq C_n(s)\leq 1$ and by Corollary \ref{cor:indep_s_t}. Also $C_n(s)D_n(s,t) \geq 0$ for all $n \geq 2$ and $s<t$. Thus $C_n(s)D_n(s,t) \to 0$ almost surely as $n\to\infty$ if $s<t$. Furthermore note that $C_n(s)D_n(s,t) \leq D(s,t)$ almost surely, for all $n\geq 2$ and $s<t$ by Lemma \ref{lem:neveu}. Moreover note that $D(s,t)$ is integrable, since on $\{Z_1<Z_2\}$ we have
+		\begin{align*}
+		\E[D(Z_1,Z_2)] &= \E\left[\int_{0}^{Z_1} \frac{1-q(x)}{1-H(x)} H(dx) + \int_{0}^{Z_2} \frac{1-q(x)}{1-H(x)} H(dx)\right]\\
+		&\leq \E\left[\int_{0}^{Z_{n:n}} \frac{1}{1-H(x)} H(dx) + \int_{0}^{Z_{n:n}} \frac{1}{1-H(x)} H(dx)\right]\\
+		&\leq \E\left[-2\ln(1-H(Z_{n:n}))\right]\\
+		& < \infty\mdot
+		\end{align*}
+		Therefore we obtain		
+		\begin{align*}
+			\lim\limits_{n\to\infty} \I{Z_1<Z_2} \bar\Delta_{n-2}(Z_1, Z_2) &= \lim\limits_{n\to\infty}\I{Z_1<Z_2} \E\left[C_{n-2}(Z_1)D_{n-2}(Z_1,Z_2)\right]\\ 
+			&= \I{Z_1<Z_2} \E\left[\lim\limits_{n\to\infty}C_n(Z_1)D_n(Z_1,Z_2)\right]\\ 
+			&= 0 
+		\end{align*}
+		according to the Dominated Convergence Theorem. Thus 
+		$$\phi(Z_1,Z_2)q(Z_1)q(Z_2)\I{Z_1<Z_2} \bar\Delta_{n-2}(Z_1,Z_2) \to 0$$
+		almost surely as $n\to\infty$. Furthermore note that we have 
+		$$\bar\Delta_{n-2}(Z_1,Z_2)\leq \Delta_{n-2}(Z_1,Z_2) \leq D(Z_1,Z_2)$$
+		almost surely for all $n\geq 2$ by Lemma \ref{lem:neveu}. Therefore we obtain
+		\begin{align*}
+			&\lim\limits_{n\to\infty} \E[\phi(Z_1,Z_2)q(Z_1)q(Z_2)\I{Z_1<Z_2} \bar\Delta_{n-2}(Z_1,Z_2)] \\
+			& \E[\phi(Z_1,Z_2)q(Z_1)q(Z_2)\I{Z_1<Z_2} \lim\limits_{n\to\infty} \bar\Delta_{n-2}(Z_1,Z_2)] \\
+			&= 0\mcomma
+		\end{align*}
+		using the Dominated Convergence Theorem.
 		%
-		Furthermore, according to Lemma \ref{lem:neveu}, we have $\Delta_{n}(s,t) \nearrow D(s,t)$ for $s<t$ and $H(t)<1$. Hence we have 
+		It remains to consider the first term in \eqref{eq:delta_deltabar}. According to Lemma \ref{lem:neveu}, we have $\Delta_{n}(s,t) \nearrow D(s,t)$ for $s<t$ and $H(t)<1$. Hence, applying the Dominated Convergence Theorem again, yields
 		\begin{align*}
 			&\lim\limits_{n\to\infty}\E[\phi(Z_1,Z_2)q(Z_1)q(Z_2) \Delta_{n-2}(Z_1, Z_2) \I{Z_1<Z_2}] \\
 			&= \E[\phi(Z_1,Z_2)q(Z_1)q(Z_2) D(Z_1, Z_2) \I{Z_1<Z_2}]\mdot
@@ -592,18 +838,23 @@ and
 		Therefore we obtain 
 		\begin{align*}
 		\lim\limits_{n\to\infty}\E[S_n(q)]&= \E[\phi(Z_1,Z_2)q(Z_1)q(Z_2) D(Z_1, Z_2) \I{Z_1<Z_2}]\\
-		&= {\int\int}_{\{Z_1<Z_2\}} \phi(s,t)q(s)\exp\left(\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz)\right) \\
+		&= \int_{0}^{\infty}\int_{0}^{\infty} \I{s<t} \phi(s,t)q(s)\exp\left(\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz)\right) \\
 		&\qquad\qquad \times q(t) \exp\left(\int_{0}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right) H(ds)H(dt)\\
 		&= \frac{1}{2}\int_{0}^{\infty}\int_{0}^{\infty}\phi(s,t)q(s) \exp\left(\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz)\right)\\
 		&\qquad\qquad \times q(t)\exp\left(\int_{0}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right) H(ds)H(dt)
 		\end{align*}
-		almost surely, since $\phi(s,t)q(s)q(t)D(s,t)$ is symmetric by (A\ref{ass:kernel_gen}), and $Z_1$ and $Z_2$ are \iid. By similar arguments, we obtain $\bar{S}_n \to \bar{S}$ \wpo. 
+		almost surely, since $\phi(s,t)q(s)q(t)D(s,t)$ is symmetric by (A\ref{ass:kernel_gen}), and $Z_1$ and $Z_2$ are \iid. This concludes the argument for $S_n$. By similar arguments, we obtain $\bar{S}_n \to \bar{S}$ \wpo. 
 	\end{proof}
 \end{lemma}
 %
+%
+%
+%
+\section{Calculating the limit} \label{sec:limit}
+
 In order to identify the limit of $\snse{2}{n} = S_n(m(\cdot, \hat\theta_n))$ we need the statement of Corollary \ref{lem:sandwich}, which is based upon the following lemma. Define for any $\epsilon >0$ let
 $$M_{1,\epsilon}(x) := \max(0, m(x, \theta_0) - \epsilon)) \textrm{ and } M_{2,\epsilon}(x) := \min(1, m(x, \theta_0) + \epsilon))$$
-\begin{lemma}
+\begin{lemma} 
 	Suppose (M\ref{ass:m_consistency}) and (M\ref{ass:m_nbhd}) hold. Then the following statements hold for each $0 < \epsilon \leq 1$ and $n$ large enough
 	\begin{enumerate}[(i)]
 		\item $M_{1,\epsilon}(x) \leq m(x,\hat\theta_n) \leq M_{2,\epsilon}(x)$
@@ -699,7 +950,7 @@ $$M_{1,\epsilon}(x) := \max(0, m(x, \theta_0) - \epsilon)) \textrm{ and } M_{2,\
 			&= M_{2,\epsilon}(x)M_{2,\epsilon}(y) - 4\epsilon\mdot
 		\end{align*} 
 		%
-		By similar calculations we obtain the same result, if $M_{2,\epsilon}(x) = m(x) + \epsilon$ and $M_{2,\epsilon}(y) = 1$. Finally consider the case $M_{2,\epsilon}(x) = m(x) + \epsilon$ and $M_{2,\epsilon}(y) = m(y) + \epsilon$. Then we have $m(x) \geq 1-\epsilon$ and $m(y) \geq 1-\epsilon$. Furthermore we have 
+		By similar calculations we obtain the same result, if $M_{2,\epsilon}(x) = m(x) + \epsilon$ and $M_{2,\epsilon}(y) = 1$. Finally consider the case $M_{2,\epsilon}(x) = m(x) + \epsilon$ and $M_{2,\epsilon}(y) = m(y) + \epsilon$. Then we have $m(x) \leq 1-\epsilon$ and $m(y) \leq 1-\epsilon$. Furthermore we have 
 		\begin{align*}
 			M_{2,\epsilon}(x)M_{2,\epsilon}(y) &= (m(x) +\epsilon)(m(y) + \epsilon)\\
 			&= m(x)m(y) + \epsilon(m(x) + m(y)) + \epsilon^2\mdot
@@ -709,7 +960,7 @@ $$M_{1,\epsilon}(x) := \max(0, m(x, \theta_0) - \epsilon)) \textrm{ and } M_{2,\
 		\begin{align*}
 			m_n(x)m_n(y) &\geq m(x)m(y) - \epsilon(m(x) + m(y)) - \epsilon^2\\
 			&= M_{2,\epsilon}(x) M_{2,\epsilon}(y) - 2\epsilon(m(x) + m(y)) - 2\epsilon^2\\
-			&= M_{2,\epsilon}(x) M_{2,\epsilon}(y) - 4\epsilon(1-\epsilon) - 2\epsilon^2\\
+			&\geq M_{2,\epsilon}(x) M_{2,\epsilon}(y) - 4\epsilon(1-\epsilon) - 2\epsilon^2\\
 			&\geq M_{2,\epsilon}(x) M_{2,\epsilon}(y) - 4\epsilon \mdot
 		\end{align*}
 		%
@@ -742,80 +993,64 @@ $$M_{1,\epsilon}(x) := \max(0, m(x, \theta_0) - \epsilon)) \textrm{ and } M_{2,\
 	\end{proof}
 \end{cor}
 
-Now we are in a position, to identify $S = \lim_{n\to\infty} \snse{2}{n}$. The following theorem gives the main statement of this thesis.
-\begin{thm}
-	Suppose (A\ref{ass:kernel_gen}) through (A\ref{ass:m_increas}), (M\ref{ass:m_consistency}) and (M\ref{ass:m_nbhd}) hold. Then we have
-	$$\lim\limits_{n\to\infty} S_n(m(\cdot, \hat{\theta}_n)) = \frac{1}{2}\int_{0}^{\tau_H}\int_{0}^{\tau_H} \phi(s,t) F(ds)F(dt)\mdot$$
-	\label{thm:snmn_limit}
-	\begin{proof}
-		Consider that we have
-		$$S_n(M_{2,\epsilon}) - 4\epsilon \bar{S}_n(M_{2,\epsilon}) \leq S_n(m(\cdot, \hat\theta_n)) \leq S_n(M_{1,\epsilon}) + 4\epsilon \bar{S}_n(M_{1,\epsilon})$$
-		by Corollary \ref{lem:sandwich} under (M\ref{ass:m_consistency}) and (M\ref{ass:m_nbhd}). Next take note of the Radon-Nikodym derivatives (\cf \cite{dikta2000strong}, page 8)
-		$$m(s,\theta_0) = \frac{H^1(ds)}{H(ds)} \textrm{ and } (1-G(s)) = \frac{H^1(ds)}{F(ds)}\mdot$$
-		Moreover consider that we have
-		$$\int_{0}^{s} \frac{1-m(x,\theta_0)}{1-H(x)} = -\ln(1-G(s))$$
-		and 
-		$$\int_{0}^{s} \frac{\epsilon}{1-H(x)} = -\ln((1-H(s))^\epsilon)$$
-		according to \cite{dikta2000strong}.
-		%
-		Consider that we have 
-		\begin{align*}
-			M_{1,\epsilon}(x) &= \I{ m(x,\theta_0)>\epsilon}(m(x,\theta_0)-\epsilon)\\
-			&\leq m(x,\theta_0)-\epsilon \mdot
-		\end{align*}
-		Therefore, we obtain
-		\begin{align*}
-			\bar{S}(M_{1,\epsilon}) &\leq \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t)  \exp\left(\int_{0}^{s} \frac{1-m(x,\theta_0)}{1-H(x)} + \frac{\epsilon}{1-H(x)} H(dx)\right)\\
-			&\qquad\qquad\qquad \times \exp\left(\int_{0}^{t} \frac{1-m(x,\theta_0)}{1-H(x)} + \frac{\epsilon}{1-H(x)} H(dx) \right)H(ds)H(dt)\\
-			&= \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)}{(1-G(s))(1-G(t))(1-H(s))^\epsilon(1-H(t))^\epsilon} H(ds)H(dt)\\
-			&= \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)}{m(s,\theta_0)m(t,\theta_0)(1-H(s))^\epsilon(1-H(t))^\epsilon} F(ds)F(dt)\mdot
-		\end{align*}
-		%
-		But by condition (A\ref{ass:intgral_phi_q}), the integral above is finite. Moreover we know that $S(M_{1,\epsilon})$ exists almost surely under (A\ref{ass:kernel_gen}) through (A\ref{ass:m_H_one}), by Theorem \ref{thm:ex_limit_sn}. Therefore we get by Lemma \ref{lem:sn_limit} that for each $0<\epsilon\leq1$ we have $S_n(M_{1,\epsilon}) + 4\epsilon \bar{S}_n(M_{1,\epsilon}) \to S(M_{1,\epsilon}) + 4\epsilon \bar{S}(M_{1,\epsilon})$ \wpo\ as $n\to\infty$. 
-		%
-		Next consider that 
-		\begin{align*}
-			S(M_{1,\epsilon}) + 4\epsilon \bar{S}(M_{1,\epsilon}) &\leq \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)}{(1-H(s))^\epsilon(1-H(t))^\epsilon}\\
-			&\qquad\qquad \times \frac{m(s,\theta_0)m(t,\theta_0) + 4\epsilon}{(1-G(s))(1-G(t))} H(ds)H(dt)\mdot
-		\end{align*}
-		%
-		By similar arguments we can show that $S_n(M_{2,\epsilon}) - 4\epsilon \bar{S}_n(M_{2,\epsilon}) \to S(M_{2,\epsilon}) - 4\epsilon \bar{S}(M_{2,\epsilon})$ \wpo\ as $n\to\infty$ and 
-		\begin{align*}
-			S(M_{2,\epsilon}) - 4\epsilon \bar{S}(M_{2,\epsilon}) &\geq \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t)(1-H(s))^\epsilon(1-H(t))^\epsilon\\
-			&\qquad\qquad \times \frac{m(s,\theta_0)m(t,\theta_0) - 4\epsilon}{(1-G(s))(1-G(t))} H(ds)H(dt)\mdot
-		\end{align*}
-		%
-		Let's summarize the above. So far we have shown, that for $0<\epsilon\leq 1$ small enough
-		\begin{align*}
-			&\frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t)(1-H(s))^\epsilon(1-H(t))^\epsilon\\
-			&\qquad\qquad \times \frac{m(s,\theta_0)m(t,\theta_0) - 4\epsilon}{(1-G(s))(1-G(t))} H(ds)H(dt)\\
-			&\leq \liminf_{n\to\infty} \int_{0}^{\infty} \phi F_n^{se} F_n^{se}\\
-			&\leq \limsup_{n\to\infty} \int_{0}^{\infty} \phi F_n^{se} F_n^{se}\\
-			&\leq \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)}{(1-H(s))^\epsilon(1-H(t))^\epsilon}\\
-			&\qquad\qquad \times \frac{m(s,\theta_0)m(t,\theta_0) + 4\epsilon}{(1-G(s))(1-G(t))} H(ds)H(dt)\mdot
-		\end{align*}
-		Finally let $\epsilon \searrow 0$ and apply the Monotone Convergence Theorem to obtain that the upper and lower bound converge both to the same limit. In effect
-		\begin{align*}
-			&\lim\limits_{\epsilon\searrow 0}\frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)(1-H(s))^\epsilon(1-H(t))^\epsilon}{(1-G(s))(1-G(t))} H(ds)H(dt)\\
-			&= \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)m(s,\theta_0)m(t,\theta_0)}{(1-G(s))(1-G(t))} H(ds)H(dt)\\
-			&= \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t)F(ds)F(dt)\\
-			&= \lim\limits_{\epsilon\searrow 0} \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)}{(1-G(s))(1-G(t))}\\
-			&\qquad\qquad \times \frac{1}{(1-H(s))^\epsilon(1-H(t))^\epsilon} H(ds)H(dt)\mdot
-		\end{align*}
-		Hereby the proof of Theorem \ref{thm:snmn_limit} is concluded. 
-	\end{proof}
-\end{thm}
-%
-\begin{remark}
-	Note that according to Theorem \ref{thm:snmn_limit} 
-	\begin{equation*}
-		S_n(1) = \doublesum\limits_{1\leq i<j \leq n} W_{i:n} W_{j:n} \to  \frac{1}{2}\int_{0}^{\tau_H} \int_{0}^{\tau_H} F(ds)F(dt) = \frac{1}{2} F^{2}(\tau_H)\mdot
-	\end{equation*}
-	Therefore we have 
-	\begin{equation*}
-		\lim\limits_{n\to\infty}\frac{S_n(\phi)}{S_n(1)} = F^{-2}(\tau_H) \int_{0}^{\tau_H} \int_{0}^{\tau_H} \phi(s,t)F(ds)F(dt)\mdot
-	\end{equation*}
-	which is the normalized version of $S_n$.
-\end{remark}
-
-
+Now we are in a position, to identify $S = \lim_{n\to\infty} \snse{2}{n}$. 
+\begin{proof}[Proof of Theorem \ref{thm:snmn_limit}]
+	Consider that we have
+	$$S_n(M_{2,\epsilon}) - 4\epsilon \bar{S}_n(M_{2,\epsilon}) \leq S_n(m(\cdot, \hat\theta_n)) \leq S_n(M_{1,\epsilon}) + 4\epsilon \bar{S}_n(M_{1,\epsilon})$$
+	by Corollary \ref{lem:sandwich} under (M\ref{ass:m_consistency}) and (M\ref{ass:m_nbhd}). Next take note of the Radon-Nikodym derivatives (\cf \cite{dikta2000strong}, page 8)
+	$$m(s,\theta_0) = \frac{H^1(ds)}{H(ds)} \textrm{ and } (1-G(s)) = \frac{H^1(ds)}{F(ds)}\mdot$$
+	Moreover consider that we have
+	$$\int_{0}^{s} \frac{1-m(x,\theta_0)}{1-H(x)} H(dx) = -\ln(1-G(s))$$
+	and 
+	$$\int_{0}^{s} \frac{\epsilon}{1-H(x)} H(dx)= -\ln((1-H(s))^\epsilon)$$
+	according to \cite{dikta2000strong}.
+	%
+	Consider that we have 
+	\begin{align*}
+		M_{1,\epsilon}(x) &= \I{ m(x,\theta_0)>\epsilon}(m(x,\theta_0)-\epsilon)\\
+		&\leq m(x,\theta_0)-\epsilon \mdot
+	\end{align*}
+	Therefore, we obtain
+	\begin{align*}
+		\bar{S}(M_{1,\epsilon}) &\leq \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t)  \exp\left(\int_{0}^{s} \frac{1-m(x,\theta_0)}{1-H(x)} + \frac{\epsilon}{1-H(x)} H(dx)\right)\\
+		&\qquad\qquad\qquad \times \exp\left(\int_{0}^{t} \frac{1-m(x,\theta_0)}{1-H(x)} + \frac{\epsilon}{1-H(x)} H(dx) \right)H(ds)H(dt)\\
+		&= \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)}{(1-G(s))(1-G(t))(1-H(s))^\epsilon(1-H(t))^\epsilon} H(ds)H(dt)\\
+		&= \frac{1}{2}\int_{0}^{\tau_H} \int_{0}^{\tau_H} \frac{\phi(s,t)}{m(s,\theta_0)m(t,\theta_0)(1-H(s))^\epsilon(1-H(t))^\epsilon} F(ds)F(dt)\mdot
+	\end{align*}
+	%
+	But by condition (A\ref{ass:intgral_phi_q}), the integral above is finite. Moreover $M_{1,\epsilon}(x)$ is increasing in $x$, since $m$ is increasing under (A\ref{ass:m_increas}). Therefore $S(M_{1,\epsilon})$ exists almost surely under (A\ref{ass:kernel_gen}) through (A\ref{ass:m_increas}), by Theorem \ref{thm:ex_limit_sn}. Hence we have that for each $0<\epsilon\leq1$ we have $S_n(M_{1,\epsilon}) + 4\epsilon \bar{S}_n(M_{1,\epsilon}) \to S(M_{1,\epsilon}) + 4\epsilon \bar{S}(M_{1,\epsilon})$ \wpo\ as $n\to\infty$, according to Lemma \ref{lem:sn_limit} . 
+	%
+	Next consider that 
+	\begin{align*}
+		S(M_{1,\epsilon}) + 4\epsilon \bar{S}(M_{1,\epsilon}) &\leq \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)}{(1-H(s))^\epsilon(1-H(t))^\epsilon}\\
+		&\qquad\qquad \times \frac{m(s,\theta_0)m(t,\theta_0) + 4\epsilon}{(1-G(s))(1-G(t))} H(ds)H(dt)\mdot
+	\end{align*}
+	%
+	By similar arguments we can show that $S_n(M_{2,\epsilon}) - 4\epsilon \bar{S}_n(M_{2,\epsilon}) \to S(M_{2,\epsilon}) - 4\epsilon \bar{S}(M_{2,\epsilon})$ \wpo\ as $n\to\infty$ and 
+	\begin{align*}
+		S(M_{2,\epsilon}) - 4\epsilon \bar{S}(M_{2,\epsilon}) &\geq \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t)(1-H(s))^\epsilon(1-H(t))^\epsilon\\
+		&\qquad\qquad \times \frac{m(s,\theta_0)m(t,\theta_0) - 4\epsilon}{(1-G(s))(1-G(t))} H(ds)H(dt)\mdot
+	\end{align*}
+	%
+	We have seen so far, that for $0<\epsilon\leq 1$ small enough
+	\begin{align*}
+		&\frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t)(1-H(s))^\epsilon(1-H(t))^\epsilon\\
+		&\qquad\qquad \times \frac{m(s,\theta_0)m(t,\theta_0) - 4\epsilon}{(1-G(s))(1-G(t))} H(ds)H(dt)\\
+%			&\leq \liminf_{n\to\infty} \int_{0}^{\tau_H} \phi F_n^{se} F_n^{se}\\
+%			&\leq \limsup_{n\to\infty} \int_{0}^{\tau_H} \phi F_n^{se} F_n^{se}\\
+		&\leq \liminf_{n\to\infty} S_n(m(\cdot, \hat\theta_n))\\
+		&\leq \limsup_{n\to\infty} S_n(m(\cdot, \hat\theta_n))\\
+		&\leq \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)}{(1-H(s))^\epsilon(1-H(t))^\epsilon}\\
+		&\qquad\qquad \times \frac{m(s,\theta_0)m(t,\theta_0) + 4\epsilon}{(1-G(s))(1-G(t))} H(ds)H(dt)\mdot
+	\end{align*}
+	Finally let $\epsilon \searrow 0$ and apply the Monotone Convergence Theorem to obtain that the upper and lower bound converge both to the same limit. In effect
+	\begin{align*}
+		&\lim\limits_{\epsilon\searrow 0}\frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t)(1-H(s))^\epsilon(1-H(t))^\epsilon\\
+		&\qquad\qquad \times \frac{m(s,\theta_0)m(t,\theta_0) - 4\epsilon}{(1-G(s))(1-G(t))} H(ds)H(dt)\\
+		&= \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)m(s,\theta_0)m(t,\theta_0)}{(1-G(s))(1-G(t))} H(ds)H(dt)\\
+		&= \frac{1}{2}\int_{0}^{\tau_H} \int_{0}^{\tau_H} \phi(s,t)F(ds)F(dt)\\
+		&= \lim\limits_{\epsilon\searrow 0} \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \frac{\phi(s,t)}{(1-G(s))(1-G(t))}\\
+		&\qquad\qquad \times \frac{m(s,\theta_0)m(t,\theta_0) + 4\epsilon}{(1-H(s))^\epsilon(1-H(t))^\epsilon} H(ds)H(dt)\mdot
+	\end{align*}
+	Hereby the proof of Theorem \ref{thm:snmn_limit} is concluded. 
+\end{proof}

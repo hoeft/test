@@ -16,32 +16,59 @@ The expression on the right hand side in the equation above is known as V-statis
 U_{kn}(\phi) = {n \choose k}^{-1} \sum\limits_{[n,k]} \phi(X_{i_1},...,X_{i_k})\mcomma
 \label{eq:0102}
 \end{equation}
-where the sum iterates over all sets $\{i_1,...,i_k\}$ \st\ $ 1\leq i_1 < i_2 < ... < i_n \leq n$. We call \eqref{eq:0102} U-Statistics of order $k$. In \cite{lee1990u} it was shown, that that the U-Statistics is the unbiased minimum variance estimator for \eqref{eq:0101}. Observe that for $k=2$, equation \eqref{eq:0102} simplifies to
+where the sum iterates over all sets $\{i_1,...,i_k\}$ \st\ $ 1\leq i_1 < i_2 < ... < i_n \leq n$. We call \eqref{eq:0102} U-Statistics of order $k$. In \cite{lee1990u} it was shown, that the U-Statistics is the unbiased minimum variance estimator for \eqref{eq:0101}. Observe that for $k=2$, equation \eqref{eq:0102} simplifies to
 $$U_{2n}(\phi)=\frac{2}{n(n-1)}\doublesum\limits_{1\leq i<j \leq n}\phi(X_i,X_j)$$
 and we have
 $$\E(U_{2n}(\phi))=\int \int \phi dF dF$$
-\\
+%
+Consider the following examples for different kernels $\phi$.
+\begin{example} \label{ex:phi}
+	Suppose $X\sim F$ \st\ the second moment of $X$ is finite. Moreover let $\phi(x_1, x_2) := 2^{-1} \cdot (x_1 - x_2)^2$. Then we have
+	\begin{align*}
+	\theta &= \int_{0}^{\infty} \int_{0}^{\infty} \frac{1}{2} (x_1 - x_2)^2 F(dx_1)F(dx_2)\\
+	&= Var(X)
+	\end{align*}
+	The corresponding U-statistics is therefore estimating the variance in this case.
+\end{example}
+%
+\begin{example}
+	Suppose $X\sim F$ \st\ the expectation of $X$ is finite. Then the probability weighted moments of are defined by
+	$$\beta_r := \int_{0}^{\infty} x (F(x))^r F(dx) $$
+	Now consider the following relation 
+	$$\beta_{r-1} = \mathop{\int \dots \int}\limits_{\R^r} \frac{1}{r} \max(x_1, \dots, x_r) F(dx_1)\dots F(dx_r)\mcomma$$
+	compare \cite{lee1990u}, page 9. Thus we can estimate $\beta_{r-1}$ by choosing the kernel 
+	$$\phi(x_1,\dots,x_r) = \frac{1}{r} \max(x_1, \dots, x_r)$$
+	for the corresponding U-statistic. Now let $r=2$. Then the U-statistics with kernel $\phi(x_1, x_2) := 2^{-1} \cdot \max(x_1, x_2)$ is an estimator for $\beta_1$. 
+\end{example}
+%
 % Random Censorship Model
-One of the major problems in lifetime analysis is to handle incomplete observations. The incompleteness is often caused by censoring. In this thesis we are concerned with right censored data. A framework to model this kind of data is provided by the Random Censorship Model (RCM). Here we observe data of the form $(Z_i, \delta_i), i=1,...,n$ where the $Z_i$ are the observed sample values, which might include censoring and the $\delta_i$ indicate whether the corresponding $Z_i$ was censored or not. Here the sequence $(Z_i, \delta_i), i=1,...,n$ is assumed to be independent and identically distributed (\iid). Furthermore we can write for $i=1,...,n$
+In lifetime analysis, one often deals with the problem of incomplete observations. The incompleteness is often caused by censoring. In this thesis we are concerned with right censored data. A framework to model this kind of data is provided by the Random Censorship Model (RCM). Here we observe data of the form $(Z_i, \delta_i), i=1,...,n$ where the $Z_i$ are the observed sample values, which might include censoring and the $\delta_i$ indicate whether the corresponding $Z_i$ was censored or not. Here the sequence $(Z_i, \delta_i), i=1,...,n$ is assumed to be independent and identically distributed (\iid). Furthermore we can write for $i=1,...,n$
 $$Z_i = min(X_i,Y_i) \text{ and } \delta_i=I_{X_i\leq Y_i}$$
-where $X_i$ is the true lifetime and $Y_i$ is the so called censoring time. The sequences $X_i$ and $Y_i$ are also \iid and they are assumed to be independent of each other. Throughout this work the probability distribution functions (\df) of $X$, $Y$ and $Z$ will be notated $F$, $G$ and $H$ respectively. We assume that those \df's are continuous and concentrated on $R\cap [0,\infty]$.\\
+where $X_i$ is the true lifetime and $Y_i$ is the so called censoring time. The sequences $X_i$ and $Y_i$ are also \iid and they are assumed to be independent of each other. Throughout this work the probability distribution functions (\df) of $X$, $Y$ and $Z$ will be notated $F$, $G$ and $H$ respectively. We assume that those \df's are continuous and concentrated on $\R_+ := \R\cap [0,\infty]$.\\
 
 % Kaplan Meier U-Statistics
-Within this framework we want to study the large sample properties of estimators of $\int\int \phi dF dF$. In particular we will be concerned with the asymptotic properties of the U-statistic defined above based on our observations $(Z_i, \delta_i)$. To do so, we need new estimates for our \df\ $F$ which are based on our observations $(Z_i, \delta_i)$ rather than the $X$'s. If there can not be any further assumptions made about the censorship, except for the RCM itself, then the commonly used estimator of $F$ is the well known product limit estimator by  \citet{kaplan1958nonparametric}. It is defined by 
-$$1-\fnkm(t) = \prod_{i:Z_i\leq t}\left( \frac{n-R_{i,n}}{n-R_{i,n}+1} \right)^{\delta_i}$$
-where $R_{i,n}$ denotes the rank of $Z_i$. If we now consider ordered observations, we get
+Within this framework we want to study the strong law of large numbers for U-statistics estimators of $\theta^*$  based on our observations $(Z_i, \delta_i)_{i\leq n}$ instead of  $(X_i)_{i\leq n}$. To do so, we need new estimates for our \df\ $F$ which are based on our observations $(Z_i, \delta_i)$. Following \cite{shorack2009empirical}, we may find those estimators by considering the cumulative hazard function of $F$
+$$\Lambda(x) = \int_{0}^{x} \frac{1}{1-F(z)} F(dz) = \int_{0}^{x} \frac{1}{1-F(z)} H^1(dz)\mcomma$$
+with $H^1(z)=\P(\delta=1, Z\leq z)$. An estimator for the cumulative hazard rate was introduced by \cite{nelson1972theory} and \cite{aalen1978nonparametric}, \ie
+$$\Lambda_n(x) = \int_{0}^{x} \frac{1}{1-H_n(z-)} H_n^1(dz) = \sum_{i=1}^{n} \frac{\delta_i \I{Z_i \leq x}}{n - R_{i,n} +1}\mcomma$$
+where
+$$H_n^1(x) = \frac{1}{n} \sum_{i=1}^{n} \I{Z_i \leq x}$$
+is the empirical version of $H^1$. Noting the fact that $1 - F(x) = \exp(-\Lambda(x))$ and using the approximation $\exp(-x) \approx 1-x$ yields the following estimator
+$$1-\fnkm(t) = \prod_{i:Z_i\leq t}\left( \frac{n-R_{i,n}}{n-R_{i,n}+1} \right)^{\delta_i} \approx
+ \exp(-\Lambda_n(t))$$
+The estimator above is the well known Kaplan-Meier product limit estimator (PLE). It was introduced by  \citet{kaplan1958nonparametric}. If there can not be any further assumptions made about the censorship, except for the RCM itself, then the Kaplan-Meier PLE is the commonly used estimator of $F$.
+If we now consider ordered observations, we get
 $$1-\fnkm(t) = \prod_{i=1}^n\left( 1-\frac{\delta_{[i:n]}}{n-i+1} \right)^{\I{Z_{i:n}\leq t}}$$
 where $Z_{1:n} \leq ... \leq Z_{n:n}$ and $\delta_{[i:n]}$ denotes the concomitant of the i-th order statistics. That means $\delta_{[i:n]}=\delta_j$ whenever $Z_{i:n}=Z_j$.\\ 
-Let's go back to our integral \eqref{eq:0101} and consider the case $k=1$. The integral then becomes
+Let's go back to our integral \eqref{eq:0101} and consider the case $k=1$. In this case we have
 \begin{equation}
-\int \phi dF 
-\label{eq:0103}
+\theta_F = \int \phi dF \label{eq:0103}
 \end{equation}
-Replacing the true $F$ in \eqref{eq:0103} by $\fnkm$ yields
+Replacing the true $F$ in the integral equation above by $\fnkm$ yields
 $$\snkm{1}{n}(\phi):=\int_0^\infty \phi dF_n^{km}=\sum_{i=1}^n \phi(Z_{i:n}) \wnkm{i}{n}$$
 where $\wnkm{i}{n}$ denotes the weight placed on $Z_{i:n}$ by $F_n^{km}$. That is\\
 \begin{myarray}
- \wnkm{i}{n} &= \fnkm(Z_{i+1:n}) - \fnkm(Z_{i:n})\\
+ \wnkm{i}{n} &= \fnkm(Z_{i:n}) - \fnkm(Z_{i-1:n})\\
           &= \frac{\delta_{[i:n]}}{n-i+1}\prod_{j=1}^{i-1}\left( \frac{n-j}{n -j+1} \right)^{\delta_{[j:n]}}\\
 \end{myarray}
 It is easy to see, that the Kaplan-Meier estimator only puts mass at uncensored $Z$-values, \ie 
@@ -57,33 +84,50 @@ Let's now consider the case $k=2$. Define
 \begin{equation*}
 \snkm{2}{n}(\phi) = \doublesum\limits_{1\leq i < j \leq n} \phi(Z_{i:n}, Z_{j:n}) \wnkm{i}{n} \wnkm{j}{n}.
 \end{equation*}
-The above estimator will be called Kaplan-Meier U-Statistics of degree 2. Moreover we can define the normalized version of $\snkm{2}{n}(\phi)$ as
-$$\unkm{2}{n}(\phi) = \frac{\snkm{2}{n}(\phi)}{\snkm{2}{n}(1)} = \frac{\doublesum\limits_{1\leq i < j \leq n} \phi(Z_{i:n}, Z_{j:n}) \wnkm{i}{n} \wnkm{j}{n}}{\doublesum\limits_{1\leq i < j \leq n} \wnkm{i}{n} \wnkm{j}{n}}\mdot$$ 
-The normalizing factor $(\snkm{2}{n}(1))^{-1}$ was introduced by \cite{bose1999strong}, since the following holds true for uncensored data:
-$$\frac{\wnkm{i}{n}\wnkm{j}{n}}{\doublesum\limits_{1\leq u < v \leq n}\wnkm{u}{n}\wnkm{v}{n}} = \binom{n}{2}^{-1}\textrm{.}$$ 
-The strong law of large numbers for $\unkm{2}{n}$ has been established in \citet{bose1999strong}. Asymptotic distributions of this estimator have been derived in \citet{bose2002asymptotic}. \\
+The above estimator will be called Kaplan-Meier U-Statistics of degree 2. Moreover the normalized version of $\snkm{2}{n}(\phi)$ is given by
+$$\frac{\snkm{2}{n}(\phi)}{\snkm{2}{n}(1)} = \frac{\doublesum\limits_{1\leq i < j \leq n} \phi(Z_{i:n}, Z_{j:n}) \wnkm{i}{n} \wnkm{j}{n}}{\doublesum\limits_{1\leq i < j \leq n} \wnkm{i}{n} \wnkm{j}{n}}\mdot$$  
+The normalizing factor $(\snkm{2}{n}(1))^{-1}$ was introduced, since the following holds true for uncensored data
+$$\frac{\wnkm{i}{n}\wnkm{j}{n}}{\doublesum\limits_{1\leq u < v \leq n}\wnkm{u}{n}\wnkm{v}{n}} = \binom{n}{2}^{-1}\textrm{.}$$
+The strong law of large numbers for $\unkm{2}{n}$ has been established in \citet{bose1999strong}.
+The asymptotic distribution of this estimator have been derived in \citet{bose2002asymptotic}. \\
 \\
-For the semiparametric Random Censorship Model (SRCM) we make, besides the assumptions of the RCM, the further assumption that 
+In addition to the assumptions of the RCM, we make the further assumption that 
 $$m(z) = \P(\delta=1|Z=z) = \E(\delta|Z=z)$$
 belongs to some parametric family, \ie\
 $$m(z) = m(z,\theta_0)$$
-where $\theta_0=(\theta_{0,1},...,\theta_{0,p})\in \Theta \subset \R^p$. \\
-\\
-\todo{Discuss} \cite{dikta1998semiparametric}\\
-\\
+where $\theta_0=(\theta_{0,1},...,\theta_{0,p})\in \Theta \subset \R^p$. This framework is called the semiparametric Random Censorship Model (SRCM).
+%
 Now the semiparametric estimator is defined by
 $$1-\fnse(t) = \prod\limits_{i:Z_i\leq t}\left(1-\frac{m(Z_i,\hat{\theta}_n)}{n-R_i+1}\right)$$
-as it was introduced \citet{dikta2000strong}. Here $\hat{\theta}_n$ denotes the Maximum Likelihood Estimate (MLE) of $\theta_0$. That is, $\hat{\theta}_n$ is the maximizer of 
+as it was introduced by \citet{dikta2000strong}. Here $\hat{\theta}_n$ denotes the Maximum Likelihood Estimate (MLE) of $\theta_0$. That is, $\hat{\theta}_n$ is the maximizer of 
 $$L_n(\theta)=\prod\limits_{i=1}^{n} m(Z_i,\theta)^{\delta_i}(1-m(Z_i,\theta))^{1-\delta_i}.$$
-Now again by replacing the true \df\ $F$ by $\fnse$ in the integral \eqref{eq:0103} we obtain the semiparametric version of $\snkm{1}{n}$, namely
+Now again by replacing the true \df\ $F$ by $\fnse$ in \eqref{eq:0103} we obtain the semiparametric version of $\snkm{1}{n}$, namely
 $$\snse{1}{n}(\phi)=\int_0^\infty \phi d\fnse = \sum\limits_{i=1}^n \phi(Z_{i:n})\wnse{i}{n}$$
 where 
 $$\wnse{i}{n} = \frac{m(Z_{i:n}, \hat{\theta}_n)}{n-i+1} \prod\limits_{j=1}^{i-1}\left(1-\frac{m(Z_{j:n}, \hat{\theta}_n)}{n-j+1}\right)$$
-is the mass that $\fnse$ assigns to $Z_{i:n}$. $\wnse{i}{n}$ will be called $i$-th semiparametric weight throughout this document. The SLLN and the CLT for the semiparametric U-Statistic $\snse{1}{n}$ have been established in \citet{dikta2000strong} and \citet{dikta2005central} respectively.\\
+is the mass that $\fnse$ assigns to $Z_{i:n}$. $\wnse{i}{n}$ will be called $i$-th semiparametric weight throughout this document. The SLLN and the CLT for the semiparametric U-Statistic $\snse{1}{n}$ have been established in \citet{dikta2000strong} and \citet{dikta2005central} respectively. In \cite{dikta2014efficient} it is shown, that  $\snse{1}{n}$ is asymptotically efficient. Moreover \cite{dikta2016volterra} shows a way to derive strongly consistent, asymptotically normal and efficient estimators from solving a Volterra type integral equation by different numeric schemes.\\
 \\
-The goal of this thesis will be to study the asymptotic behavior of the semiparametric U-Statistic of degree $2$, which will be defined in the next chapter. In particular, we are interested in the strong law of large numbers for $\snse{2}{n}$. The main statement of this thesis is contained in Theorem \ref{thm:snmn_limit} at the end of Chapter \ref{ch:identify_limit}.\\
-\\
-\todo{Examples for different Kernels $\phi$.}
+During this thesis we will establish the strong law of large numbers for the following estimator
+$$S_{2,n}^{se} := \doublesum\limits_{1\leq i<j\leq n}\phi(Z_{i:n}, Z_{j:n})W_{i,n}^{se}W_{j,n}^{se}\mdot$$
+We will call $S_{2,n}^{se}$ the semiparametric U-Statistic or semiparametric estimator. The main statement of this thesis follows.
+\begin{thm}
+	Suppose (A\ref{ass:kernel_gen}) through (A\ref{ass:m_increas}), (M\ref{ass:m_consistency}) and (M\ref{ass:m_nbhd}) hold. Then we have
+	$$\lim\limits_{n\to\infty} S_n(m(\cdot, \hat{\theta}_n)) = \frac{1}{2}\int_{0}^{\tau_H}\int_{0}^{\tau_H} \phi(s,t) F(ds)F(dt)\mdot$$
+	\label{thm:snmn_limit}
+\end{thm}
+%
+\begin{remark}
+	Note that according to Theorem \ref{thm:snmn_limit} 
+	\begin{equation*}
+	S_n(1) = \doublesum\limits_{1\leq i<j \leq n} W_{i:n} W_{j:n} \to  \frac{1}{2}\int_{0}^{\tau_H} \int_{0}^{\tau_H} F(ds)F(dt) = \frac{1}{2} F^{2}(\tau_H)\mdot
+	\end{equation*}
+	Therefore we have 
+	\begin{equation*}
+	\lim\limits_{n\to\infty}\frac{S_n(\phi)}{S_n(1)} = F^{-2}(\tau_H) \int_{0}^{\tau_H} \int_{0}^{\tau_H} \phi(s,t)F(ds)F(dt)\mdot
+	\end{equation*}
+	which establishes the SLLN for the normalized version of $S_n$.
+\end{remark}
+%
 %We can now define the semiparametric U-Statistic as
 %$$\unse{1}{n}(\phi)=\frac{\snse{1}{n}(\phi)}{\snse{1}{n}(1)}=\frac{\sum_{i=1}^n \phi(Z_{i:n}) \wnse{i}{n}}{\sum_{i=1}^n \wnse{i}{n}}$$
 %asd
