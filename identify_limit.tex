@@ -50,7 +50,9 @@ We will now continue to identify the limit $S(m(\cdot,\hat{\theta}_n))$ througho
 \end{figure}
 %
 \section{The reverse supermartingale $D_n$}\label{sec:supermart}
-First recall the following quantities from chapter \ref{ch:notation}. We have
+During this chapter, we will closely follow the calculations of \cite{bose1999strong}. They considered the process $D_n(s,t,\tilde m)$, where $\tilde m(z) = \E[\delta|Z=z]$ does not necessarily belong to a parametric family, while we will be considering  $D_n(s,t,q)$ for some measurable function $q$ with values in $[0,1]$. Since it was not entirely clear, if the special representation of $\tilde m$ as conditional expectation was used in the proofs of lemmas 2, 3 and 4 in \cite{bose1999strong}, we conducted a detailed investigation. It will turn out, that the proofs work in the same way for $D_n(s,t,q)$. For the sake of completeness, we will show the detailed proofs for $D_n(s,t,q)$ in this chapter.\\
+\\
+First recall the following quantities from chapter \ref{ch:notation}. We have 
 \begin{align*}
 B_n(s) &:= \prod_{k=1}^{n}\left[1+\frac{1-q(Z_{k})}{n-R_{k,n}}\right]^{\I{Z_{k} < s}}\\
 C_n(s) &:= \sum_{i=1}^{n+1}\left[\frac{1-q(s)}{n-i+2}\right]\I{Z_{i-1:n} < s \leq Z_{i:n}}\\
@@ -60,7 +62,7 @@ D_n(s,t) &:= \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I{Z
 \end{align*}
 for $n\geq 2$ and $s < t$. Here $Z_{0:n} := 0$ and $Z_{n+1:n} := \infty$.\\
 \\
-During this section, we will derive a representation of $\E[S_n]$ which involves the process $D_n$. This will be done in Lemma \ref{lem:zizone} and Lemma \ref{lem:representation_bn}. We will then show that $\{D_n,\F_n\}$ is a reverse supermartingale in Lemma \ref{lem:dn_supermart} and identify the limit of $D_n$ in Lemma \ref{lem:dn_limit}. Moreover Lemmas \ref{lem:zizone}, \ref{lem:representation_bn} and \ref{lem:neveu} will play a central role in identifying the limit $S$ in Chapter \ref{ch:identify_limit}.\\
+During this section, we will first derive a representation of $\E[S_n]$ which involves the process $D_n$. This will be done in Lemma \ref{lem:zizone} and Lemma \ref{lem:representation_bn}. We will then show that $\{D_n,\F_n\}$ is a reverse supermartingale in Lemma \ref{lem:dn_supermart} and finally identify the limit of $D_n$ in Lemma \ref{lem:dn_limit}.\\
 \\
 The lemma below contains a basic result needed to prove Lemma \ref{lem:representation_bn}.
 \begin{lemma}
@@ -778,14 +780,9 @@ and
 	\bar{S}(q) &:= \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t)  \exp\left(\int_{0}^{s} \frac{1-q(x)}{1-H(x)} H(dx)\right)\\
 	&\qquad\qquad\qquad \times \exp\left(\int_{0}^{t} \frac{1-q(x)}{1-H(x)} H(dx) \right)H(ds)H(dt)\mdot
 \end{align*}
-
+\\
 \begin{lemma}
-	Let $H$ be continuous and $q$ satisfy
-	\begin{enumerate}[(i)]
-		\item $q(t) = c$ is constant for some $0\leq c\leq 1$ and for all $0\leq t< T_q$. 
-		\item $q(t)$ is non-decreasing for all $t\geq T_q$. 
-	\end{enumerate} 
-	for some $0\leq T_q\leq \infty$. Then the following statements hold true:
+	Let $H$ be continuous and let $q(z)$ be non-decreasing for all $z\in \R_+$. Then the following statements hold true:
 	$$\lim\limits_{n\to\infty} S_n(q) = S(q)$$
 	and 
 	$$\lim\limits_{n\to\infty} \bar{S}_n(q) = \bar{S}(q)$$
@@ -793,7 +790,7 @@ and
 	\label{lem:sn_limit}
 	%
 	\begin{proof}
-		Suppose $H$ is continuous and $q$ satisfies conditions \textit{(i)} and \textit{(ii)} above. First consider that $S$ exists almost surely and we have
+		Suppose $H$ is continuous and $q$ is monotone non-decreasing. First consider that $S$ exists almost surely and we have
 		$$\lim\limits_{n\to\infty} S_n = \lim\limits_{n\to\infty} \E[S_n] = S$$
 		according to Theorem \ref{thm:ex_limit_sn}. Next consider
 		\begin{align*}

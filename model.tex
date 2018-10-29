@@ -51,8 +51,8 @@ We will now consider censoring models in different settings and how condition (A
 	\begin{equation*}
 		m(t,\theta)  = \E[\delta] = \frac{1}{1+\beta} = \theta \numberthis\label{eq:model_phm}
 	\end{equation*}
-	according to \cite{dikta1995asymptotic}, p. 1538. Note that $m$ is constant and therefore obviously non-decreasing.
-	The proportional hazards model was discussed in detail by \cite{koziol1976cramer}. \cite{breslow1974largesample} established a CLT result about the Kaplan-Meier PLE under the proportional hazards model. \\
+	according to \cite{dikta1995asymptotic}, p. 1538. Note that $m$ is constant and therefore satisfy condition (A\ref{ass:m_increas}).
+	The proportional hazards model was discussed in detail by \cite{koziol1976cramer}. \cite{breslow1974largesample} established a CLT result about the Kaplan-Meier PLE under the proportional hazards model. Now \\
 	\\
 	One straight forward approach for a non-parametric estimate of \eqref{eq:model_phm} is given by
 	$$\bar c_n := \frac{1}{n} \sum_{i=1}^{n} \delta_i \approx \E[\delta]$$
@@ -62,9 +62,9 @@ We will now consider censoring models in different settings and how condition (A
 	\\
 	Consider that, if the condition of PHM is satisfied, we have
 	$$m(t,\hat \theta_n) = \hat \theta_n = \frac{1}{n} \sum_{i=1}^{n} \delta_i = \bar c_n$$
-	according to \eqref{eq:model_phm}. Hence $F^{se,1}_n \equiv F^{cl}_n$ (compare \cite{dikta1998semiparametric}, Example 2.8).\\
+	according to \cite{dikta1998semiparametric}, Example 2.8. Therefore $F^{se,1}_n$ is identical to $F^{cl}_n$. In \cite{dikta2000strong}, page 3, it was pointed out, that $F^{se,1}_n$ and $F^{se}_n$ will show the same gain in efficiency, compared to the Kaplan-Meier PLE.\\
 	\\
-	In Section \ref{sec:sim_expexp} we will conduct a simulation study under the proportional hazards model in connection with  the semiparametric framework.
+	Section \ref{sec:sim_expexp} shows a simulation study under of a semiparametric U-statistics estimator based on $F^{se}_n$ under the proportional hazards model.
 \end{example}
 %
 During next example we will examine the Weibull distribution. We will write $X\sim Wei(\alpha, \beta)$ if some \rv\ $X$ follows a Weibull distribution with parameters $\alpha$ and $\beta$. In this case the hazard rate is given by $\lambda(x) = \alpha^{\beta}\beta x^{\beta-1}$.
@@ -82,19 +82,19 @@ During next example we will examine the Weibull distribution. We will write $X\s
 %
 Let's introduce the Pareto distribution $Par(\beta)$ for the next example. If  $X\sim Par(\beta)$, we have
 $$\lambda_F(x) = \frac{\beta}{x} \I{x\geq \beta}\mdot$$
-\begin{example}
+\begin{example} \label{ex:exppar}
 	Suppose $X\sim Exp(\alpha)$ and $Y\sim Par(\beta)$. Then the censoring model is given by
 	$$m(z, \theta) =\frac{\alpha}{\alpha + \frac{\beta}{z} \I{z \geq \beta}} \quad\textrm{ with }\quad \theta = (\alpha, \beta)\mdot$$
-	Note that $m(z,\theta)$ satisfies condition (A\ref{ass:m_increas}) if $\beta>0$. A simulation study for this setup can be found in Section \ref{sec:sim_exppar}.
+	Note that $m(z,\theta)$ is monotone non-decreasing if $\beta>0$ and $z \geq \beta$. But if $z < \beta$ we have $m(z,\theta) = 1$. At $z=\beta$, $m$ has a discontinuity and $m(\beta, \theta) = \alpha(\alpha + 1)^{-1} < 1$. Therefore conditions (A\ref{ass:m_increas}) is violated in this case. However, we will see a simulation study for this setup in Section \ref{sec:sim_exppar}. The results of this study indicate, that the considered semiparametric estimator might still be consistent under this setup.
 	%
 \end{example}
 %
 The following example will involve the Gompertz distribution. If $X$ follows a Gompertz distribution with parameters $\alpha$ and $\beta$ we will write $X\sim Gom(\alpha,\beta)$. In this case the hazard rate is given by
-$$\lambda_F(x) = \exp(\alpha + \beta x)\mdot$$
+$\lambda_F(x) = \exp(\alpha + \beta x)\mdot$
 \begin{example}
 	Suppose $X\sim Gom(\alpha, \beta)$ and $Y\sim Exp(\gamma)$. Then the censoring model is given by
 	$$m(z, \theta) =\frac{1}{1 + \gamma\exp(-\alpha - \beta x)}\mdot$$
-	for $\beta > 0$ and $\gamma > 0$. Note that $m(z,\theta)$ satisfies (A\ref{ass:m_increas}), since $m(z,\theta)$ is non-decreasing in $z$, for $\beta>0$.  
+	for $\beta > 0$ and $\gamma > 0$. Now $m(z,\theta)$ is non-decreasing in $z$, since $\beta>0$.  
 	%
 \end{example}
 %
@@ -121,7 +121,7 @@ $$\lambda_F(x) = \exp(\alpha + \beta x)\mdot$$
 	\end{align*}	
 	But the above converges to $c<\infty$ as $t\to\infty$, if $\theta>0$. But this means $G$ is not a proper distribution function, since
 	$$\lim\limits_{t\to\infty} G(t) = \lim\limits_{t\to\infty} 1-\exp(-\Lambda_G(t)) < 1\mdot$$
-	Hence we must have $\theta < 0$, \st\ $\Lambda_G(t) \to \infty$ as $t\to\infty$. Next consider that $m(t,\theta_0)$ is non-decreasing, whenever $\theta > 0$. Thus we can not use the logit model in this setup. 
+	Hence we must have $\theta < 0$, \st\ $\Lambda_G(t) \to \infty$ as $t\to\infty$. Next consider that $m(t,\theta_0)$ is non-decreasing, whenever $\theta > 0$. Thus we can not use the logit model under restriction (A\ref{ass:m_increas}). 
 \end{example}
 %
 \begin{example}
@@ -138,7 +138,7 @@ $$\lambda_F(x) = \exp(\alpha + \beta x)\mdot$$
 	\end{align*}
 	Now suppose $\lambda_F$ is, e.\,g. either non-increasing or bounded above. In both cases we need $\theta < 0$ to obtain
 	$$\lim_{x\to \infty} \Lambda(x) = \infty \mdot$$
-	On the other hand, $m(\cdot,\theta)$ is non-decreasing whenever $\theta\geq 0$. Therefore the model is not applicable, within this setup.
+	On the other hand, $m(\cdot,\theta)$ is non-decreasing whenever $\theta\geq 0$. Therefore the model is not applicable under condition (A\ref{ass:m_increas}).
 \end{remark}
 %
 %\begin{remark}

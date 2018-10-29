@@ -1,6 +1,6 @@
 \chapter{Notation and assumptions} \label{ch:notation}
-In this chapter we will state the main definitions and assumptions used throughout this work. We will start by defining the estimator to be considered and introduce all necessary notation for the remaining chapters.\\
-\\
+In this chapter we will state the main definitions and assumptions used throughout this work. We will start by defining the estimator to be considered and introduce all necessary notation for the remaining chapters.
+%
 \section{Definitions and notation}
 Recall the following definitions for $n\geq2$
 $$\wnse{i}{n} = \frac{m(Z_{i:n}, \hat{\theta}_n)}{n-i+1} \prod\limits_{j=1}^{i-1}\left(1-\frac{m(Z_{j:n}, \hat{\theta}_n)}{n-j+1}\right)$$
@@ -27,11 +27,11 @@ D_n(s,t,q) &:= \prod_{k=1}^{n} \left[1+\frac{1-q(Z_k)}{n-R_{k,n} +2}\right]^{2\I
 \end{align*}
 and
 $$D(s,t,q) := \exp\left(2\int_{0}^{s} \frac{1-q(z)}{1-H(z)} H(dz) + \int_{s}^{t} \frac{1-q(z)}{1-H(z)} H(dz)\right)\mdot$$
-We will write $B_n(s) \equiv B_n(s,q)$, $C_n(s) \equiv C_n(s,q)$, $D_n(s,t) \equiv D_n(s,t,q)$, $\Delta_n(s,t) \equiv \Delta_n(s,t,q)$, $\bar\Delta_n(s,t) \equiv \bar\Delta_n(s,t,q)$ and $D(s,t) \equiv D(s,t,q)$. Next define
+We will write $B_n(s) \equiv B_n(s,q)$, $C_n(s) \equiv C_n(s,q)$, $D_n(s,t) \equiv D_n(s,t,q)$, $\Delta_n(s,t) \equiv \Delta_n(s,t,q)$, $\bar\Delta_n(s,t) \equiv \bar\Delta_n(s,t,q)$ and $D(s,t) \equiv D(s,t,q)$. Next let
 $$\bar{S}_n(q) := \doublesum\limits_{1\leq i < j \leq n} \phi(Z_{i:n},Z_{j:n}) \bar{W}_{i:n}(q) \bar{W}_{j:n}(q)$$
 where 
-$$\bar{W}_{i:n}(q) := \prod_{k=1}^{n}\left(1-\frac{q(Z_{k:n})}{n-k+1}\right)\mdot$$
-Moreover let
+$$\bar{W}_{i:n}(q) := \frac{1}{n-i+1}\prod_{k=1}^{n}\left(1-\frac{q(Z_{k:n})}{n-k+1}\right)\mdot$$
+Moreover define for $s<t$
 \begin{align*}
 S(q) &:= \frac{1}{2}\int_{0}^{\infty} \int_{0}^{\infty} \phi(s,t) q(s)q(t) \exp\left(\int_{0}^{s} \frac{1-q(x)}{1-H(x)} H(dx)\right)\\
 &\qquad\qquad\qquad \times \exp\left(\int_{0}^{t} \frac{1-q(x)}{1-H(x)} H(dx) \right)H(ds)H(dt)
@@ -44,25 +44,24 @@ and
 We will write $\sn{n} \equiv \sn{n}(q)$, $\wn{i}{n} \equiv \wn{i}{n}(q)$, $S\equiv S(q)$ and $\bar S\equiv \bar S(q)$ throughout this thesis.
 %
 \section{Assumptions}
-The following assumptions will be needed throughout this work, in order to prove the SLLN for $\snse{2}{n}$:
+The following assumptions will be needed throughout this thesis:
 \begin{enumerate}[({A}1)]
 	\item \label{ass:kernel_gen} The kernel $\phi: \R^2 \longrightarrow \R$ is measurable, non-negative and symmetric in its arguments. In effect $\phi(s,t) = \phi(t,s)$ for all $s,t \in \R_+$. 
 	\item \label{ass:H_nonneg} $H$ is continuous and concentrated on the non-negative real line.
 	\item \label{ass:intgral_phi_q} The following statement holds true
 	$$\int_{0}^{\tau_H} \int_{0}^{\tau_H} \frac{\phi(s,t)}{m(s, \theta_0)m(t,\theta_0)(1-H(s))^\epsilon(1-H(t))^{\epsilon}} F(dt)F(ds) < \infty$$
 	for some $0<\epsilon\leq 1$.
-	\item \label{ass:m_increas} Let $0\leq T_m \leq \infty$ and let $m(z,\theta_0)$ be \st\ 
-		\begin{itemize}
-		\item $m(t, \theta_0) = c$ is constant for some $0\leq c \leq 1$ and for all $0\leq t< T_m$. 
-		\item $m(t, \theta_0)$ is non-decreasing for $t\geq T_m$. 
-		\end{itemize} 
+	\item $m(z,\theta)$ is non-decreasing in $z$. \label{ass:m_increas}
 \end{enumerate}
+Here condition (A\ref{ass:kernel_gen}) is a the standard assumption for U-Statistics (\cf\ \cite{lee1990u}). Assumptions (A\ref{ass:H_nonneg}) is the same as in \cite{dikta2000strong}. (A\ref{ass:intgral_phi_q}) is here the 2-dimensional equivalent to the condition in Theorem 1.1 of \cite{dikta2000strong}. Condition (A\ref{ass:m_increas}) poses an additional restriction on the censoring model $m$ here. We will discuss the restrictions imposed by (A\ref{ass:m_increas}) and see examples of different models for $m$, which satisfy this condition in Chapter \ref{ch:model}. Moreover, Chapter \ref{ch:simulation} shows simulation studies under different choices for $m$.\\
+\\
 %
-%\vspace{1cm}
-\clearpage
+%\clearpage
+%
 We will need the following assumptions about the Censoring Model $m$ and the Maximum Likelihood estimate $\hat\theta_n$:
 \begin{enumerate}[({M}1)]
 	\item \label{ass:m_consistency} $\hat{\theta}_n$ is measurable and tends to $\theta_0$
 	\item \label{ass:m_nbhd} For any $\epsilon>0$ there exists a neighborhood $V(\epsilon, \theta_0)\subset \Theta$ of $\theta_0$ \st\ for all $\theta\in V(\epsilon, \theta_0)$ 
 	$$\sup\limits_{x\geq 0} |m(x, \theta) - m(x, \theta_0)| < \epsilon$$
 \end{enumerate}
+Condition (M\ref{ass:m_consistency}) above guarantees the strong consistency of the MLE. (M\ref{ass:m_consistency}) and (M\ref{ass:m_nbhd}) are identical to (A1) and (A2) in \cite{dikta2000strong}.

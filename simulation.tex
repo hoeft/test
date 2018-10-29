@@ -1,6 +1,6 @@
 \chapter{Simulations} \label{ch:simulation}
 
-In Chapter \ref{ch:model} we discussed different configurations of our pdf's $f$ and $g$, and the censoring model $m$, which satisfy condition (A\ref{ass:m_increas}). We will now see simulation studies corresponding to some of those setups. In Section \ref{sec: computational_aspects} we will detail, how those simulations are calculated. The remaining sections of this chapter will show simulations for different setups of $f$, $g$ and $m$.
+In Chapter \ref{ch:model} we discussed different configurations of our pdf's $f$ and $g$, and the censoring model $m$. We will now see simulation studies corresponding to some of those setups. In Section \ref{sec: computational_aspects} we will detail, how those simulations are calculated. The remaining sections of this chapter will show simulations for different setups of $f$, $g$ and $m$.
 
 \section{Computational Aspects}\label{sec: computational_aspects}
 Assume that we have $(Z_i, \delta_i)_{i\leq n}$ is a sample in the sense of RCM. Define the target value 
@@ -47,7 +47,7 @@ $$W_{i,n}^{cl} = \left[1-\left(\frac{n-i}{n-i+1}\right)^{c_n}\right] \times \pro
 Bias, variance, MSE and quantiles will be calculated and displayed for $\sigma_n^{cl}$ in Table \ref{tab:res_expexp1} and Table \ref{tab:res_expexp2}, in order to compare the values with corresponding ones for $\sigma_n^{se}$ and $\sigma_n^{km}$. We expect that $\sigma_n^{se}$ and $\sigma_n^{cl}$ will show similar results, because of \cite{dikta2000strong}, page 3. Figure \ref{fig:dens_expexp} shows the pdf's $f$ and $g$, as well as the censoring model.
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=0.7\textwidth]{./figures/exp_exp_dens}
+		\includegraphics[width=0.65\textwidth]{./figures/exp_exp_dens}
 	\end{center}
 	\caption{Probability density functions $f$, $g$ and censoring model $m$ for Simulation 1.}
 	\label{fig:dens_expexp}
@@ -89,7 +89,7 @@ Bias, variance, MSE and quantiles will be calculated and displayed for $\sigma_n
 Table \ref{tab:res_expexp1} shows, that bias, variance and MSE are decreasing to zero for all three estimators. $\sigma_n^{se}$ and $\sigma_n^{cl}$ are performing clearly better than $\sigma_n^{km}$ under this setup, while $\sigma_n^{se}$ and $\sigma_n^{cl}$ show roughly the same behavior, as we expected in the beginning of this section. 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=0.75\textwidth]{./figures/expexp_mse2}
+		\includegraphics[width=0.85\textwidth]{./figures/expexp_mse2}
 	\end{center}
 	\caption{Results for Simulation 1. left: bias, variance and MSE for $\sigma_n^{se}$ and $\sigma_n^{km}$. right: MSE for $q_n^{se}$ and $q_n^{km}$.}
 	\label{fig:mse_expexp}
@@ -149,7 +149,7 @@ Figure \ref{fig:dens_wei_wei} indicates that smaller values are censored rather 
 %
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=0.6\textwidth]{./figures/wei_wei_dens2}
+		\includegraphics[width=0.65\textwidth]{./figures/wei_wei_dens}
 	\end{center}
 	\caption{Probability density functions $f$, $g$ and censoring model $m$ for Simulation 1.}
 	\label{fig:dens_wei_wei}
@@ -191,7 +191,7 @@ Figure \ref{fig:mse_weiwei} shows, as before, that the gain in efficiency is gre
 %
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{./figures/weiwei_mse2}
+		\includegraphics[width=0.85\textwidth]{./figures/weiwei_mse2}
 	\end{center}
 	\caption{Results for Simulation 2. left: bias, variance and MSE for $\sigma_n^{se}$ and $\sigma_n^{km}$. right: MSE for $q_n^{se}$ and $q_n^{km}$.}
 	\label{fig:mse_weiwei}
@@ -228,14 +228,14 @@ Figure \ref{fig:mse_weiwei} shows, as before, that the gain in efficiency is gre
 \section{Simulation 3} \label{sec:sim_exppar}
 Let $X \sim Exp(\alpha)$ and $Y \sim Par(\beta)$. For our model $m$ we obtain in this case
 $$m(z,\theta) = \frac{\alpha}{\alpha + \frac{\beta}{z}\I{z \geq \beta}}\mdot$$
-For the following simulation we chose $\alpha = 0.5$ and $\beta = 1.2$. The target value was here
+Note that $m$ is \textbf{not} non-decreasing over the whole domain in this case (\cf\ Example \ref{ex:exppar}). For the following simulation we chose $\alpha = 0.5$ and $\beta = 1.2$. The target value was here
 $$Var(X) = 4\mdot$$
 %
 %\clearpage
 %
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=0.6\textwidth]{./figures/exppar_dens}
+		\includegraphics[width=0.65\textwidth]{./figures/exppar_dens}
 	\end{center}
 	\caption{Probability density functions $f$, $g$ and censoring model $m$ for Simulation 3.}
 	\label{fig:dens_exppar}
@@ -273,7 +273,7 @@ Considering Figure \ref{fig:dens_exppar}, we can not expect any censored observa
 	\label{tab:res_exppar1}
 \end{table}
 %
-\noindent From Table \ref{tab:res_exppar1}, we see that the MSE's of $\sigma_n^{se}$ and $\sigma_n^{km}$ are substantially larger than in the previous examples, especially for $n=100$. However, the MSE decreases substantially as $n$ increases. Figure \ref{fig:mse_exppar}, shows that the semiparametric estimator is performing better than the Kaplan-Meier estimate again, with a larger gain in efficiency for small $n$ .
+\noindent From Table \ref{tab:res_exppar1}, we see that the MSE values of both estimators,  $\sigma_n^{se}$ and $\sigma_n^{km}$, are substantially larger than in the previous examples, especially for $n=100$. However, the MSE values decrease considerably as $n$ increases. Figure \ref{fig:mse_exppar}, shows that the semiparametric estimator is performing better than the Kaplan-Meier estimate again, with a larger gain in efficiency for small $n$ .
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{./figures/exppar_mse2}
@@ -283,7 +283,7 @@ Considering Figure \ref{fig:dens_exppar}, we can not expect any censored observa
 \end{figure}
 %
 \clearpage
-Table \ref{tab:res_exppar2} shows, that the quantiles are substantially underestimated by both estimators in this case. Perhaps this behavior is connected to the fact, that we are only observing uncensored values on $[0,\beta]$. The large MSE values for the quantile estimates are likely to cause the much higher MSE scores of $\sigma_n^{se}$ and $\sigma_n^{km}$ for this simulation.
+Table \ref{tab:res_exppar2} shows, that the quantiles are considerably substantially by both estimators in this case. This might be a consequence of the fact, that $m$ violates condition (A\ref{ass:m_increas}) under this setup. The large MSE values for the quantile estimates are likely to cause the much larger MSE scores of $\sigma_n^{se}$ and $\sigma_n^{km}$ for this simulation.
 \begin{table}[h!]
 	\begin{center}
 		

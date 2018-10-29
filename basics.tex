@@ -411,17 +411,13 @@ The proof of existence of the limit $S^{se} = \lim\limits_{n\to\infty} S_n^{se}$
 $$\E[\mu_n\{Z_{i:n+1}\} | \F_{n+1}] = W_{i:n}^{se}Q_i^{se}\mcomma$$
 where $\mu_n$ is the measure assigning mass $W_{i:n}$ to  $Z_{i:n}$ and
 $$Q_i^{se} = \pi_i + \sum_{k=1}^{i-1} \frac{\pi_k}{n-k+2-q(Z_{k:n+2})}\mdot$$
-Here $\pi_i$ is defined as in Lemma \ref{lem:qi}. Furthermore it was shown that $Q_i^{se} = Q_{i+1}^{se} = 1$ for all $2\leq i\leq n$, which, among other arguments, implies the reverse supermartingale property for $S_n^{se}$.
-%
-So far we have seen, that we are not able to establish the supermartingale property for $S_n$ without further restrictions. The following Lemma will establish the supermartingale property for $S_n$ under an additional assumption on $q$. 
+Here $\pi_i$ is defined as in Lemma \ref{lem:qi}. Furthermore it was shown that $Q_i^{se} = Q_{i+1}^{se} = 1$ for all $2\leq i\leq n$, which, among other arguments, implies the reverse supermartingale property for $S_n^{se}$.\\
+\\
+
+The discussion above shows, that we can not establish the supermartingale property for $S_n$ without further restrictions, by the same arguments as were presented in \cite{bose1999strong} and \cite{dikta2000strong}. The following Lemma will establish the supermartingale property for $S_n$ under the additional assumption, that $q$ is non-decreasing. 
 \begin{lemma} \label{lem:sn_supermart}
-	For some $0\leq T_q\leq \infty$ let $q$ be \st\ 
-	\begin{enumerate}[(i)]
-		\item $q(t) = c$ is constant for some $0\leq c \leq 1$ and for all $0\leq t< T_q$. 
-		\item $q(t)$ is non-decreasing for all $t\geq T_q$. 
-	\end{enumerate} 
-	Then $S_n(q)$ is a non-negative reverse supermartingale.
-	
+	Let $q(z)$ be non-decreasing for all $z\in \R_+$. Then $S_n(q)$ is a non-negative reverse supermartingale.
+	%
 	\begin{proof}
 		First note that 
 		\begin{align*}
@@ -435,10 +431,8 @@ So far we have seen, that we are not able to establish the supermartingale prope
 		according to Lemma \ref{lem:qi_increas}. 
 		%
 		Next consider that we have 
-		$$q_i-q_{i+1} = 0 \quad\textrm{ and }\quad q_{i+1}(1-q_i) \geq q_{i+1} - q_i = 0\mcomma$$
-		since $q(t) = c$ if $0\leq t <T_q$, by condition \textit{(i)}. Moreover we have 
-		$$q_i-q_{i+1} < 0 \quad\textrm{ and }\quad q_{i+1}(1-q_i) \geq q_{i+1} - q_i > 0\mcomma$$ 
-		since $q(t)$ is non-decreasing if $t\geq T_q$, by condition \textit{(ii)}. Now combining the latter with equation \ref{eq:qip1_qi} yields
+		$$q_i-q_{i+1} \leq 0 \quad\textrm{ and }\quad q_{i+1}(1-q_i) \geq q_{i+1} - q_i \geq 0\mcomma$$ 
+		since $q(z)$ is non-decreasing in $z$. Now combining the latter with equation \eqref{eq:qip1_qi} yields
 		\begin{align*}
 		Q_{i+1}^{n+1} - Q_{i}^{n+1} \leq 0 \quad\textrm{ for all } \quad t\in[0,\infty)\mdot
 		\numberthis\label{eq:Qi_diff_neg}
@@ -459,11 +453,11 @@ So far we have seen, that we are not able to establish the supermartingale prope
 	\end{proof}
 \end{lemma}
 %
-\begin{remark}
-	Lemma \ref{lem:sn_supermart} implies that $S_n$ is a reverse supermartingale if $q$ is either constant or non-decreasing on its support, by setting $T_q = 0$ or $T_q = \infty$, respectively, in the assumption of Lemma \ref{lem:sn_supermart}.
-\end{remark}
+%\begin{remark}
+%	Lemma \ref{lem:sn_supermart} implies that $S_n$ is a reverse supermartingale if $q$ is either constant or non-decreasing on its support, by setting $T_q = 0$ or $T_q = \infty$, respectively, in the assumption of Lemma \ref{lem:sn_supermart}.
+%\end{remark}
 %
-The assumption about $q$  in Lemma \ref{lem:sn_supermart}, is transfered to the censoring model $m$ by (A\ref{ass:m_increas}). This poses a restriction on the models $m$ which can be used. This will be discussed in more detail in Chapter \ref{ch:model}.
+The assumption $q$ is monotone non-decreasing in Lemma \ref{lem:sn_supermart} is transfered to the censoring model $m$ by (A\ref{ass:m_increas}). This poses a restriction on the models $m$ which can be used. This will be discussed in more detail in Chapter \ref{ch:model}.
 %
 %
 %
@@ -519,12 +513,7 @@ The following result will be needed to prove the almost sure existence of $S$ in
 \end{lemma}
 %
 \begin{thm}\label{thm:ex_limit_sn}
-	For some $0\leq T_q\leq \infty$ let $q$ be \st\ 
-	\begin{enumerate}[(i)]
-		\item $q(t) = c$ is constant for some $0\leq c \leq1$ and for all $0\leq t< T_q$. 
-		\item $q(t)$ is non-decreasing for all $t \geq T_q$. 
-	\end{enumerate} 
-	Then $S_\infty = \lim_{n\to\infty} S_n(q)$ exists almost surely and 
+	Let $q(z)$ be non-decreasing for all $z\in \R_+$. Then $S_\infty = \lim_{n\to\infty} S_n(q)$ exists almost surely and 
 	$$\lim\limits_{n\to\infty} S_n = \lim\limits_{n\to\infty} \E[S_n] = S$$
 	%
 	\begin{proof}
